@@ -1,0 +1,167 @@
+<div class="container-fluid p-3">
+
+  <div class="col-md-12 p-1">
+      <h1>Novo questionário</h1>
+  </div>
+
+  <form class="col-md-12 d-flex align-items-center justify-content-center p-1" (submit)="incluir()">
+      <div class="bg-light col-md-6 col-sm-12  p-3">
+
+          <div class="form-group">
+              <label for="titulo">Título</label>
+              <input type="text" id="titulo" name="titulo" [(ngModel)]="questionario.titulo" placeholder="Meu Título" class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label for="tempo_duracao">Tempo de duração</label>
+              <input type="number" id="tempo_duracao" name="tempo_duracao" [(ngModel)]="questionario.tempo_duracao" placeholder="Tempo de duração (?)" class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label for="tempo_disponivel">Tempo disponível</label>
+              <input type="number" id="tempo_disponivel" name="tempo_disponivel" placeholder="Tempo disponível (?)" [(ngModel)]="questionario.tempo_disponivel" class="form-control">
+          </div>
+
+          <div class="form-group">
+              <label for="dificuldade">Dificuldade</label><br>
+              <select class="form-control" id="dificuldade" name="dificuldade" [(ngModel)]="questionario.dificuldade">
+                  <option selected value="Fácil">Fácil</option>
+                  <option value="Mediano">Mediano</option>
+                  <option value="Difícil">Difícil</option>
+              </select>
+          </div>
+
+          <div class="form-group row">
+              <div class="col-auto">
+                <button id="num_questoes_form" class="btn-default form-control" type="button" (click)="adicionarQuestaoForm()">Adicionar questão</button>
+              </div>
+          </div>
+
+          <div class="form-group" *ngFor="let questao of questionario.questoes; let i = index">
+
+              <div class="bg-light">
+
+
+
+                  <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
+                  <div class="py-1">
+                      <button type="button" class="btn-default btn mr-2" (click)="deletarQuestaoForm(i)">x</button>
+                      <span class="font-weight-bold">{{questao.texto}} </span>
+                      <small class="float-right text-muted" data-toggle="collapse"
+                      attr.data-target="#questao-{{i}}">Mostrar/Esconder</small>
+
+                  </div>
+
+                  <!-- INFORMAÇÕES DA QUESTÃO ATUAL -->
+                  <div class="collapse p-3" id="questao-{{i}}">
+
+                      <div class="form-group">
+                          <label for="questao-{{i}}-texto">Título</label>
+                          <input [(ngModel)]="questao.texto" name="texto" id="questao-{{i}}-texto" type="text" class="form-control">
+                      </div>
+
+                      <div class="form-group">
+
+                          <label for="questao-{{i}}-tema">Tema</label>
+                          <select name="id" [(ngModel)]="questao.tema.id" class="form-control">
+                              <ng-container *ngFor="let tema of temas; let j = index">
+                                  <option *ngIf="j == 0" [attr.selected]="true" value="{{tema.id}}">
+                                      {{tema.nome}}
+                                  </option>
+                                  <option *ngIf="j != 0" value="{{tema.id}}">
+                                      {{tema.nome}}
+                                  </option>
+                              </ng-container>
+                          </select>
+
+                      </div>
+
+                      <div class="form-group">
+                          <label for="questao-{{i}}-bloom">Categoria Bloom</label>
+                          <select class="form-control" id="questao-{{i}}-bloom" name="categoriaBloom" [(ngModel)]="questao.categoriaBloom">
+                              <option value="Avaliação" selected>Avaliação</option>
+                              <option value="Síntese">Síntese</option>
+                              <option value="Analise">Analise</option>
+                              <option value="Aplicação">Aplicação</option>
+                              <option value="Compreensão">Compreensão</option>
+                              <option value="Conhecimento">Conhecimento</option>
+                          </select>
+                      </div>
+
+                      <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
+                      <div class="form-group">
+                          <label>Figuras (indisponível)</label>
+                          <select class="form-control" readonly>
+                              <option *ngFor="let figura of questao.figuras">
+                              </option>
+                          </select>
+                      </div>
+
+                      <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
+                      <div class="form-group">
+                          <label>Artigos (indisponível)</label>
+                          <select class="form-control" readonly>
+                              <option *ngFor="let artigo of questao.artigos">
+                                  {{artigo.titulo}} - {{artigo.autor}}
+                              </option>
+                          </select>
+                      </div>
+
+                      <hr>
+
+                      <div class="form-group">
+                          <label>Opções atuais do vetor (para fins de debug)</label>
+                          <select class="form-control" readonly>
+                              <option *ngFor="let opcao of questao.opcoes">
+                                  {{opcao.texto}}<span *ngIf="opcao.correta"> - CORRETA</span>
+                              </option>
+                          </select>
+                      </div>
+
+
+                      <div class="form-group row">
+                          <div class="col-auto">
+                            <button (click)="questao.adicionarOpcao()" class="btn-default form-control" type="button">Adicionar opção</button>
+                          </div>
+                      </div>
+
+
+
+
+                      <div class="form-inline p-3" *ngFor="let opcao of questao.opcoes; let o = index">
+                          <label class="my-1 mr-2" for="{{questao.id}}-opcao-{{o}}">Opção {{o+1}}</label>
+                          <input class="custom-select my-1 mr-sm-2" type="text" id="{{questao.id}}-opcao-{{o}}" name="opcoes" [(ngModel)]="opcao.texto">
+                          <button type="button" class="btn-default btn" (click)="questao.deletarOpcao(o)">x</button>
+
+                          <div class="custom-control custom-checkbox mx-3">
+                            <input type="checkbox" class="custom-control-input" id="{{questao.id}}-correta-{{o}}" name="correta" [(ngModel)]="opcao.correta">
+                            <label class="custom-control-label" for="{{questao.id}}-correta-{{o}}">Correta?</label>
+                          </div>
+
+
+                      </div>
+
+
+
+
+                  </div>
+
+
+
+
+              </div>
+
+
+
+          </div>
+
+          <div class="form-group">
+              <button class="btn-primary form-control" type="submit">Criar</button>
+          </div>
+      </div>
+
+
+
+  </form>
+
+</div>

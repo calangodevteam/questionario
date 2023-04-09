@@ -1,0 +1,68 @@
+<div class="container-fluid p-3">
+
+  <div class="col-md-12 p-1">
+      <h1>Listagem de questões</h1>
+  </div>
+
+  <!-- ISSO PODE SER UM COMPONENTE! POR ENQUANTO ESTARÁ ASSIM -->
+  <div class="col-md-12 d-flex align-items-center justify-content-center p-1" *ngFor="let questao of questoes">
+      <div class="bg-light col-md-6 col-sm-12">
+
+          <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
+          <div class="p-3" data-toggle="collapse"
+          attr.data-target="#questao-{{questao.id}}">
+          <span class="text-muted">QUESTÃO (ID {{questao.id}}): </span> - <span class="font-weight-bold">{{questao.texto}} </span>
+              <small class="float-right text-muted">Mostrar/Esconder</small>
+          </div>
+
+          <!-- INFORMAÇÕES DA QUESTÃO ATUAL -->
+          <div class="collapse p-3" id="questao-{{questao.id}}">
+
+              <div class="form-group">
+                  <label>Tema</label>
+                  <input disabled type="text" value="{{ questao.tema.nome }}" class="form-control">
+              </div>
+
+              <div class="form-group">
+                  <label>Categoria Bloom</label>
+                  <input disabled type="text" value="{{questao.categoriaBloom}}" class="form-control">
+              </div>
+
+              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR TEXTOS MAIORES -->
+              <div class="form-group">
+                  <label>Opções</label>
+                  <select class="form-control" readonly>
+                      <option *ngFor="let opcao of questao.opcoes">
+                        {{opcao.numero}} {{opcao.texto}}<span *ngIf="opcao.correta"> - CORRETA</span>
+                      </option>
+                  </select>
+              </div>
+
+              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
+              <div class="form-group">
+                  <label>Figuras</label>
+                  <select class="form-control" readonly>
+                      <option *ngFor="let figura of questao.figuras">
+                      </option>
+                  </select>
+              </div>
+
+              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
+              <div class="form-group">
+                  <label>Artigos</label>
+                  <select class="form-control" readonly>
+                      <option *ngFor="let artigo of questao.artigos">
+                          {{artigo.titulo}} - {{artigo.autor}}
+                      </option>
+                  </select>
+              </div>
+
+              <hr>
+
+          </div>
+
+      </div>
+  </div>
+
+</div>
+

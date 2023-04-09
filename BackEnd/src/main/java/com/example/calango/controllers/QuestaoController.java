@@ -1,0 +1,53 @@
+package com.example.calango.controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.calango.model.Questao;
+import com.example.calango.repositories.QuestaoRepository;
+
+@RestController
+@RequestMapping("questoes")
+@CrossOrigin(origins = "*")
+public class QuestaoController {
+	
+	@Autowired
+	private QuestaoRepository repo;
+	
+	@GetMapping
+	public List<Questao> findAll() {
+		return repo.findAll();
+	}
+	
+	@GetMapping("/{id}")
+	public Optional<Questao> findById (@PathVariable Integer id){
+		
+		return repo.findById(id);
+	}
+	
+	@PostMapping
+	public Questao create(@RequestBody Questao questao) {
+		return repo.save(questao);
+	}
+	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Integer id) {
+
+		Optional<Questao> questao = repo.findById(id);	
+		if(questao.isPresent()) {
+			repo.deleteById(id);
+		}
+
+	}
+
+}
