@@ -7,28 +7,24 @@ on:
     workflow_dispatch:
         
 jobs:
-              
     montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub:
+    	name: Montagem da imagem Docker, teste e build com MVNW e Deploy no Docker Hub 
         runs-on: ubuntu-latest
         steps: 
         
-          - 
-            name: Checkout
+          - name: Checkout
             uses: actions/checkout@v3
             
-          - 
-            name: Docker Hub Login
+          - name: Login no Docker Hub
             uses: docker/login-action@v2.1.0
             with:
                 username: ${{ vars.DOCKERHUB_USER }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
                 
-          - 
-            name: Setup Docker build
+          - name: Configuração do Docker build
             uses: docker/setup-buildx-action@v2.5.0
             
-          - 
-            name: Build and push
+          - name: Montagem e envio da imagem Docker ao Docker Hub
             uses: docker/build-push-action@v4.0.0
             with:
                 context: .
@@ -37,7 +33,7 @@ jobs:
                 tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
                 
     deployFlyIo:
-        name: Deploy app
+        name: Deploy da aplicação no Fly.io
         needs: [montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub]
         runs-on: ubuntu-latest
         steps:
