@@ -1,44 +1,40 @@
+---
 name: Teste & Build & Deploy
-
-on: 
-    push:
-    pull_request:
-        branches: [master]
-    workflow_dispatch:
-        
+on:
+  push: null
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch: null
 jobs:
-    montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub:
-    	name: Montagem da imagem Docker, teste e build com MVNW e Deploy no Docker Hub 
-        runs-on: ubuntu-latest
-        steps: 
-        
-          - name: Checkout
-            uses: actions/checkout@v3
-            
-          - name: Login no Docker Hub
-            uses: docker/login-action@v2.1.0
-            with:
-                username: ${{ vars.DOCKERHUB_USER }}
-                password: ${{ secrets.DOCKERHUB_TOKEN }}
-                
-          - name: Configuração do Docker build
-            uses: docker/setup-buildx-action@v2.5.0
-            
-          - name: Montagem e envio da imagem Docker ao Docker Hub
-            uses: docker/build-push-action@v4.0.0
-            with:
-                context: .
-                file: Dockerfile
-                push: true
-                tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
-                
-    deployFlyIo:
-        name: Deploy da aplicação no Fly.io
-        needs: [montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub]
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v3
-          - uses: superfly/flyctl-actions/setup-flyctl@master
-          - run: flyctl deploy
-            env:
-              FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub:
+    name: Montagem da imagem Docker, teste e build com MVNW e Deploy no Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login no Docker Hub
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Configuração do Docker build
+        uses: docker/setup-buildx-action@v2.5.0
+      - name: Montagem e envio da imagem Docker ao Docker Hub
+        uses: docker/build-push-action@v4.0.0
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
+  deployFlyIo:
+    name: Deploy da aplicação no Fly.io
+    needs:
+      - montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
