@@ -1,15 +1,14 @@
----
 name: Teste & Build & Deploy
 on:
-  push: null
-  pull_request:
+  pull_request_target:
+    types: [labeled]
     branches:
       - master
-  workflow_dispatch: null
 jobs:
   montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub:
     name: Montagem da imagem Docker, teste e build com MVNW e Deploy no Docker Hub
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'seguro para testar e implantar')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,6 +31,7 @@ jobs:
     needs:
       - montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'seguro para testar e implantar')
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
