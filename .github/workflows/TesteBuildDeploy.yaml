@@ -13,7 +13,7 @@ jobs:
   montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub:
     name: Montagem da imagem Docker, teste e build com MVNW e Deploy no Docker Hub
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'pronto para testar e implantar')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'seguro para testar e implantar')
     steps:
       - name: Checkout PR
         if: github.event_name != 'workflow_dispatch'
@@ -45,7 +45,7 @@ jobs:
     needs:
       - montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'pronto para testar e implantar')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'seguro para testar e implantar')
     steps:
       - name: Checkout PR
         if: github.event_name != 'workflow_dispatch'
