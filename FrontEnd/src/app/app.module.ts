@@ -23,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
 import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
+import { AreasComponent } from './componets/areas/areas.component';
+import { ListAreasComponent } from './componets/list-areas/list-areas.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
     LoginComponent,
     RegisterUserComponent,
     CreateQuizComponent,
-    ListQuizComponent
+    ListQuizComponent,
+    AreasComponent,
+    ListAreasComponent
   ],
   imports: [
     BrowserModule,

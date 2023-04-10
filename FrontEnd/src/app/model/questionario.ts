@@ -1,4 +1,5 @@
 import { Questao } from "./questao";
+import { Tema } from "./tema";
 
 export class Questionario {
 
@@ -9,5 +10,6 @@ export class Questionario {
   tempo_duracao: number = 0;
   tempo_disponivel: number = 0;
   dificuldade: String = "Fácil";
+  tema?: Tema;
 
 }

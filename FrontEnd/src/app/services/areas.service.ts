@@ -1,16 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Tema } from '../model/tema';
-
 import { catchError, Observable, of, tap } from 'rxjs';
+import { Areas } from '../model/areas';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeService {
+export class AreasService {
 
-  private temasUrl = "/temas";
-  // private temasUrl = "http://localhost:8080/temas";
+  private areasUrl = "/areas";
+  // private areasUrl = "http://localhost:8080/areas";
   private http: HttpClient;
 
   httpOptions = {
@@ -29,11 +28,11 @@ export class ThemeService {
     };
   }
 
-    obterTemas():Observable<Tema[]> {
-    return this.http.get<Tema[]>(this.temasUrl)
+    obterAreas():Observable<Areas[]> {
+    return this.http.get<Areas[]>(this.areasUrl)
           .pipe(
-           tap(_ => console.log('Temas recuperados')),
-           catchError(this.handleError<Tema[]>('obterTodos', []))
+           tap(_ => console.log('Areas recuperados')),
+           catchError(this.handleError<Areas[]>('obterTodos', []))
          );
      }
 }
