@@ -18,18 +18,13 @@ public class Opcao {
 	@Column(columnDefinition="TEXT")
 	private String texto;
 	
-	private Boolean correta;
-	private Integer numero;
-	
 	public Opcao() {
 		
 	}
 
-	public Opcao(Integer id, String texto, Boolean correta, Integer numero) {
+	public Opcao(Integer id, String texto) {
 		this.id = id;
 		this.texto = texto;
-		this.correta = correta;
-		this.numero = numero;
 	}
 
 	public Integer getId() {
@@ -46,22 +41,6 @@ public class Opcao {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
-	}
-
-	public Boolean getCorreta() {
-		return correta;
-	}
-
-	public void setCorreta(Boolean correta) {
-		this.correta = correta;
-	}
-
-	public Integer getNumero() {
-		return numero;
-	}
-
-	public void setNumero(Integer numero) {
-		this.numero = numero;
 	}
 
 	@Override

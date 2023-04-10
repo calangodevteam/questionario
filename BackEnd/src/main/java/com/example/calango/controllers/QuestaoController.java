@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Questao;
+import com.example.calango.model.dto.CadastroQuestaoDTO;
 import com.example.calango.repositories.QuestaoRepository;
 
 @RestController
@@ -36,8 +37,16 @@ public class QuestaoController {
 	}
 	
 	@PostMapping
-	public Questao create(@RequestBody Questao questao) {
-		return repo.save(questao);
+	public Questao create(@RequestBody CadastroQuestaoDTO questao) {
+		
+		Questao qaux = repo.save(questao.getQuestao());
+		qaux.getOpcoes().forEach(opcao -> {
+			if(opcao.getTexto().equals(questao.getOpcao_correta())) {
+				qaux.setOpcao_correta(opcao);
+				repo.save(qaux);
+			}
+		});
+		return qaux;
 	}
 	
 	@DeleteMapping("/{id}")
