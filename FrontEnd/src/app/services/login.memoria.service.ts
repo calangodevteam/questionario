@@ -11,7 +11,7 @@ export class LoginMemoriaService{
   bancoDeUsuarios = new Map<string, UsuarioMemoria>();
 
   router: Router;
-  isAuthenticated: boolean = true;
+  isAuthenticated: boolean = false;
   usuarioLogado: UsuarioMemoria = new UsuarioMemoria();
 
   constructor(router: Router) {
