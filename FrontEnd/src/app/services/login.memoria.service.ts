@@ -11,6 +11,8 @@ export class LoginMemoriaService{
   bancoDeUsuarios = new Map<string, UsuarioMemoria>();
 
   router: Router;
+  
+  /** Mudar para true para desativar a autenticação em memória */
   isAuthenticated: boolean = false;
   usuarioLogado: UsuarioMemoria = new UsuarioMemoria();
 
