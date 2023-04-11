@@ -9,6 +9,7 @@ import { catchError, Observable, of, tap } from 'rxjs';
 export class QuestaoService {
 
   private questoesUrl = "/questoes";
+  // private questoesUrl = "http://localhost:8080/questoes";
   private temasUrl = "/temas";
   private http: HttpClient;
 

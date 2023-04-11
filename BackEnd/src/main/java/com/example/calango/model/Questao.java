@@ -1,9 +1,11 @@
 package com.example.calango.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import com.example.calango.model.enums.Bloom;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,8 +16,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Questao {
@@ -42,17 +46,25 @@ public class Questao {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="questao_id")
 	private List<Opcao> opcoes;
+
+    @OneToOne
+    @JoinColumn(name = "opcao_correta")
+    private Opcao opcao_correta;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
 	@JoinColumn(name="tema_id")
 	private Tema tema;
+    
+    @JsonIgnore
+    @ManyToMany(mappedBy = "questoes")
+    private List<Questionario> questionarios = new ArrayList<>();
 
     public Questao() {
     	
     }
     
 	public Questao(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos, List<Figura> figuras,
-			List<Opcao> opcoes, Tema tema) {
+			List<Opcao> opcoes, Opcao opcao_correta, Tema tema) {
 		this.id = id;
 		this.texto = texto;
 		this.categoriaBloom = categoriaBloom;
@@ -60,6 +72,7 @@ public class Questao {
 		this.figuras = figuras;
 		this.opcoes = opcoes;
 		this.tema = tema;
+		this.opcao_correta = opcao_correta;
 	}
 
 	public Integer getId() {
@@ -108,6 +121,14 @@ public class Questao {
 
 	public void setOpcoes(List<Opcao> opcoes) {
 		this.opcoes = opcoes;
+	}
+
+	public Opcao getOpcao_correta() {
+		return opcao_correta;
+	}
+
+	public void setOpcao_correta(Opcao opcao_correta) {
+		this.opcao_correta = opcao_correta;
 	}
 
 	public Tema getTema() {
