@@ -36,17 +36,22 @@ public class AreaConhecimento {
 	@OneToMany( cascade = CascadeType.ALL, mappedBy="areaConhecimento")
 	private List<Tema> temas = new ArrayList<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "areaConhecimento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Questionario> questionario = new ArrayList<>();
+	
 	public AreaConhecimento() {
 		
 	}
 
 	public AreaConhecimento(Integer id, String nome, AreaConhecimento pai, List<AreaConhecimento> subAreas,
-			List<Tema> temas) {
+			List<Tema> temas, List<Questionario> questionario) {
 		this.id = id;
 		this.nome = nome;
 		this.pai = pai;
 		this.subAreas = subAreas;
 		this.temas = temas;
+		this.questionario = questionario;
 	}
 
 	public Integer getId() {
@@ -89,7 +94,14 @@ public class AreaConhecimento {
 	public void setTemas(List<Tema> temas) {
 		this.temas = temas;
 	}
-	
+
+	public List<Questionario> getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(List<Questionario> questionario) {
+		this.questionario = questionario;
+	}
 	
 	@Override
 	public int hashCode() {

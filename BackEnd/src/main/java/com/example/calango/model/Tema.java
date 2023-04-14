@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -26,13 +27,15 @@ public class Tema{
 	@JoinColumn(name="area_conhecimento_id")
 	private AreaConhecimento areaConhecimento;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Questionario> questionario = new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany(mappedBy = "temas")
+    private List<Questionario> questionarios = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Questao> questoes = new ArrayList<>();
+	
+	
 	
 	private String nome;
 
@@ -40,13 +43,22 @@ public class Tema{
 
 	}
 
-	public Tema(Integer id, AreaConhecimento areaConhecimento, List<Questionario> questionario, List<Questao> questoes,
+	public Tema(Integer id, AreaConhecimento areaConhecimento, List<Questionario> questionarios, List<Questao> questoes,
 			String nome) {
 		this.id = id;
 		this.areaConhecimento = areaConhecimento;
-		this.questionario = questionario;
 		this.questoes = questoes;
 		this.nome = nome;
+		this.questionarios = questionarios;
+	}
+	
+
+	public List<Questionario> getQuestionarios() {
+		return questionarios;
+	}
+
+	public void setQuestionarios(List<Questionario> questionarios) {
+		this.questionarios = questionarios;
 	}
 
 	public List<Questao> getQuestoes() {
@@ -55,14 +67,6 @@ public class Tema{
 
 	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
-	}
-
-	public List<Questionario> getQuestionario() {
-		return questionario;
-	}
-
-	public void setQuestionario(List<Questionario> questionario) {
-		this.questionario = questionario;
 	}
 
 	public Integer getId() {
