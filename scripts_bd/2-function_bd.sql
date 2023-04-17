@@ -5,6 +5,7 @@ DROP FUNCTION IF EXISTS idQuestao;
 DROP FUNCTION IF EXISTS idTemaQuestao;
 DROP FUNCTION IF EXISTS idOpcao;
 DROP FUNCTION IF EXISTS idArtigo;
+DROP FUNCTION IF EXISTS idQuestionario;
 
 ---- Criação de Funções/ Procedures ----
 
@@ -74,5 +75,15 @@ CREATE FUNCTION idArtigo(titulo_artigo varchar, id_questao integer) RETURNS inte
         BEGIN
 			SELECT ID INTO artigoId FROM artigo WHERE TITULO = titulo_artigo AND QUESTAO_ID = id_questao;
 			RETURN artigoId;
+        END;
+$$ LANGUAGE plpgsql;
+
+-- Function de teste que precisa de atenção ao usar, já que pode retornar mais de um resultado que irá gerar um erro!
+CREATE FUNCTION idQuestionario(titulo_quest varchar) RETURNS integer AS $$
+		DECLARE 
+			questId integer:= 0;
+        BEGIN
+			SELECT ID INTO questId FROM questionario WHERE TITULO = titulo_quest;
+			RETURN questId;
         END;
 $$ LANGUAGE plpgsql;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.calango.model.Questao;
 import com.example.calango.model.dto.CadastroQuestaoDTO;
 import com.example.calango.repositories.QuestaoRepository;
+import com.example.calango.utilities.ImageUploader;
 
 @RestController
 @RequestMapping("questoes")
@@ -24,6 +25,8 @@ public class QuestaoController {
 	
 	@Autowired
 	private QuestaoRepository repo;
+	
+	private ImageUploader uploader = new ImageUploader();
 	
 	@GetMapping
 	public List<Questao> findAll() {
