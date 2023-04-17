@@ -1,63 +1,91 @@
 name: Teste & Build & Deploy
 
 on:
+
   workflow_dispatch:
-  pull_request_target:
-    types: [labeled]
-    paths: ['BackEnd/**', 'FrontEnd/**']
-    branches:
-      - master
+  push:
+  pull_request:
+  
+env:
+  JAVA_VERSAO: '17'
+  JAVA_DISTRIBUICAO: 'temurin'
+  NODE_VERSAO: '16'
+  BACKEND_NOME_DIRETORIO: 'backend'
+  FRONTEND_NOME_DIRETORIO: 'frontend'
       
 jobs:
 
-  montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub:
-    name: Montagem da imagem Docker, teste e build com MVNW e Deploy no Docker Hub
+  docker:
+  
+    name: Docker
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'seguro para testar e implantar')
     steps:
-      - name: Checkout PR
-        if: github.event_name != 'workflow_dispatch'
-        uses: actions/checkout@v3
-        with:
-          ref: "refs/pull/${{ github.event.number }}/merge"
-        
+    
       - name: Checkout
-        if: github.event_name == 'workflow_dispatch'
         uses: actions/checkout@v3
-          
-      - name: Login no Docker Hub
+      
+      - name: Angular (cache do diretório .angular/cache)
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.FRONTEND_NOME_DIRETORIO }}/.angular/cache
+          key: ${{ runner.os }}-angular
+         
+      - name: Angular (build do projeto e adição dos arquivos estáticos ao back-end)
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSAO }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.FRONTEND_NOME_DIRETORIO }}/package-lock.json
+      - run: cd ${{ env.FRONTEND_NOME_DIRETORIO }} && npm ci && npm install -g @angular/cli && ng config cli.cache.environment all && ng build
+             && cp dist/*/* ../${{ env.BACKEND_NOME_DIRETORIO }}/src/main/resources/static
+      
+      - name: Back-End (criação do .jar da aplicação e cópia da JDK para o diretório do projeto)
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUICAO }}
+          java-version: ${{ env.JAVA_VERSAO }}
+          cache: 'maven'
+      - name: Build with Maven
+        run: cd ${{ env.BACKEND_NOME_DIRETORIO }} && ls src/main/resources/static && mvn package && cd .. &&
+             mkdir jdk && cp -r $JAVA_HOME/* jdk &&
+             echo "JDK_LOCALIZACAO=jdk" >> $GITHUB_ENV &&
+             echo "APP_LOCALIZACAO=$(ls ${{ env.BACKEND_NOME_DIRETORIO }}/target/*.jar)" >> $GITHUB_ENV
+             
+      - name: Docker Buildx (configuração)
+        uses: docker/setup-buildx-action@v2.5.0
+      
+      - name: Docker Hub (login)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
         uses: docker/login-action@v2.1.0
         with:
           username: ${{ vars.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Configuração do Docker build
-        uses: docker/setup-buildx-action@v2.5.0
-      - name: Montagem e envio da imagem Docker ao Docker Hub
+      
+      - name: Docker (build, testes e, caso seja para produção, deploy no Docker Hub)
         uses: docker/build-push-action@v4.0.0
         with:
           context: .
-          file: Dockerfile
-          push: true
+          file: Dockerfile_GHActions
+          build-args: |
+            JDK_LOCALIZACAO=${{ env.JDK_LOCALIZACAO }}
+            APP_LOCALIZACAO=${{ env.APP_LOCALIZACAO }}
+          push: ${{github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'}}
           tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
-          
-  deployFlyIo:
-    name: Deploy da aplicação no Fly.io
+        
+  deploy_flyio:
+  
+    name: Fly.io (deploy)
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
     needs:
-      - montagemDockerIMG-TesteEBuildMVNW-DeployDockerHub
+      - docker
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'seguro para testar e implantar')
     steps:
-      - name: Checkout PR
-        if: github.event_name != 'workflow_dispatch'
-        uses: actions/checkout@v3
-        with:
-          ref: "refs/pull/${{ github.event.number }}/merge"
-        
+    
       - name: Checkout
-        if: github.event_name == 'workflow_dispatch'
         uses: actions/checkout@v3
         
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Fly.io (deploy)
+        uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
