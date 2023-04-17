@@ -30,13 +30,15 @@ jobs:
           path: ${{ env.FRONTEND_NOME_DIRETORIO }}/.angular/cache
           key: ${{ runner.os }}-angular
          
-      - name: Angular (build do projeto e adição dos arquivos estáticos ao back-end)
+      - name: Node (setup)
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSAO }}
           cache: 'npm'
           cache-dependency-path: ${{ env.FRONTEND_NOME_DIRETORIO }}/package-lock.json
-      - run: cd ${{ env.FRONTEND_NOME_DIRETORIO }} && npm ci && npm install -g @angular/cli && ng config cli.cache.environment all && ng build
+          
+      - name: Angular (build do projeto e adição dos arquivos estáticos ao back-end)
+        run: cd ${{ env.FRONTEND_NOME_DIRETORIO }} && npm ci && npm install -g @angular/cli && ng config cli.cache.environment all && ng build
              && cp dist/*/* ../${{ env.BACKEND_NOME_DIRETORIO }}/src/main/resources/static
       
       - name: Back-End (criação do .jar da aplicação e cópia da JDK para o diretório do projeto)
@@ -52,6 +54,7 @@ jobs:
              echo "APP_LOCALIZACAO=$(ls ${{ env.BACKEND_NOME_DIRETORIO }}/target/*.jar)" >> $GITHUB_ENV
              
       - name: Docker Buildx (configuração)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
         uses: docker/setup-buildx-action@v2.5.0
       
       - name: Docker Hub (login)
@@ -61,7 +64,8 @@ jobs:
           username: ${{ vars.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Docker (build, testes e, caso seja para produção, deploy no Docker Hub)
+      - name: Docker (build da imagem e deploy no Docker Hub)
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v4.0.0
         with:
           context: .
@@ -69,7 +73,7 @@ jobs:
           build-args: |
             JDK_LOCALIZACAO=${{ env.JDK_LOCALIZACAO }}
             APP_LOCALIZACAO=${{ env.APP_LOCALIZACAO }}
-          push: ${{github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'}}
+          push: true
           tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
         
   deploy_flyio:
@@ -84,8 +88,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: Fly.io (deploy)
+      - name: Fly.io (setup)
         uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy
+      
+      - name: Fly.io (deploy)
+        run: flyctl deploy
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
