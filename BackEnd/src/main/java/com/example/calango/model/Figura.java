@@ -2,10 +2,14 @@ package com.example.calango.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Figura {
@@ -16,16 +20,21 @@ public class Figura {
 	
 	private String atributo;
 	private String descricao;
+	
+	@JsonIgnore
+	@ManyToOne
+    @JoinColumn(name="questao_id")
+	private Questao questao;
 
 	public Figura() {
 		
 	}
 
-	public Figura(Integer id, String atributo, String descricao) {
-
+	public Figura(Integer id, String atributo, String descricao, Questao questao) {
 		this.id = id;
 		this.atributo = atributo;
 		this.descricao = descricao;
+		this.questao = questao;
 	}
 
 	public Integer getId() {
@@ -50,6 +59,14 @@ public class Figura {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Questao getQuestao() {
+		return questao;
+	}
+
+	public void setQuestao(Questao questao) {
+		this.questao = questao;
 	}
 
 	@Override

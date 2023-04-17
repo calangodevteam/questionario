@@ -39,8 +39,7 @@ public class Questao {
     @JoinColumn(name="questao_id")
 	private List<Artigo> artigos;
 	
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="questao_id")
+    @OneToMany(mappedBy = "questao", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Figura> figuras;
 	
     @OneToMany(cascade = CascadeType.ALL)

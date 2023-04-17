@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.calango.model.AreaConhecimento;
 import com.example.calango.model.Tema;
-import com.example.calango.model.dto.AreasDTO;
 import com.example.calango.model.dto.TemaDTO;
 import com.example.calango.repositories.TemaRepository;
 
