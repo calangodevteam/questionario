@@ -2,5 +2,7 @@ FrontEnd/node_modules/
 FrontEnd/dist/
 FrontEnd/.angular/
 BackEnd/target/
-BackEnd/uploads/
 */.vscode/
+image_storage/node_modules/
+image_storage/uploads/
+
