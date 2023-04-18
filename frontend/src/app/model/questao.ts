@@ -6,12 +6,14 @@ import { Tema } from "./tema";
 export class Questao {
 
   id?: number;
-  texto: string = "Nova Questão";
+  texto: string = "";
   categoriaBloom: string = "Avaliação";
   tema: Tema = new Tema();
   artigos: Artigo[] = [];
   figuras: Figura[] = [];
   opcoes: Opcao[] = [];
+
+
 
   adicionarOpcao(){
 
@@ -23,4 +25,16 @@ export class Questao {
     this.opcoes.splice(indice,1);
 
   }
+
+  adicionarArtigo(){
+    this.artigos.push(new Artigo());
+  }
+
+  deletarArtigo(indice: number){
+
+    this.artigos.splice(indice,1);
+
+  }
+
 }
+

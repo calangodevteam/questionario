@@ -10,6 +10,7 @@ import com.example.calango.model.enums.Bloom;
 public class QuestaoDTO {
 	
 	private Integer id;
+	private String texto;
 	private Bloom categoriaBloom;
 	private List<Artigo> artigos;
 	private List<Figura> figuras;
@@ -20,10 +21,11 @@ public class QuestaoDTO {
 	public QuestaoDTO() {
 		
 	}
-	
-	public QuestaoDTO(Integer id, Bloom categoriaBloom, List<Artigo> artigos, List<Figura> figuras, List<Opcao> opcoes,
-			Integer opcao_corretaId, TemaDTO tema) {
+
+	public QuestaoDTO(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos, List<Figura> figuras,
+			List<Opcao> opcoes, Integer opcao_corretaId, TemaDTO tema) {
 		this.id = id;
+		this.texto = texto;
 		this.categoriaBloom = categoriaBloom;
 		this.artigos = artigos;
 		this.figuras = figuras;
@@ -86,6 +88,14 @@ public class QuestaoDTO {
 
 	public void setTema(TemaDTO tema) {
 		this.tema = tema;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 	
 }

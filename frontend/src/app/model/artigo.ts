@@ -4,18 +4,25 @@ export class Artigo {
   titulo: string;
   dataPublicacao: Date;
   autor: string[];
-  
-  constructor(id: number = 0, url: string="",
-    titulo: string = "",
-    dataPublicao: Date = new Date(), autor: string[] = []
-    ) {
 
-    this.id = id;
-    this.url = url;
-    this.titulo = titulo;
-    this.dataPublicacao = dataPublicao;
-    this.autor = autor;  
+  constructor() {
+
+    this.id = 0;
+    this.url = "";
+    this.titulo = "";
+    this.dataPublicacao = new Date;
+    this.autor = [];
 
   }
-  
+
+adicionarAutor(){
+  this.autor.push("Nome");
+}
+
+deletarAutor(indice: number){
+
+  this.autor.splice(indice,1);
+
+}
+
 }

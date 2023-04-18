@@ -33,7 +33,7 @@ public class QuestaoController {
 	public List<QuestaoDTO> findAll() {
 		
 		List<QuestaoDTO> questoesDto = new ArrayList<>();
-		repo.findAll().forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
+		repo.findByOrderByTemaNomeAsc().forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
 		return questoesDto;
 	}
 	

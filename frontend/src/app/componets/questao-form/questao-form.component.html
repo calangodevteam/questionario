@@ -1,0 +1,115 @@
+<div class="col-md-12 d-flex align-items-center justify-content-center p-1">
+  <form class="bg-light col-md-6 col-sm-12  p-3" (submit)="incluir()">
+    <div class="form-group">
+
+
+    <div class="form-group">
+      <label for="texto">Texto</label>
+      <input type="text" class="form-control" id="texto" name="texto" [(ngModel)]="questao.texto">
+    </div>
+
+      <label for="temas">Tema</label>
+      <select name="id" [(ngModel)]="questao.tema.id" class="form-control">
+        <ng-container *ngFor="let tema of temas; let j = index">
+          <option *ngIf="j == 0" [attr.selected]="true" value="{{tema.id}}">
+            {{tema.nome}}
+          </option>
+          <option *ngIf="j != 0" value="{{tema.id}}">
+            {{tema.nome}}
+          </option>
+        </ng-container>
+      </select>
+
+    </div>
+
+    <div class="form-group">
+      <label for="bloom">Categoria Bloom</label>
+      <select class="form-control" id="bloom" name="categoriaBloom" [(ngModel)]="questao.categoriaBloom">
+        <option value="Avaliação" selected>Avaliação</option>
+        <option value="Síntese">Síntese</option>
+        <option value="Analise">Analise</option>
+        <option value="Aplicação">Aplicação</option>
+        <option value="Compreensão">Compreensão</option>
+        <option value="Conhecimento">Conhecimento</option>
+      </select>
+    </div>
+
+    <hr>
+
+    <div class="form-group">
+        <label for="formFileMultiple" class="form-label">Figuras (indisponível)</label>
+        <input class="form-control" type="file" accept="image/*" name="figuras"  id="formFileMultiple" multiple >
+    </div>
+
+    <hr>
+
+    <div class="form-group row">
+      <div class="col-auto">
+        <button (click)="questao.adicionarArtigo()" class="btn-default form-control" type="button">Adicionar
+          Artigo</button>
+      </div>
+    </div>
+
+    <div class="form-group p-3" *ngFor="let artigo of questao.artigos; let o = index">
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="artigo-{{o}}-title">Titulo</span>
+        <input type="text" class="form-control" id="artigo-{{o}}-title" name="titulo" [(ngModel)]="artigo.titulo">
+        <button type="button" class="btn-danger btn" (click)="questao.deletarArtigo(o)">x</button>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="https://example.com" id="artigo-{{o}}-url" name="url"  [(ngModel)]="artigo.url">
+          <span class="input-group-text" id="artigo-{{o}}-url">URL</span>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="artigo-{{o}}-date">Data Publicação</span>
+        <input type="date" class="form-control" id="artigo-{{o}}-date" name="data" placeholder="yyyy-MM-dd" [(ngModel)]="artigo.dataPublicacao"/>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-auto">
+          <button (click)="artigo.adicionarAutor()" class="btn-default form-control" type="button">Adicionar
+            Autor</button>
+        </div>
+      </div>
+
+      <div class="input-group mb-3" *ngFor="let autor of artigo.autor; let ind = index">
+        <span class="input-group-text" id="autor{{ind}}">Autor</span>
+        <input type="text" class="form-control" id="autor{{ind}}" ngModel [ngModelOptions]="{name: 'autor'}"/>
+        <button type="button" class="btn-danger btn" (click)="artigo.deletarAutor(ind)">x</button>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="form-group row">
+      <div class="col-auto">
+        <button (click)="questao.adicionarOpcao()" class="btn-default form-control" type="button">Adicionar
+          opção</button>
+      </div>
+    </div>
+
+    <div class="form-inline p-3" *ngFor="let opcao of questao.opcoes; let o = index">
+      <label class="my-1 mr-2" for="{{questao.id}}-opcao-{{o}}">Opção {{o+1}}</label>
+      <input class="custom-select my-1 mr-sm-2" type="text" id="{{questao.id}}-opcao-{{o}}" name="opcoes"
+        [(ngModel)]="opcao.texto">
+      <button type="button" class="btn-default btn" (click)="questao.deletarOpcao(o)">x</button>
+
+      <div class="custom-control custom-checkbox mx-3">
+        <input type="checkbox" class="custom-control-input" id="{{questao.id}}-correta-{{o}}" name="correta"
+          [(ngModel)]="opcao.correta">
+        <label class="custom-control-label" for="{{questao.id}}-correta-{{o}}">Correta?</label>
+      </div>
+
+
+    </div>
+
+    <div class="form-group">
+      <button class="btn-primary form-control" type="submit">Criar</button>
+    </div>
+
+  </form>
+</div>

@@ -15,8 +15,14 @@
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
 
-      <li *ngIf="servLogin.isAuthenticated" class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/questoes">Listar Questões</a>
+      <li *ngIf="servLogin.isAuthenticated" class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarQDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Questões
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/questoes">Listar Questões</a>
+          <a class="dropdown-item" routerLink="/questoes/create">Nova Questão</a>
+        </div>
       </li>
 
       <li *ngIf="servLogin.isAuthenticated" class="nav-item dropdown" routerLinkActive="active">
