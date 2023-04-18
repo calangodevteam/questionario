@@ -62,17 +62,18 @@ public class Questao {
     public Questao() {
     	
     }
-    
+
 	public Questao(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos, List<Figura> figuras,
-			List<Opcao> opcoes, Opcao opcao_correta, Tema tema) {
+			List<Opcao> opcoes, Opcao opcao_correta, Tema tema, List<Questionario> questionarios) {
 		this.id = id;
 		this.texto = texto;
 		this.categoriaBloom = categoriaBloom;
 		this.artigos = artigos;
 		this.figuras = figuras;
 		this.opcoes = opcoes;
-		this.tema = tema;
 		this.opcao_correta = opcao_correta;
+		this.tema = tema;
+		this.questionarios = questionarios;
 	}
 
 	public Integer getId() {
@@ -137,6 +138,14 @@ public class Questao {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public List<Questionario> getQuestionarios() {
+		return questionarios;
+	}
+
+	public void setQuestionarios(List<Questionario> questionarios) {
+		this.questionarios = questionarios;
 	}
 
 	@Override

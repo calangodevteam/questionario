@@ -28,10 +28,6 @@ public class Tema{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Questionario> questionario = new ArrayList<>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Questao> questoes = new ArrayList<>();
 	
 	private String nome;
@@ -40,11 +36,9 @@ public class Tema{
 
 	}
 
-	public Tema(Integer id, AreaConhecimento areaConhecimento, List<Questionario> questionario, List<Questao> questoes,
-			String nome) {
+	public Tema(Integer id, AreaConhecimento areaConhecimento, List<Questao> questoes, String nome) {
 		this.id = id;
 		this.areaConhecimento = areaConhecimento;
-		this.questionario = questionario;
 		this.questoes = questoes;
 		this.nome = nome;
 	}
@@ -55,14 +49,6 @@ public class Tema{
 
 	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
-	}
-
-	public List<Questionario> getQuestionario() {
-		return questionario;
-	}
-
-	public void setQuestionario(List<Questionario> questionario) {
-		this.questionario = questionario;
 	}
 
 	public Integer getId() {

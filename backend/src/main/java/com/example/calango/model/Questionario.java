@@ -36,8 +36,8 @@ public class Questionario {
 	private Dificuldade dificuldade;
 	
     @ManyToOne
-	@JoinColumn(name="tema_id")
-	private Tema tema;
+	@JoinColumn(name="area_Conhecimento_id")
+	private AreaConhecimento areaConhecimento;
 	
 	@ManyToMany
 	@JoinTable(name = "questoes_questionario",
@@ -49,16 +49,17 @@ public class Questionario {
 	public Questionario() {
 		
 	}
-	
+
 	public Questionario(Integer id, String titulo, Integer qtd_questoes, Integer tempo_duracao,
-			Integer tempo_disponivel, Dificuldade dificuldade, Tema tema, List<Questao> questoes) {
+			Integer tempo_disponivel, Dificuldade dificuldade, AreaConhecimento areaConhecimento,
+			List<Questao> questoes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.qtd_questoes = qtd_questoes;
 		this.tempo_duracao = tempo_duracao;
 		this.tempo_disponivel = tempo_disponivel;
 		this.dificuldade = dificuldade;
-		this.tema = tema;
+		this.areaConhecimento = areaConhecimento;
 		this.questoes = questoes;
 	}
 
@@ -110,12 +111,12 @@ public class Questionario {
 		this.dificuldade = dificuldade;
 	}
 
-	public Tema getTema() {
-		return tema;
+	public AreaConhecimento getAreaConhecimento() {
+		return areaConhecimento;
 	}
 
-	public void setTema(Tema tema) {
-		this.tema = tema;
+	public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
+		this.areaConhecimento = areaConhecimento;
 	}
 
 	public List<Questao> getQuestoes() {

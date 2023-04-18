@@ -1,8 +1,10 @@
 package com.example.calango.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Tema;
+import com.example.calango.model.dto.TemaDTO;
 import com.example.calango.repositories.TemaRepository;
 
 @RestController
@@ -25,10 +28,14 @@ public class TemaController {
 	@Autowired
 	private TemaRepository repo;
 	
+	private ModelMapper modelMapper = new ModelMapper();
+	
 	@GetMapping
-	public List<Tema> findAll() {
+	public List<TemaDTO> findAll() {
 		
-		return repo.findAll();
+		List<TemaDTO> temasDto = new ArrayList<>();
+		repo.findAll().forEach(tema -> temasDto.add(modelMapper.map(tema, TemaDTO.class)));
+		return temasDto;
 	}
 	
 	@GetMapping("/area")
