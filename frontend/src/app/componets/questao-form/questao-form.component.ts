@@ -109,6 +109,27 @@ export class QuestaoFormComponent implements OnInit{
     this.figuras.push(figura);
   }
 
+  arquivoSelec(event: any, index:number){
+    const imageFormGroup = this.figuras.at(index) as FormGroup;
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileToBase64(file).then((base64String: string) => {
+        const base64 = base64String;
+        console.log(base64);
+        imageFormGroup.patchValue({ atributo: base64 });
+      });
+    }
+  }
+
+  fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  }
+
   deleteFigura(index: number) {
     this.figuras.removeAt(index);
   }

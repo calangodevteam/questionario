@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.calango.model.Opcao;
 import com.example.calango.model.Questao;
 import com.example.calango.model.dto.CadastroQuestaoDTO;
 import com.example.calango.model.dto.QuestaoDTO;
-import com.example.calango.repositories.QuestaoRepository;
+import com.example.calango.services.QuestaoService;
 
 @RestController
 @RequestMapping("questoes")
@@ -27,46 +26,32 @@ import com.example.calango.repositories.QuestaoRepository;
 public class QuestaoController {
 	
 	@Autowired
-	private QuestaoRepository repo;
+	private QuestaoService service;
 	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping
 	public List<QuestaoDTO> findAll() {
 		
 		List<QuestaoDTO> questoesDto = new ArrayList<>();
-		repo.findByOrderByTemaNomeAsc().forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
+		service.findAll().forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
 		return questoesDto;
 	}
 	
 	@GetMapping("/{id}")
 	public Optional<Questao> findById (@PathVariable Integer id){
 		
-		return repo.findById(id);
+		return service.findById(id);
 	}
 	
 	@PostMapping
 	public Questao create(@RequestBody CadastroQuestaoDTO questao) {
 		
-		Questao qaux = repo.save(questao.getQuestao());
-		Opcao opcaoCorreta = new Opcao();
-		qaux.getOpcoes().forEach(opcao -> {
-			if(opcao.getTexto().equals(questao.getOpcao_correta())) {
-				opcaoCorreta.setId(opcao.getId());
-				opcaoCorreta.setTexto(opcao.getTexto());
-			}
-		});
-		qaux.setOpcao_correta(opcaoCorreta);
-		repo.save(qaux);
-		return qaux;
+		return service.create(questao.getQuestao(), questao.getOpcao_correta());
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-
-		Optional<Questao> questao = repo.findById(id);	
-		if(questao.isPresent()) {
-			repo.deleteById(id);
-		}
+			service.delete(id);
 
 	}
 

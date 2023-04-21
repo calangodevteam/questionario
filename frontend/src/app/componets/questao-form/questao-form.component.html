@@ -35,6 +35,23 @@
 
       <hr>
 
+      <div class="form-inline mb-3 ">
+        <button (click)="addFigura()" class="btn-default form-control" type="button">Adicionar Figura</button>
+      </div>
+
+      <div formArrayName="figuras">
+        <div *ngFor="let figura of figuras.controls; let f = index">
+          <div class="form-group mb-3" [formGroupName]="f">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="inputDescription{{f}}">Descrição</label>
+              <input class="form-control" type="text" id="inputDescription{{f}}" formControlName="descricao" />
+              <input class="form-control" type="file" (change)="arquivoSelec($event, f)">
+              <button type="button" class="btn-danger btn" (click)="deleteFigura(f)">x</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="form-group row">
         <div class="col-auto">
           <button (click)="addArtigo()" class="btn-default form-control" type="button">Adicionar
@@ -95,7 +112,7 @@
         <button (click)="addFourOpcao()" class="btn-default form-control" type="button"
           [disabled]="opcoes.length>0">Adicionar
           opção</button>
-        <span class="text-center ml-3">Não se esqueça de marcar a opção correta!</span>
+        <span class="text-center ml-3" *ngIf="opcoes.length>0">Não se esqueça de marcar a opção correta!</span>
       </div>
 
       <div formArrayName="opcoes">
