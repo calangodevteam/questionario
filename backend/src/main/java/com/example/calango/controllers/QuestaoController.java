@@ -1,8 +1,10 @@
 package com.example.calango.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Questao;
 import com.example.calango.model.dto.CadastroQuestaoDTO;
-import com.example.calango.repositories.QuestaoRepository;
+import com.example.calango.model.dto.QuestaoDTO;
+import com.example.calango.services.QuestaoService;
 
 @RestController
 @RequestMapping("questoes")
@@ -23,39 +26,32 @@ import com.example.calango.repositories.QuestaoRepository;
 public class QuestaoController {
 	
 	@Autowired
-	private QuestaoRepository repo;
+	private QuestaoService service;
+	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping
-	public List<Questao> findAll() {
-		return repo.findAll();
+	public List<QuestaoDTO> findAll() {
+		
+		List<QuestaoDTO> questoesDto = new ArrayList<>();
+		service.findAll().forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
+		return questoesDto;
 	}
 	
 	@GetMapping("/{id}")
 	public Optional<Questao> findById (@PathVariable Integer id){
 		
-		return repo.findById(id);
+		return service.findById(id);
 	}
 	
 	@PostMapping
 	public Questao create(@RequestBody CadastroQuestaoDTO questao) {
 		
-		Questao qaux = repo.save(questao.getQuestao());
-		qaux.getOpcoes().forEach(opcao -> {
-			if(opcao.getTexto().equals(questao.getOpcao_correta())) {
-				qaux.setOpcao_correta(opcao);
-				repo.save(qaux);
-			}
-		});
-		return qaux;
+		return service.create(questao.getQuestao(), questao.getOpcao_correta());
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-
-		Optional<Questao> questao = repo.findById(id);	
-		if(questao.isPresent()) {
-			repo.deleteById(id);
-		}
+			service.delete(id);
 
 	}
 

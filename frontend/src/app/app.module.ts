@@ -25,6 +25,8 @@ import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
 import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
 import { AreasComponent } from './componets/areas/areas.component';
 import { ListAreasComponent } from './componets/list-areas/list-areas.component';
+import { CreateQuestaoComponent } from './pages/create-questao/create-questao.component';
+import { QuestaoFormComponent } from './componets/questao-form/questao-form.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { ListAreasComponent } from './componets/list-areas/list-areas.component'
     CreateQuizComponent,
     ListQuizComponent,
     AreasComponent,
-    ListAreasComponent
+    ListAreasComponent,
+    CreateQuestaoComponent,
+    QuestaoFormComponent
   ],
   imports: [
     BrowserModule,

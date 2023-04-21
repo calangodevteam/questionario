@@ -12,7 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -22,17 +23,20 @@ public class Tema{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name="area_conhecimento_id")
-	private AreaConhecimento areaConhecimento;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Questionario> questionario = new ArrayList<>();
+    @ManyToMany(mappedBy = "temas")
+	private List<AreaConhecimento> areasConhecimento = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Questao> questoes = new ArrayList<>();
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "temas_questionario",
+	joinColumns = @JoinColumn(name = "tema_id"),
+	inverseJoinColumns = @JoinColumn(name = "questionario_id")
+	)
+	private List<Questionario> questionarios = new ArrayList<>();
 	
 	private String nome;
 
@@ -40,12 +44,12 @@ public class Tema{
 
 	}
 
-	public Tema(Integer id, AreaConhecimento areaConhecimento, List<Questionario> questionario, List<Questao> questoes,
-			String nome) {
+	public Tema(Integer id, List<AreaConhecimento> areasConhecimento, List<Questao> questoes,
+			List<Questionario> questionarios, String nome) {
 		this.id = id;
-		this.areaConhecimento = areaConhecimento;
-		this.questionario = questionario;
+		this.areasConhecimento = areasConhecimento;
 		this.questoes = questoes;
+		this.questionarios = questionarios;
 		this.nome = nome;
 	}
 
@@ -57,14 +61,6 @@ public class Tema{
 		this.questoes = questoes;
 	}
 
-	public List<Questionario> getQuestionario() {
-		return questionario;
-	}
-
-	public void setQuestionario(List<Questionario> questionario) {
-		this.questionario = questionario;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -73,12 +69,12 @@ public class Tema{
 		this.id = id;
 	}
 
-	public AreaConhecimento getAreaConhecimento() {
-		return areaConhecimento;
+	public List<AreaConhecimento> getAreasConhecimento() {
+		return areasConhecimento;
 	}
 
-	public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
-		this.areaConhecimento = areaConhecimento;
+	public void setAreasConhecimento(List<AreaConhecimento> areasConhecimento) {
+		this.areasConhecimento = areasConhecimento;
 	}
 
 	public String getNome() {
@@ -87,6 +83,14 @@ public class Tema{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public List<Questionario> getQuestionarios() {
+		return questionarios;
+	}
+
+	public void setQuestionarios(List<Questionario> questionarios) {
+		this.questionarios = questionarios;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 import { Questionario } from './../../model/questionario';
 import { ThemeService } from './../../services/theme.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Questao } from 'src/app/model/questao';
 import { Tema } from 'src/app/model/tema';
@@ -12,7 +12,7 @@ import { QuizService } from 'src/app/services/quiz.service';
   templateUrl: './create-quiz.component.html',
   styleUrls: ['./create-quiz.component.css']
 })
-export class CreateQuizComponent {
+export class CreateQuizComponent implements OnInit{
 
   router: Router;
   servicoQuestionario: QuizService;

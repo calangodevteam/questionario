@@ -6,7 +6,7 @@ import { Tema } from "./tema";
 export class Questao {
 
   id?: number;
-  texto: string = "Nova Questão";
+  texto: string = "";
   categoriaBloom: string = "Avaliação";
   tema: Tema = new Tema();
   artigos: Artigo[] = [];
@@ -14,8 +14,10 @@ export class Questao {
   opcoes: Opcao[] = [];
 
   adicionarOpcao(){
+    const qtd:number=4;
 
-    this.opcoes.push(new Opcao());
+    for (let i=0; i<qtd; i++)
+      this.opcoes.push(new Opcao());
   }
 
   deletarOpcao(indice: number){
@@ -23,4 +25,16 @@ export class Questao {
     this.opcoes.splice(indice,1);
 
   }
+
+  adicionarArtigo(){
+    this.artigos.push(new Artigo());
+  }
+
+  deletarArtigo(indice: number){
+
+    this.artigos.splice(indice,1);
+
+  }
+
 }
+

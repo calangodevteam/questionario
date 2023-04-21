@@ -16,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Questionario {
@@ -35,9 +34,8 @@ public class Questionario {
 	@Enumerated(EnumType.STRING)
 	private Dificuldade dificuldade;
 	
-    @ManyToOne
-	@JoinColumn(name="tema_id")
-	private Tema tema;
+	@ManyToMany(mappedBy = "questionarios")
+	private List<Tema> temas = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name = "questoes_questionario",
@@ -49,16 +47,16 @@ public class Questionario {
 	public Questionario() {
 		
 	}
-	
+
 	public Questionario(Integer id, String titulo, Integer qtd_questoes, Integer tempo_duracao,
-			Integer tempo_disponivel, Dificuldade dificuldade, Tema tema, List<Questao> questoes) {
+			Integer tempo_disponivel, Dificuldade dificuldade, List<Tema> temas, List<Questao> questoes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.qtd_questoes = qtd_questoes;
 		this.tempo_duracao = tempo_duracao;
 		this.tempo_disponivel = tempo_disponivel;
 		this.dificuldade = dificuldade;
-		this.tema = tema;
+		this.temas = temas;
 		this.questoes = questoes;
 	}
 
@@ -110,12 +108,12 @@ public class Questionario {
 		this.dificuldade = dificuldade;
 	}
 
-	public Tema getTema() {
-		return tema;
+	public List<Tema> getTemas() {
+		return temas;
 	}
 
-	public void setTema(Tema tema) {
-		this.tema = tema;
+	public void setTemas(List<Tema> temas) {
+		this.temas = temas;
 	}
 
 	public List<Questao> getQuestoes() {

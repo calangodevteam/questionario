@@ -1,8 +1,10 @@
 package com.example.calango.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Questionario;
+import com.example.calango.model.dto.QuestionarioDTO;
 import com.example.calango.repositories.QuestaoRepository;
 import com.example.calango.repositories.QuestionarioRepository;
 
@@ -28,9 +31,14 @@ public class QuestionarioController {
 	@Autowired
 	private QuestaoRepository repoQuestao;
 	
+	private ModelMapper modelMapper = new ModelMapper();
+	
 	@GetMapping
-	public List<Questionario> findAll() {
-		return repo.findAll();
+	public List<QuestionarioDTO> findAll() {
+		
+		List<QuestionarioDTO> questionarios = new ArrayList<>();
+		repo.findAll().forEach(questionario -> questionarios.add(modelMapper.map(questionario, QuestionarioDTO.class)));
+		return questionarios;
 	}
 	
 	@GetMapping("/{id}")

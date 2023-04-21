@@ -56,26 +56,50 @@ public class AreaConhecimentoController{
 		return areasRaizes != null? areasDto: new ArrayList<>();
     }
     
+    
+	
 	/*
-	 * Obtem todas as areas de uma determinada area
+	 * Obtem todas as areas raizes
+	 * Talvez necessite de tal função
 	 * 
-	 *  @GetMapping("/{id}/subareas")
-	 *  public List<AreaConhecimento> FindAllLeaf(@PathVariable Integer id) {
-	 *  	AreaConhecimento areaRaiz = repo.findById(id).orElse(null);
-	 *  	return areaRaiz.getSubAreas();
-	 *  }
-	 *  
-	 *  @GetMapping("{id}")
-	 *  public Optional<AreaConhecimento> findById(@PathVariable Integer id) {
-	 *  	return repo.findById(id);
-	 *  }
-     *
-     */
+    @GetMapping("/root")
+    public List<AreaConhecimento> FindRoots() {
+    	
+    	List<AreaConhecimento> areasRaizes = repo.findByPaiIsNull();
+		return areasRaizes != null? areasRaizes: new ArrayList<>();
+    }
+    */
+    
+    /*
+	 *  Obtem todas as areas subareas recursivamente de uma determinada area
+	 
+	   @GetMapping("/{id}/subareas")
+	   public List<AreasDTO> FindAllLeaf(@PathVariable Integer id) {
+	   	AreaConhecimento areaRaiz = repo.findById(id).orElse(null);
+	   	
+	   	AreasDTO areasDto = new AreasDTO();
+	   	areaRaiz.getSubAreas().forEach(area -> {
+	   		area.setSubAreas(null);
+	   		areasDto.getSubAreas().add( modelMapper.map(area, AreasDTO.class));
+	   	});
+		return areasDto != null? areasDto.getSubAreas(): new ArrayList<>();
+	   	
+	   }
+	 */
+	   
+	/*
+	 *  Obtem uma area pelo id informado
+	 */
+	   
+	   @GetMapping("/{id}")
+	   public Optional<AreaConhecimento> findById(@PathVariable Integer id) {
+	   	return repo.findById(id);
+	   }
 	
 	/*
 	 * cria uma area que pode ser raiz ou já ter um pai
 	 * Não pode ser inserida mais de uma area!
-	 * */
+	 */
 	@PostMapping
 	public AreaConhecimento create(@RequestBody AreaConhecimento novaArea) {
 		
