@@ -41,8 +41,7 @@ public class TemaController {
 	@GetMapping("/area")
 	public List<Tema> findAByAreaConhecimento (@RequestParam Integer id){
 		
-		return repo.findByAreaConhecimentoId(id);
-		
+		return repo.findByAreasConhecimentoId(id);
 	}
 	
 	@GetMapping("/{id}")

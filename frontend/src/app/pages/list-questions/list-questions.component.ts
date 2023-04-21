@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Questao } from 'src/app/model/questao';
 import { QuestaoService } from 'src/app/services/questao.service';
@@ -8,7 +8,7 @@ import { QuestaoService } from 'src/app/services/questao.service';
   templateUrl: './list-questions.component.html',
   styleUrls: ['./list-questions.component.css']
 })
-export class ListQuestionsComponent {
+export class ListQuestionsComponent implements OnInit {
 
   router: Router;
   servicoQuestao: QuestaoService;

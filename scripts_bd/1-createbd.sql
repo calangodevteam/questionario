@@ -5,9 +5,10 @@ DROP TABLE IF EXISTS artigo CASCADE;
 DROP TABLE IF EXISTS figura CASCADE;
 DROP TABLE IF EXISTS opcao CASCADE;
 DROP TABLE IF EXISTS questoes_questionario CASCADE;
-DROP TABLE IF EXISTS temas_questionario CASCADE;
 DROP TABLE IF EXISTS questao CASCADE;
+DROP TABLE IF EXISTS temas_questionario CASCADE;
 DROP TABLE IF EXISTS questionario CASCADE;
+DROP TABLE IF EXISTS temas_area_conhecimento CASCADE;
 DROP TABLE IF EXISTS tema CASCADE;
 DROP TABLE IF EXISTS area_conhecimento CASCADE;
 
@@ -31,13 +32,22 @@ CREATE TABLE area_conhecimento
 CREATE TABLE tema 
 (
 	id SERIAL PRIMARY KEY,
-	nome VARCHAR(255),
-	area_conhecimento_id integer,
-	
-	CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id)
+	nome VARCHAR(255)
+);
+
+CREATE TABLE areas_tema
+(
+    area_conhecimento_id integer,
+    tema_id integer,
+
+    CONSTRAINT areas_tema_pkey PRIMARY KEY (area_conhecimento_id, tema_id),
+    CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id),
+    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id)
+
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION
 );
+
 
 CREATE TABLE questionario
 (
@@ -46,9 +56,17 @@ CREATE TABLE questionario
 	qtd_questoes integer,
 	tempo_duracao integer,
 	tempo_disponivel integer,
-	nivel_dificuldade dificuldade,
-	area_conhecimento_id integer,
-	CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id)
+	nivel_dificuldade dificuldade
+);
+
+CREATE TABLE temas_questionario
+(
+    tema_id integer,
+    questionario_id integer,
+
+    CONSTRAINT temas_questionario_pkey PRIMARY KEY (tema_id, questionario_id),
+    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id),
+    CONSTRAINT questionario_id_fkey FOREIGN KEY (questionario_id) REFERENCES questionario (id)
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION
 );

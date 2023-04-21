@@ -13,11 +13,11 @@ export class Questao {
   figuras: Figura[] = [];
   opcoes: Opcao[] = [];
 
-
-
   adicionarOpcao(){
+    const qtd:number=4;
 
-    this.opcoes.push(new Opcao());
+    for (let i=0; i<qtd; i++)
+      this.opcoes.push(new Opcao());
   }
 
   deletarOpcao(indice: number){

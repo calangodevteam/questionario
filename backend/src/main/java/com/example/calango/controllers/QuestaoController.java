@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.calango.model.Opcao;
 import com.example.calango.model.Questao;
 import com.example.calango.model.dto.CadastroQuestaoDTO;
 import com.example.calango.model.dto.QuestaoDTO;
@@ -47,12 +48,15 @@ public class QuestaoController {
 	public Questao create(@RequestBody CadastroQuestaoDTO questao) {
 		
 		Questao qaux = repo.save(questao.getQuestao());
+		Opcao opcaoCorreta = new Opcao();
 		qaux.getOpcoes().forEach(opcao -> {
 			if(opcao.getTexto().equals(questao.getOpcao_correta())) {
-				qaux.setOpcao_correta(opcao);
-				repo.save(qaux);
+				opcaoCorreta.setId(opcao.getId());
+				opcaoCorreta.setTexto(opcao.getTexto());
 			}
 		});
+		qaux.setOpcao_correta(opcaoCorreta);
+		repo.save(qaux);
 		return qaux;
 	}
 	

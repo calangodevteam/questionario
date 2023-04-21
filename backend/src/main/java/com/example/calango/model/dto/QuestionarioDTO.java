@@ -13,22 +13,22 @@ public class QuestionarioDTO {
 	private Integer tempo_duracao;
 	private Integer tempo_disponivel;
 	private Dificuldade dificuldade;
-	private Integer areaConhecimentoId;
+	private List<TemaQuest> temas= new ArrayList<>();
 	private List<QuestaoDTO> questoes = new ArrayList<>();
 	
 	public QuestionarioDTO() {
 		
 	}
-	
+
 	public QuestionarioDTO(Integer id, String titulo, Integer qtd_questoes, Integer tempo_duracao,
-			Integer tempo_disponivel, Dificuldade dificuldade, Integer areaConhecimentoId, List<QuestaoDTO> questoes) {
+			Integer tempo_disponivel, Dificuldade dificuldade, List<TemaQuest> temas, List<QuestaoDTO> questoes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.qtd_questoes = qtd_questoes;
 		this.tempo_duracao = tempo_duracao;
 		this.tempo_disponivel = tempo_disponivel;
 		this.dificuldade = dificuldade;
-		this.areaConhecimentoId = areaConhecimentoId;
+		this.temas = temas;
 		this.questoes = questoes;
 	}
 
@@ -80,20 +80,33 @@ public class QuestionarioDTO {
 		this.dificuldade = dificuldade;
 	}
 
-	public Integer getAreaConhecimentoId() {
-		return areaConhecimentoId;
-	}
-
-	public void setAreaConhecimentoId(Integer areaConhecimentoId) {
-		this.areaConhecimentoId = areaConhecimentoId;
-	}
-
 	public List<QuestaoDTO> getQuestoes() {
 		return questoes;
 	}
 
 	public void setQuestoes(List<QuestaoDTO> questoes) {
 		this.questoes = questoes;
+	}
+	
+	public List<TemaQuest> getTemas() {
+		return temas;
+	}
+
+	public void setTemas(List<TemaQuest> temas) {
+		this.temas = temas;
+	}
+
+	private static class TemaQuest {
+		
+		private Integer id;
+
+		public Integer getId() {
+			return id;
+		}
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		
 	}
 
 }

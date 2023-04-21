@@ -1,19 +1,22 @@
 package com.example.calango.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TemaDTO {
 	
 	private Integer id;
 	private String nome;
-	private Integer areaConhecimentoId;
+	private List<AreasConhecimentoTem> areasConhecimento = new ArrayList<>();
 	
 	public TemaDTO() {
 		
 	}
 
-	public TemaDTO(Integer id, String nome, Integer areaConhecimentoId) {
+	public TemaDTO(Integer id, String nome, List<AreasConhecimentoTem> areasConhecimento) {
 		this.id = id;
 		this.nome = nome;
-		this.areaConhecimentoId = areaConhecimentoId;
+		this.areasConhecimento = areasConhecimento;
 	}
 
 	public Integer getId() {
@@ -31,13 +34,26 @@ public class TemaDTO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Integer getAreaConhecimentoId() {
-		return areaConhecimentoId;
+	
+	public List<AreasConhecimentoTem> getAreasConhecimento() {
+		return areasConhecimento;
 	}
 
-	public void setAreaConhecimentoId(Integer areaConhecimentoId) {
-		this.areaConhecimentoId = areaConhecimentoId;
+	public void setAreasConhecimento(List<AreasConhecimentoTem> areasConhecimento) {
+		this.areasConhecimento = areasConhecimento;
+	}
+
+	private static class AreasConhecimentoTem {
+		
+		private Integer id;
+
+		public Integer getId() {
+			return id;
+		}
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		
 	}
 
 }

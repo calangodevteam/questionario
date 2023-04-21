@@ -12,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -33,25 +35,24 @@ public class AreaConhecimento {
 	private List<AreaConhecimento> subAreas = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany( cascade = CascadeType.ALL, mappedBy="areaConhecimento")
+	@ManyToMany
+	@JoinTable(name = "areas_tema",
+	joinColumns = @JoinColumn(name = "area_conhecimento_id"),
+	inverseJoinColumns = @JoinColumn(name = "tema_id")
+	)
 	private List<Tema> temas = new ArrayList<>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "areaConhecimento", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Questionario> questionario = new ArrayList<>();
 	
 	public AreaConhecimento() {
 		
 	}
 
 	public AreaConhecimento(Integer id, String nome, AreaConhecimento pai, List<AreaConhecimento> subAreas,
-			List<Tema> temas, List<Questionario> questionario) {
+			List<Tema> temas) {
 		this.id = id;
 		this.nome = nome;
 		this.pai = pai;
 		this.subAreas = subAreas;
 		this.temas = temas;
-		this.questionario = questionario;
 	}
 
 	public Integer getId() {
@@ -95,14 +96,6 @@ public class AreaConhecimento {
 		this.temas = temas;
 	}
 	
-	public List<Questionario> getQuestionario() {
-		return questionario;
-	}
-
-	public void setQuestionario(List<Questionario> questionario) {
-		this.questionario = questionario;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -2,8 +2,8 @@ package com.example.calango.model.dto;
 
 import com.example.calango.model.Questao;
 
-public class CadastroQuestaoDTO {
-
+public class CadastroQuestaoDTO{
+	
 	private Questao questao;
 	private String opcao_correta;
 	

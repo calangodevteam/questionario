@@ -10,7 +10,7 @@ import { RegisterUserComponent } from 'src/app/componets/register-user/register-
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
 
   router: Router;
   servLogin: LoginMemoriaService;

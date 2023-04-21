@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Questionario } from 'src/app/model/questionario';
 import { QuizService } from 'src/app/services/quiz.service';
@@ -8,7 +8,7 @@ import { QuizService } from 'src/app/services/quiz.service';
   templateUrl: './list-quiz.component.html',
   styleUrls: ['./list-quiz.component.css']
 })
-export class ListQuizComponent {
+export class ListQuizComponent implements OnInit{
 
   router: Router;
   quizService: QuizService;

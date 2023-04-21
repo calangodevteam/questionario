@@ -113,7 +113,7 @@
                           <label>Opções atuais do vetor (para fins de debug)</label>
                           <select class="form-control" readonly>
                               <option *ngFor="let opcao of questao.opcoes">
-                                  {{opcao.texto}}<span *ngIf="opcao.correta"> - CORRETA</span>
+                                  {{opcao.texto}}
                               </option>
                           </select>
                       </div>
@@ -134,7 +134,7 @@
                           <button type="button" class="btn-default btn" (click)="questao.deletarOpcao(o)">x</button>
 
                           <div class="custom-control custom-checkbox mx-3">
-                            <input type="checkbox" class="custom-control-input" id="{{questao.id}}-correta-{{o}}" name="correta" [(ngModel)]="opcao.correta">
+                            <input type="checkbox" class="custom-control-input" id="{{questao.id}}-correta-{{o}}" name="correta">
                             <label class="custom-control-label" for="{{questao.id}}-correta-{{o}}">Correta?</label>
                           </div>
 
