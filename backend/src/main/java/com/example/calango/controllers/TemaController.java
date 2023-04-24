@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Tema;
 import com.example.calango.model.dto.TemaDTO;
-import com.example.calango.repositories.TemaRepository;
+import com.example.calango.services.TemaService;
 
 @RestController
 @RequestMapping("temas")
@@ -26,7 +26,7 @@ import com.example.calango.repositories.TemaRepository;
 public class TemaController {
 	
 	@Autowired
-	private TemaRepository repo;
+	private TemaService service;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -34,36 +34,31 @@ public class TemaController {
 	public List<TemaDTO> findAll() {
 		
 		List<TemaDTO> temasDto = new ArrayList<>();
-		repo.findAll().forEach(tema -> temasDto.add(modelMapper.map(tema, TemaDTO.class)));
+		service.findAll().forEach(tema -> temasDto.add(modelMapper.map(tema, TemaDTO.class)));
 		return temasDto;
 	}
 	
 	@GetMapping("/area")
 	public List<Tema> findAByAreaConhecimento (@RequestParam Integer id){
 		
-		return repo.findByAreasConhecimentoId(id);
+		return service.findAByAreaConhecimento(id);
 	}
 	
 	@GetMapping("/{id}")
 	public Optional<Tema> findById (@PathVariable Integer id){
 		
-		return repo.findById(id);
+		return service.findById(id);
 		
 	}
 	
 	@PostMapping
 	public Tema create(@RequestBody Tema tema) {
-		return repo.save(tema);
+		return service.create(tema);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-
-		Optional<Tema> tema = repo.findById(id);	
-		if(tema.isPresent()) {
-			repo.deleteById(id);
-		}
-
+		service.delete(id);
 	}
 
 }

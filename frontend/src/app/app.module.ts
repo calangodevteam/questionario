@@ -27,7 +27,7 @@ import { AreasComponent } from './componets/areas/areas.component';
 import { ListAreasComponent } from './componets/list-areas/list-areas.component';
 import { CreateQuestaoComponent } from './pages/create-questao/create-questao.component';
 import { QuestaoFormComponent } from './componets/questao-form/questao-form.component';
-
+import { QuizFormComponent } from './componets/quiz-form/quiz-form.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { QuestaoFormComponent } from './componets/questao-form/questao-form.comp
     AreasComponent,
     ListAreasComponent,
     CreateQuestaoComponent,
-    QuestaoFormComponent
+    QuestaoFormComponent,
+    QuizFormComponent
   ],
   imports: [
     BrowserModule,

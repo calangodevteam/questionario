@@ -26,7 +26,7 @@ export class QuestaoFormComponent implements OnInit{
 
   constructor(private serviceT: ThemeService, private fb: FormBuilder) { }
 
-  obterTemas() {
+  private obterTemas() {
     this.serviceT.obterTemas()
       .subscribe((temas) => this.temas = temas);
   }
