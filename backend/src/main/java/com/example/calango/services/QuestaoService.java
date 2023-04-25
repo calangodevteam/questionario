@@ -23,6 +23,11 @@ public class QuestaoService {
 		return repo.findByOrderByTemaNomeAsc();
 	}
 	
+	public List<Questao> findByTema(Integer temaId) {
+		
+		return repo.findByTema(temaId);
+	}
+	
 	public Optional<Questao> findById (Integer id){
 		return repo.findById(id);
 	}
@@ -48,12 +53,14 @@ public class QuestaoService {
 		return qaux;
 	}
 	
-	public void delete(Integer id) {
+	public String delete(Integer id) {
 
 		Optional<Questao> questao = repo.findById(id);	
 		if(questao.isPresent()) {
 			repo.deleteById(id);
+			return "Deletado com sucesso!";
 		}
+		else return "Erro ao deletar!";
 	}
 
 }

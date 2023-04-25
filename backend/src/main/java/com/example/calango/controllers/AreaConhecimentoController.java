@@ -20,6 +20,7 @@ import com.example.calango.model.AreaConhecimento;
 import com.example.calango.model.dto.AreasDTO;
 import com.example.calango.model.dto.SubAreas;
 import com.example.calango.repositories.AreaConhecimentoRepository;
+import com.example.calango.services.AreaConhecimentoService;
 
 @RestController
 @RequestMapping("areas")
@@ -27,7 +28,7 @@ import com.example.calango.repositories.AreaConhecimentoRepository;
 public class AreaConhecimentoController{
 
 	@Autowired
-	private AreaConhecimentoRepository repo;
+	private AreaConhecimentoService service;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -37,7 +38,7 @@ public class AreaConhecimentoController{
 	@GetMapping("/todos")
 	public List<AreaConhecimento> findAll() {
 		
-		return repo.findAll();
+		return service.findAll();
 	}
 	
 	/*
@@ -46,7 +47,7 @@ public class AreaConhecimentoController{
     @GetMapping
     public List<AreasDTO> FindAllRoots() {
     	
-    	List<AreaConhecimento> areasRaizes = repo.findByPaiIsNull();
+    	List<AreaConhecimento> areasRaizes = service.FindAllRoots();
     	
     	List<AreasDTO> areasDto = new ArrayList<>();
     	areasRaizes.forEach(areas -> {
@@ -65,7 +66,7 @@ public class AreaConhecimentoController{
     @GetMapping("/root")
     public List<AreaConhecimento> FindRoots() {
     	
-    	List<AreaConhecimento> areasRaizes = repo.findByPaiIsNull();
+    	List<AreaConhecimento> areasRaizes = service.FindAllRoots();
 		return areasRaizes != null? areasRaizes: new ArrayList<>();
     }
     */
@@ -75,7 +76,7 @@ public class AreaConhecimentoController{
 	 
 	   @GetMapping("/{id}/subareas")
 	   public List<AreasDTO> FindAllLeaf(@PathVariable Integer id) {
-	   	AreaConhecimento areaRaiz = repo.findById(id).orElse(null);
+	   	AreaConhecimento areaRaiz = service.findById(id).orElse(null);
 	   	
 	   	AreasDTO areasDto = new AreasDTO();
 	   	areaRaiz.getSubAreas().forEach(area -> {
@@ -93,7 +94,7 @@ public class AreaConhecimentoController{
 	   
 	   @GetMapping("/{id}")
 	   public Optional<AreaConhecimento> findById(@PathVariable Integer id) {
-	   	return repo.findById(id);
+	   	return service.findById(id);
 	   }
 	
 	/*
@@ -103,12 +104,7 @@ public class AreaConhecimentoController{
 	@PostMapping
 	public AreaConhecimento create(@RequestBody AreaConhecimento novaArea) {
 		
-    	if(novaArea.getPai() == null)
-    		return repo.save(novaArea);
-    	
-    	AreaConhecimento areaPai = repo.findById(novaArea.getPai().getId()).orElse(null);
-    	novaArea.setPai(areaPai);
-        return repo.save(novaArea);
+        return service.create(novaArea);
 
 	}
 	/*
@@ -117,23 +113,12 @@ public class AreaConhecimentoController{
 	 * */
 	@PostMapping("/subareas")
 	public List<AreaConhecimento> createSub(@RequestBody SubAreas novasAreas) {
-    		
-    	novasAreas.getSubAreas().forEach(filho -> {
-    		AreaConhecimento areaPai = repo.findById(filho.getPai().getId()).orElse(null);
-    		filho.setPai(areaPai);
-    	});
-
-        return repo.saveAll(novasAreas.getSubAreas());
+        return service.createSub(novasAreas);
         
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-
-		Optional<AreaConhecimento> areaConhecimento = repo.findById(id);	
-		if(areaConhecimento.isPresent()) {
-			repo.deleteById(id);
-		}
-
+	public String delete(@PathVariable Integer id) {
+		return service.delete(id);
 	}
 }

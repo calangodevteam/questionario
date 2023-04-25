@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Questionario;
 import com.example.calango.model.dto.QuestionarioDTO;
-import com.example.calango.repositories.QuestaoRepository;
-import com.example.calango.repositories.QuestionarioRepository;
+import com.example.calango.services.QuestionarioService;
 
 @RestController
 @RequestMapping("questionarios")
@@ -26,10 +25,7 @@ import com.example.calango.repositories.QuestionarioRepository;
 public class QuestionarioController {
 	
 	@Autowired
-	private QuestionarioRepository repo;
-
-	@Autowired
-	private QuestaoRepository repoQuestao;
+	private QuestionarioService service;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -37,34 +33,25 @@ public class QuestionarioController {
 	public List<QuestionarioDTO> findAll() {
 		
 		List<QuestionarioDTO> questionarios = new ArrayList<>();
-		repo.findAll().forEach(questionario -> questionarios.add(modelMapper.map(questionario, QuestionarioDTO.class)));
+		service.findAll().forEach(questionario -> questionarios.add(modelMapper.map(questionario, QuestionarioDTO.class)));
 		return questionarios;
 	}
 	
 	@GetMapping("/{id}")
 	public Optional<Questionario> findById (@PathVariable Integer id){
 		
-		return repo.findById(id);
+		return service.findById(id);
 	}
 	
 	@PostMapping
 	public Questionario create(@RequestBody Questionario questionario) {
-
-		questionario.getQuestoes().forEach(questao -> {
-			if(questao.getId() == null)
-				repoQuestao.save(questao);
-		});
-	
-		return repo.save(questionario);
+		
+		return service.create(questionario);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-
-		Optional<Questionario> questionario = repo.findById(id);	
-		if(questionario.isPresent()) {
-			repo.deleteById(id);
-		}
+	public String delete(@PathVariable Integer id) {
+		return service.delete(id);
 
 	}
 	

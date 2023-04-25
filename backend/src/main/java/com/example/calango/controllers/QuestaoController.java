@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.calango.model.Questao;
@@ -37,6 +38,14 @@ public class QuestaoController {
 		return questoesDto;
 	}
 	
+	@GetMapping("tema")
+	public List<QuestaoDTO> findByTema(@RequestParam Integer temaId) {
+		
+		List<QuestaoDTO> questoesDto = new ArrayList<>();
+		service.findByTema(temaId).forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
+		return questoesDto;
+	}
+	
 	@GetMapping("/{id}")
 	public Optional<Questao> findById (@PathVariable Integer id){
 		
@@ -50,8 +59,8 @@ public class QuestaoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-			service.delete(id);
+	public String delete(@PathVariable Integer id) {
+		return service.delete(id);
 
 	}
 

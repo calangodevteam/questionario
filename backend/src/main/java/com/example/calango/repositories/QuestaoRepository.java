@@ -9,5 +9,7 @@ import com.example.calango.model.Questao;
 public interface QuestaoRepository extends JpaRepository<Questao, Integer>{
 	
 	List<Questao> findByOrderByTemaNomeAsc();
+	
+	List<Questao> findByTema(Integer temaId);
 
 }
