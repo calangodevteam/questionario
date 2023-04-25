@@ -57,8 +57,8 @@ public class TemaController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-		service.delete(id);
+	public String delete(@PathVariable Integer id) {
+		return service.delete(id);
 	}
 
 }

@@ -9,9 +9,8 @@ import { QuestaoDto } from '../model/questao-dto';
 })
 export class QuestaoService {
 
-  // private questoesUrl = "/questoes";
-  private questoesUrl = "http://localhost:8080/questoes";
-  private temasUrl = "/temas";
+  private questoesUrl = "/questoes";
+  // private questoesUrl = "http://localhost:8080/questoes";
   private http: HttpClient;
 
   httpOptions = {
@@ -33,7 +32,7 @@ export class QuestaoService {
   adicionar(questao: QuestaoDto): Observable<any>{
       return this.http.post<QuestaoDto>(this.questoesUrl, questao, this.httpOptions)
              .pipe(
-                  tap((novo: any) => console.log(`Adicionado id=${novo.insertedId}`)),
+                  tap((novo: any) => {console.log(`Adicionado id=${novo.id}`)}),
                   catchError(this.handleError<Questao>('adicionar'))
        );
    }

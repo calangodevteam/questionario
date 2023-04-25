@@ -1,16 +1,13 @@
 package com.example.calango.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.calango.model.Opcao;
 import com.example.calango.model.Questao;
-import com.example.calango.model.dto.QuestaoDTO;
 import com.example.calango.repositories.QuestaoRepository;
 import com.example.calango.utilities.ImageUtility;
 
@@ -56,12 +53,14 @@ public class QuestaoService {
 		return qaux;
 	}
 	
-	public void delete(Integer id) {
+	public String delete(Integer id) {
 
 		Optional<Questao> questao = repo.findById(id);	
 		if(questao.isPresent()) {
 			repo.deleteById(id);
+			return "Deletado com sucesso!";
 		}
+		else return "Erro ao deletar!";
 	}
 
 }

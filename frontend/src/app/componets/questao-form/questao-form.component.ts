@@ -162,8 +162,8 @@ export class QuestaoFormComponent implements OnInit{
   }
 
   submit() {
-    console.log(this.questionForm.value);
     this.onSubmit.emit(this.questionForm.value);
+    this.questionForm.reset();
   }
 
 }

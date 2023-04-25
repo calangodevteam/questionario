@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
+import { Questao } from 'src/app/model/questao';
+import { QuestaoDto } from 'src/app/model/questao-dto';
+import { QuestaoForm } from 'src/app/model/questao-form';
 import { Questionario } from 'src/app/model/questionario';
+import { QuestaoService } from 'src/app/services/questao.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -15,9 +20,10 @@ export class QuizFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Questionario>();
 
   questionarioForm!: FormGroup;
-  showModal: boolean = false;
+  modalVisible = false;
+  modalTitle ='Questão';
 
-  constructor(private serviceT: ThemeService, private fb: FormBuilder, ) { }
+  constructor(private serviceT: ThemeService, private fb: FormBuilder, private serviceQ: QuestaoService) { }
 
   ngOnInit() {
 
@@ -34,8 +40,8 @@ export class QuizFormComponent implements OnInit {
 
   }
 
-  toggle () {
-    this.showModal = !this.showModal;
+  showModal() {
+    this.modalVisible = !this.modalVisible;
   }
 
   get qtd_questoes() {
@@ -53,7 +59,6 @@ export class QuizFormComponent implements OnInit {
       nome: [null],
       areas_id:[null]
     });
-
     this.temas.push(tema);
   }
 
@@ -71,20 +76,88 @@ export class QuizFormComponent implements OnInit {
      const questao = this.fb.group({
       id: [null],
       nome: [null],
+      temaId: [null]
     });
-
     this.questoes.push(questao);
-    this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
   }
 
   deleteQuestao(index: number) {
+    this.verificaTemaQuestao(index);
     this.questoes.removeAt(index);
     this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
   }
 
-  submit() {
-    console.log(this.questionarioForm.value);
-    // this.onSubmit.emit(this.questionarioForm.value);
+  verificaTemaExiste(id:number): boolean{
+    let ocorrencia:boolean = false;
+    for (let i = 0; i < this.temas.length; i++) {
+      const temaFormGroup = this.temas.at(i) as FormGroup;
+      let temaId:number = temaFormGroup.get('id')!.value;
+      if(temaId === id){
+        ocorrencia = true;
+        break
+      }
+    }
+    return ocorrencia;
+
+  }
+
+  verificaTemaQuestao(index:number){
+
+    let ocorrencia:number = 0;
+    const questaoGroup = this.questoes.at(index) as FormGroup;
+    const idTema: number = questaoGroup.get('temaId')!.value;
+
+    for (let i = 0; i < this.questoes.length; i++) {
+      const questaoFormGroup = this.questoes.at(i) as FormGroup;
+      let temaId:number = questaoFormGroup.get('temaId')!.value;
+      if(temaId === idTema){
+        ocorrencia+=1;
+        console.log('ocorrencia++'+ ocorrencia)
+      }
+    }
+
+    if(ocorrencia === 1){
+      for (let j = 0; j <= this.temas.length; j++) {
+        const temaFormGroup = this.temas.at(j) as FormGroup;
+        let temaId:number = temaFormGroup.get('id')!.value;
+        if(temaId === idTema){
+          this.deleteTema(j);
+          return
+        }
+      }
+    }
+  }
+
+  addQuestaoTema(questaoForm: QuestaoForm){
+
+    const questao = this.fb.group({
+      id: questaoForm.id,
+      nome: questaoForm.nome,
+      temaId: questaoForm.tema.id
+    });
+    this.questoes.push(questao);
+
+    const tema = this.fb.group({
+      id: questaoForm.tema.id,
+      nome: questaoForm.tema.nome,
+      areas_id:[null]
+    });
+
+    if(!this.verificaTemaExiste(questaoForm.tema.id))
+      this.temas.push(tema);
+
+    this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
+
+  }
+
+   submitQuestao(questaoDto: QuestaoDto):void{
+     this.serviceQ.adicionar(questaoDto).subscribe();
+     this.showModal();
+  }
+
+  submitQuestionario() {
+     this.onSubmit.emit(this.questionarioForm.value);
+     this.questionarioForm.reset();
   }
 
 }

@@ -37,12 +37,14 @@ public class TemaService {
 		return repo.save(tema);
 	}
 	
-	public void delete(@PathVariable Integer id) {
+	public String delete(@PathVariable Integer id) {
 
 		Optional<Tema> tema = repo.findById(id);	
 		if(tema.isPresent()) {
 			repo.deleteById(id);
+			return "Deletado com sucesso!";
 		}
+		else return "Erro ao deletar!";
 
 	}
 

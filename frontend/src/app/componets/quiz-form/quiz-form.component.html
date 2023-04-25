@@ -1,5 +1,5 @@
 <div class="col-md-12 d-flex align-items-center justify-content-center p-1">
-  <form class="bg-light col-md-6 col-sm-12  p-3" [formGroup]="questionarioForm" (ngSubmit)="submit()">
+  <form class="bg-light col-md-6 col-sm-12  p-3" [formGroup]="questionarioForm" (ngSubmit)="submitQuestionario()">
     <div class="form-group">
       <div class="input-group mb-3">
         <span class="input-group-text" id="titulo">Titulo</span>
@@ -32,30 +32,60 @@
       <h2 class="title">Temas</h2>
       <div *ngFor="let tema of temas.controls; let i = index">
         <div class="form-group d-flex align-itens-center" [formGroupName]="i">
-          <input type="text" class="form-control" id="tema-nome{{i}}" name="tema-nome{{i}}" formControlName="nome"
-            required>
+          <span class="input-group-text" id="tema{{i}}">ID: {{tema.get('id')?.value}}</span>
+          <input type="text" class="form-control" id="tema-nome{{i}}" name="tema-nome{{i}}" value="{{tema.get('nome')?.value}}" readonly>
         </div>
       </div>
     </div>
 
-    <div class="form-inline">
-      <button (click)="addQuestao()" class="btn-default form-control mr-3" type="button">Adicionar
-        Questao Existente</button>
-      <button (click)="toggle()" class="btn-default form-control" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    <div class="form-inline" >
+      <app-dropdown-questoes
+        (questaoAdd)="addQuestaoTema($event)"
+      ></app-dropdown-questoes>
+      <button (click)="showModal()" class="btn-default form-control ml-3"
         type="button">
         Criar Questão
       </button>
     </div>
 
-    <div class="form-group modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="showModal">
-
-      Lorem ipsum dolor sit amet,
-      consectetur adipisicing elit.
-      Aliquam, sunt.
+    <div formArrayName="questoes" *ngIf="questoes.length>0">
+      <h2 class="title pt-3">Questoes</h2>
+      <div *ngFor="let questao of questoes.controls; let j = index">
+        <div class="form-group" [formGroupName]="j">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <button type="button" class="btn-danger btn" (click)="deleteQuestao(j)">x</button>
+              <span class="pl-3">{{questao.get('nome')?.value}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="form-group mt-3">
       <button class="btn-primary form-control" type="submit">{{ btnText }}</button>
     </div>
   </form>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': modalVisible}" [style.display]="modalVisible ? 'block' : 'none'">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">{{modalTitle}}</h2>
+          <button type="button" class="close" aria-label="Close" (click)="showModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-questao-form
+          [btnText]="btnText"
+          (onSubmit)="submitQuestao($event)"
+          >
+          </app-questao-form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
