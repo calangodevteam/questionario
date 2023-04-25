@@ -4,7 +4,11 @@ on:
 
   workflow_dispatch:
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
   
 env:
   JAVA_VERSAO: '17'
@@ -15,9 +19,9 @@ env:
       
 jobs:
 
-  docker:
+  montagem:
   
-    name: Docker
+    name: Montagem e DockerHub (se for pra branch principal)
     runs-on: ubuntu-latest
     steps:
     
@@ -78,10 +82,10 @@ jobs:
         
   deploy_flyio:
   
-    name: Fly.io (deploy)
+    name: Deploy no Fly.io (se for pra branch principal)
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
     needs:
-      - docker
+      - montagem
     runs-on: ubuntu-latest
     steps:
     
