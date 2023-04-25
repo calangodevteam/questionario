@@ -7,7 +7,6 @@
         </button>
       </h5>
     </div>
-
     <div id="collapse{{area.id}}" class="collapse" attr.aria-labelledby="area-{{area.id}}" *ngIf="area.subAreas.length > 0 || area.temas.length > 0">
       <div class="card-body">
         <app-areas [areas]="area.subAreas"></app-areas>

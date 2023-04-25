@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Questao } from '../model/questao';
 import { catchError, Observable, of, tap } from 'rxjs';
+import { QuestaoDto } from '../model/questao-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ export class QuestaoService {
 
   private questoesUrl = "/questoes";
   // private questoesUrl = "http://localhost:8080/questoes";
-  private temasUrl = "/temas";
   private http: HttpClient;
 
   httpOptions = {
@@ -29,10 +29,10 @@ export class QuestaoService {
     };
   }
 
-  adicionar(questao: Questao): Observable<any>{
-      return this.http.post<Questao>(this.questoesUrl, questao, this.httpOptions)
+  adicionar(questao: QuestaoDto): Observable<any>{
+      return this.http.post<QuestaoDto>(this.questoesUrl, questao, this.httpOptions)
              .pipe(
-                  tap((novo: any) => console.log(`Adicionado id=${novo.insertedId}`)),
+                  tap((novo: any) => {console.log(`Adicionado id=${novo.id}`)}),
                   catchError(this.handleError<Questao>('adicionar'))
        );
    }

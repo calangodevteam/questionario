@@ -1,7 +1,7 @@
 import { Tema } from "./tema";
 
 export class Areas {
-  id: number=0;
+  id: number = 0;
   nome: string = "";
   paiId?: number;
   subAreas: Areas[] = [];

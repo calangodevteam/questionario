@@ -8,6 +8,8 @@ import com.example.calango.model.Tema;
 
 public interface TemaRepository extends JpaRepository<Tema, Integer>{
 	
-	List<Tema> findByAreaConhecimentoId(Integer id);
+	List<Tema> findByAreasConhecimentoId(Integer id);
+	
+	List<Tema> findAllByOrderByNomeAsc();
 
 }

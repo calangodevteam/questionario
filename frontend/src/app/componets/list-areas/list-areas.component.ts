@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Areas } from 'src/app/model/areas';
 import { AreasService } from 'src/app/services/areas.service';
@@ -8,7 +8,7 @@ import { AreasService } from 'src/app/services/areas.service';
   templateUrl: './list-areas.component.html',
   styleUrls: ['./list-areas.component.css']
 })
-export class ListAreasComponent {
+export class ListAreasComponent implements OnInit{
   router: Router;
   servicoAreas: AreasService;
   areaId: number = 0;

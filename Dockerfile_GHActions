@@ -9,6 +9,11 @@ ENV POSTGRES_DB postgres
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD postgres123
 
+#GERANDO PASTA E COPIANDO OS ARQUVIOS DE CRIAÇÃO E INSERÇÃO DO BANCO DE DADOS PARA O CONTAINER
+RUN mkdir -p /docker-entrypoint-initdb.d
+WORKDIR /docker-entrypoint-initdb.d
+COPY scripts .
+
 RUN mkdir -p /app
 RUN mkdir -p /app/jdk
 WORKDIR /app

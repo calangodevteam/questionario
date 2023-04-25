@@ -20,6 +20,7 @@ import com.example.calango.model.AreaConhecimento;
 import com.example.calango.model.dto.AreasDTO;
 import com.example.calango.model.dto.SubAreas;
 import com.example.calango.repositories.AreaConhecimentoRepository;
+import com.example.calango.services.AreaConhecimentoService;
 
 @RestController
 @RequestMapping("areas")
@@ -27,7 +28,7 @@ import com.example.calango.repositories.AreaConhecimentoRepository;
 public class AreaConhecimentoController{
 
 	@Autowired
-	private AreaConhecimentoRepository repo;
+	private AreaConhecimentoService service;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -37,7 +38,7 @@ public class AreaConhecimentoController{
 	@GetMapping("/todos")
 	public List<AreaConhecimento> findAll() {
 		
-		return repo.findAll();
+		return service.findAll();
 	}
 	
 	/*
@@ -46,7 +47,7 @@ public class AreaConhecimentoController{
     @GetMapping
     public List<AreasDTO> FindAllRoots() {
     	
-    	List<AreaConhecimento> areasRaizes = repo.findByPaiIsNull();
+    	List<AreaConhecimento> areasRaizes = service.FindAllRoots();
     	
     	List<AreasDTO> areasDto = new ArrayList<>();
     	areasRaizes.forEach(areas -> {
@@ -56,35 +57,54 @@ public class AreaConhecimentoController{
 		return areasRaizes != null? areasDto: new ArrayList<>();
     }
     
+    
+	
 	/*
-	 * Obtem todas as areas de uma determinada area
+	 * Obtem todas as areas raizes
+	 * Talvez necessite de tal função
 	 * 
-	 *  @GetMapping("/{id}/subareas")
-	 *  public List<AreaConhecimento> FindAllLeaf(@PathVariable Integer id) {
-	 *  	AreaConhecimento areaRaiz = repo.findById(id).orElse(null);
-	 *  	return areaRaiz.getSubAreas();
-	 *  }
-	 *  
-	 *  @GetMapping("{id}")
-	 *  public Optional<AreaConhecimento> findById(@PathVariable Integer id) {
-	 *  	return repo.findById(id);
-	 *  }
-     *
-     */
+    @GetMapping("/root")
+    public List<AreaConhecimento> FindRoots() {
+    	
+    	List<AreaConhecimento> areasRaizes = service.FindAllRoots();
+		return areasRaizes != null? areasRaizes: new ArrayList<>();
+    }
+    */
+    
+    /*
+	 *  Obtem todas as areas subareas recursivamente de uma determinada area
+	 
+	   @GetMapping("/{id}/subareas")
+	   public List<AreasDTO> FindAllLeaf(@PathVariable Integer id) {
+	   	AreaConhecimento areaRaiz = service.findById(id).orElse(null);
+	   	
+	   	AreasDTO areasDto = new AreasDTO();
+	   	areaRaiz.getSubAreas().forEach(area -> {
+	   		area.setSubAreas(null);
+	   		areasDto.getSubAreas().add( modelMapper.map(area, AreasDTO.class));
+	   	});
+		return areasDto != null? areasDto.getSubAreas(): new ArrayList<>();
+	   	
+	   }
+	 */
+	   
+	/*
+	 *  Obtem uma area pelo id informado
+	 */
+	   
+	   @GetMapping("/{id}")
+	   public Optional<AreaConhecimento> findById(@PathVariable Integer id) {
+	   	return service.findById(id);
+	   }
 	
 	/*
 	 * cria uma area que pode ser raiz ou já ter um pai
 	 * Não pode ser inserida mais de uma area!
-	 * */
+	 */
 	@PostMapping
 	public AreaConhecimento create(@RequestBody AreaConhecimento novaArea) {
 		
-    	if(novaArea.getPai() == null)
-    		return repo.save(novaArea);
-    	
-    	AreaConhecimento areaPai = repo.findById(novaArea.getPai().getId()).orElse(null);
-    	novaArea.setPai(areaPai);
-        return repo.save(novaArea);
+        return service.create(novaArea);
 
 	}
 	/*
@@ -93,23 +113,12 @@ public class AreaConhecimentoController{
 	 * */
 	@PostMapping("/subareas")
 	public List<AreaConhecimento> createSub(@RequestBody SubAreas novasAreas) {
-    		
-    	novasAreas.getSubAreas().forEach(filho -> {
-    		AreaConhecimento areaPai = repo.findById(filho.getPai().getId()).orElse(null);
-    		filho.setPai(areaPai);
-    	});
-
-        return repo.saveAll(novasAreas.getSubAreas());
+        return service.createSub(novasAreas);
         
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-
-		Optional<AreaConhecimento> areaConhecimento = repo.findById(id);	
-		if(areaConhecimento.isPresent()) {
-			repo.deleteById(id);
-		}
-
+	public String delete(@PathVariable Integer id) {
+		return service.delete(id);
 	}
 }

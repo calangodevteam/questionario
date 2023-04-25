@@ -80,6 +80,7 @@ jobs:
   
     name: Deploy no Fly.io (se for pra branch principal)
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master'
+    
     needs:
       - montagem
     runs-on: ubuntu-latest

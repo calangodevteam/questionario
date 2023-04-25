@@ -1,5 +1,8 @@
 export class Figura {
 
-    //Não usada por enquanto.
+  id?:number;
+  atributo?:File;
+  descricao:string = "";
+  questao_id?:number;
 
 }

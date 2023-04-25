@@ -21,7 +21,7 @@ public class Artigo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private URL url;
+	private String url;
 	private String titulo;
 	
 	@Column(name = "data_publicacao")
@@ -35,7 +35,7 @@ public class Artigo {
 		
 	}
 
-	public Artigo(Integer id, URL url, String titulo, Date dataPublicacao, Set<String> autor) {
+	public Artigo(Integer id, String url, String titulo, Date dataPublicacao, Set<String> autor) {
 		this.id = id;
 		this.url = url;
 		this.titulo = titulo;
@@ -51,11 +51,11 @@ public class Artigo {
 		this.id = id;
 	}
 
-	public URL getUrl() {
+	public String getUrl() {
 		return url;
 	}
 
-	public void setUrl(URL url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 
