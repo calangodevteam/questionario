@@ -30,6 +30,8 @@ import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
 import { CreateQuestaoComponent } from './pages/create-questao/create-questao.component';
 
 import { LoginMemoriaService } from './services/login.memoria.service';
+import { QuestaoCardComponent } from './componets/questao-card/questao-card.component';
+import { QuestionarioCardComponent } from './componets/questionario-card/questionario-card.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { LoginMemoriaService } from './services/login.memoria.service';
     CreateQuestaoComponent,
     QuestaoFormComponent,
     QuizFormComponent,
-    DropdownQuestoesComponent
+    DropdownQuestoesComponent,
+    QuestaoCardComponent,
+    QuestionarioCardComponent
   ],
   imports: [
     BrowserModule,

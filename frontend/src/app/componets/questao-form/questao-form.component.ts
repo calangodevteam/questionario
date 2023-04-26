@@ -115,7 +115,6 @@ export class QuestaoFormComponent implements OnInit{
     if (file) {
       this.fileToBase64(file).then((base64String: string) => {
         const base64 = base64String;
-        console.log(base64);
         imageFormGroup.patchValue({ atributo: base64 });
       });
     }
@@ -161,7 +160,20 @@ export class QuestaoFormComponent implements OnInit{
     return this.questionForm.get('opcao_correta');
   }
 
+  addNomeTema(){
+     const questaoFormGroup = this.tema as FormGroup;
+     let id:number = questaoFormGroup.get('id')!.value;
+     let nomeTema!:string;
+     this.temas.forEach(tema => {
+       if(id == tema.id)
+         nomeTema = tema.nome;
+     });
+     this.questionForm.get('questao.tema')?.patchValue({nome:nomeTema});
+
+  }
+
   submit() {
+    this.addNomeTema();
     this.onSubmit.emit(this.questionForm.value);
     this.questionForm.reset();
   }

@@ -8,8 +8,8 @@ import { Areas } from '../model/areas';
 })
 export class AreasService {
 
-  private areasUrl = "/areas";
-  // private areasUrl = "http://localhost:8080/areas";
+  // private areasUrl = "/areas";
+  private areasUrl = "http://localhost:8080/areas";
   private http: HttpClient;
 
   httpOptions = {

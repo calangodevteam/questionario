@@ -40,9 +40,10 @@
 
     <div class="form-inline" >
       <app-dropdown-questoes
+        [questaoNova]="questaoNova"
         (questaoAdd)="addQuestaoTema($event)"
       ></app-dropdown-questoes>
-      <button (click)="showModal()" class="btn-default form-control ml-3"
+      <button (click)="showModal(); newQuestion();" class="btn-default form-control ml-3"
         type="button">
         Criar Questão
       </button>

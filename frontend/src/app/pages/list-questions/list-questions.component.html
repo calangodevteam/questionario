@@ -3,66 +3,14 @@
   <div class="col-md-12 p-1">
     <h1>Listagem de Questões</h1>
   </div>
-
-  <div class="card col-md-8 m-auto bg-light">
-    <div class="m-3" *ngFor="let tema of temas; let i = index;">
-      <div class="">
-        <h2 class="card-title"> {{tema.nome}} </h2>
-        <div *ngFor="let questao of questoes; let j = index;">
-          <div class="card" *ngIf="questao.tema.id === tema.id">
-
-            <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
-            <div class="p-3" data-toggle="collapse" attr.data-target="#questao-{{questao.id}}">
-              <span class="text-muted">QUESTÃO (ID {{questao.id}}): </span> - <span
-                class="font-weight-bold">{{questao.texto}} </span>
-              <small class="float-right text-muted">Mostrar/Esconder</small>
-            </div>
-
-            <!-- INFORMAÇÕES DA QUESTÃO ATUAL -->
-            <div class="collapse p-3" id="questao-{{questao.id}}">
-
-              <div class="form-group">
-                <label>Tema</label>
-                <input disabled type="text" value="{{ questao.tema.nome }}" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label>Categoria Bloom</label>
-                <input disabled type="text" value="{{questao.categoriaBloom}}" class="form-control">
-              </div>
-
-              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR TEXTOS MAIORES -->
-              <div class="form-group">
-                <label>Opções</label>
-                <select class="form-control" readonly>
-                  <option *ngFor="let opcao of questao.opcoes">
-                    {{opcao.texto}}
-                  </option>
-                </select>
-              </div>
-
-              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
-              <div class="form-group">
-                <label>Figuras</label>
-                <select class="form-control" readonly>
-                  <option *ngFor="let figura of questao.figuras">
-                  </option>
-                </select>
-              </div>
-
-              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
-              <div class="form-group">
-                <label>Artigos</label>
-                <select class="form-control" readonly>
-                  <option *ngFor="let artigo of questao.artigos">
-                    {{artigo.titulo}} - {{artigo.autor}}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
+  <div class="card col-md-8 mx-auto mb-3 bg-light" *ngFor="let tema of temas; let i = index;">
+    <div class="p-3">
+      <h2 class="card-title"> {{tema.nome}} </h2>
+      <div *ngFor="let questao of questoes; let j = index;">
+        <div *ngIf="questao.tema.id === tema.id" class="mb-2">
+          <app-questao-card [questao]="questao"></app-questao-card>
         </div>
       </div>
     </div>
-
   </div>
+</div>
