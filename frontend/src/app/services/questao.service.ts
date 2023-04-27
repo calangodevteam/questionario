@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Questao } from '../model/questao';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { QuestaoDto } from '../model/questao-dto';
 
 @Injectable({
@@ -29,10 +29,10 @@ export class QuestaoService {
     };
   }
 
-  adicionar(questao: QuestaoDto): Observable<any>{
+  adicionar(questao: QuestaoDto): Observable<Questao>{
       return this.http.post<QuestaoDto>(this.questoesUrl, questao, this.httpOptions)
              .pipe(
-                  tap((novo: any) => {console.log(`Adicionado id=${novo.id}`)}),
+                  tap((novo: any) => console.log(`Adicionado id=${novo.id}`)),
                   catchError(this.handleError<Questao>('adicionar'))
        );
    }

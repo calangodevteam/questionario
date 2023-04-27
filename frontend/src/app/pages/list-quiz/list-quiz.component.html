@@ -1,113 +1,17 @@
 <div class="container-fluid p-3">
-  
-<!-- Descomente esse trecho para visualizar todas as areas -->
+
+  <!-- Descomente esse trecho para visualizar todas as areas -->
   <!-- <div class="col-md-12 p-1">
     <h1>Listagem areas</h1>
     <app-list-areas></app-list-areas>
   </div> -->
 
   <div class="col-md-12 p-1">
-      <h1>Listagem de questionários</h1>
+    <h1>Listagem de Questionários</h1>
   </div>
 
-  <!-- ISSO PODE SER UM COMPONENTE! POR ENQUANTO ESTARÁ ASSIM -->
   <div *ngFor="let questionario of questionarios">
-
-      <!-- QUESTIONÁRIO ATUAL -->
-      <div class="col-md-12 d-flex align-items-center justify-content-center p-1">
-          <div class="bg-light col-md-6 col-sm-12">
-              <div class="p-3" data-toggle="collapse"
-              attr.data-target="#questionario-{{questionario.id}}">
-                  <span class="text-muted">QUESTIONÁRIO (ID {{questionario.id}}): </span> - <span class="font-weight-bold">{{questionario.titulo}} </span>
-                  <small class="float-right text-muted">Mostrar/Esconder</small>
-              </div>
-              <div class="collapse p-3" id="questionario-{{questionario.id}}">
-
-                  <div class="form-group">
-                      <label>Quantidade de questões</label>
-                      <input disabled type="text" value="{{questionario.qtd_questoes}}" class="form-control">
-                  </div>
-
-                  <div class="form-group">
-                      <label>Duração</label>
-                      <input disabled type="text" value="{{questionario.tempo_duracao}}" class="form-control">
-                  </div>
-
-                  <div class="form-group">
-                      <label>Tempo disponível</label>
-                      <input disabled type="text" value="{{questionario.tempo_disponivel}}" class="form-control">
-                  </div>
-
-                  <div class="form-group">
-                      <label>Nível de dificuldade</label>
-                      <input disabled type="text" value="{{questionario.dificuldade}}" class="form-control">
-                  </div>
-                  <hr>
-                  <div class="" *ngFor="let questao of questionario.questoes">
-                      <div class="bg-light">
-
-                          <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
-                          <div class="py-1" data-toggle="collapse"
-                          attr.data-target="#questao-{{questao.id}}-do-questionario-{{questionario.id}}">
-                              <span class="text-muted">QUESTÃO (ID {{questao.id}}): </span> - <span class="font-weight-bold">{{questao.texto}} </span>
-                              <small class="float-right text-muted">Mostrar/Esconder</small>
-                          </div>
-
-                          <!-- INFORMAÇÕES DA QUESTÃO ATUAL -->
-                          <div class="collapse p-3" id="questao-{{questao.id}}-do-questionario-{{questionario.id}}">
-
-                              <div class="form-group">
-                                  <label>Tema</label>
-                                  <input disabled type="text" value="{{questao.tema.nome}}" class="form-control">
-                              </div>
-
-                              <div class="form-group">
-                                  <label>Categoria Bloom</label>
-                                  <input disabled type="text" value="{{questao.categoriaBloom}}" class="form-control">
-                              </div>
-
-                              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR TEXTOS MAIORES -->
-                              <div class="form-group">
-                                  <label>Opções</label>
-                                  <select class="form-control" readonly>
-                                      <option *ngFor="let opcao of questao.opcoes">
-                                       {{opcao.texto}}
-                                      </option>
-                                  </select>
-                              </div>
-
-                              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
-                              <div class="form-group">
-                                  <label>Figuras</label>
-                                  <select class="form-control" readonly>
-                                      <option *ngFor="let figura of questao.figuras">
-                                      </option>
-                                  </select>
-                              </div>
-
-                              <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
-                              <div class="form-group">
-                                  <label>Artigos</label>
-                                  <select class="form-control" readonly>
-                                      <option *ngFor="let artigo of questao.artigos">
-                                          {{artigo.titulo}} - {{artigo.autor}}
-                                      </option>
-                                  </select>
-                              </div>
-
-                              <hr>
-
-                          </div>
-
-                      </div>
-                  </div>
-
-              </div>
-
-          </div>
-      </div>
-
-
+    <app-questionario-card [questionario]="questionario"></app-questionario-card>
   </div>
 
 </div>

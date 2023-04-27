@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Questao } from 'src/app/model/questao';
 import { QuestaoForm } from 'src/app/model/questao-form';
 import { Tema } from 'src/app/model/tema';
@@ -12,6 +12,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 })
 export class DropdownQuestoesComponent {
 
+  @Input() questaoNova!: boolean;
   @Output() questaoAdd = new EventEmitter<QuestaoForm>();
 
   temas: Tema[] =[];
@@ -20,6 +21,10 @@ export class DropdownQuestoesComponent {
 
   constructor(private servicoQuestao: QuestaoService, private serviceT: ThemeService) {}
 
+  VerificaQuestoes(){
+    if(this.questaoNova)
+      this.obterTodos()
+  }
   obterTodos(){
     this.servicoQuestao.obterTodos()
         .subscribe((questoes)=>this.questoes=questoes);
