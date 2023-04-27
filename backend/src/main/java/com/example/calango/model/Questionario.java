@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.example.calango.model.enums.Dificuldade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +35,11 @@ public class Questionario {
 	@Enumerated(EnumType.STRING)
 	private Dificuldade dificuldade;
 	
-	@ManyToMany(mappedBy = "questionarios")
+	@ManyToMany
+	@JoinTable(name = "temas_questionario",
+	joinColumns = @JoinColumn(name = "questionario_id"),
+	inverseJoinColumns = @JoinColumn(name = "tema_id")
+	)
 	private List<Tema> temas = new ArrayList<>();
 	
 	@ManyToMany

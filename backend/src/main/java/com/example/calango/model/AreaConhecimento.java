@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -35,11 +34,7 @@ public class AreaConhecimento {
 	private List<AreaConhecimento> subAreas = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "areas_tema",
-	joinColumns = @JoinColumn(name = "area_conhecimento_id"),
-	inverseJoinColumns = @JoinColumn(name = "tema_id")
-	)
+    @ManyToMany(mappedBy = "areasConhecimento")
 	private List<Tema> temas = new ArrayList<>();
 	
 	public AreaConhecimento() {
