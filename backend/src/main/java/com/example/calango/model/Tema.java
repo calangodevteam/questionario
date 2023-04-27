@@ -23,19 +23,19 @@ public class Tema{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-    @ManyToMany(mappedBy = "temas")
+	@ManyToMany
+	@JoinTable(name = "areas_tema",
+	joinColumns = @JoinColumn(name = "tema_id"),
+	inverseJoinColumns = @JoinColumn(name = "area_conhecimento_id")
+	)
 	private List<AreaConhecimento> areasConhecimento = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Questao> questoes = new ArrayList<>();
-	
+
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "temas_questionario",
-	joinColumns = @JoinColumn(name = "tema_id"),
-	inverseJoinColumns = @JoinColumn(name = "questionario_id")
-	)
+	@ManyToMany(mappedBy = "temas")
 	private List<Questionario> questionarios = new ArrayList<>();
 	
 	private String nome;

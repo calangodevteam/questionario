@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS questoes_questionario CASCADE;
 DROP TABLE IF EXISTS questao CASCADE;
 DROP TABLE IF EXISTS temas_questionario CASCADE;
 DROP TABLE IF EXISTS questionario CASCADE;
-DROP TABLE IF EXISTS temas_area_conhecimento CASCADE;
+DROP TABLE IF EXISTS areas_tema CASCADE;
 DROP TABLE IF EXISTS tema CASCADE;
 DROP TABLE IF EXISTS area_conhecimento CASCADE;
 
@@ -37,13 +37,12 @@ CREATE TABLE tema
 
 CREATE TABLE areas_tema
 (
-    area_conhecimento_id integer,
     tema_id integer,
-
-    CONSTRAINT areas_tema_pkey PRIMARY KEY (area_conhecimento_id, tema_id),
-    CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id),
-    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id)
-
+    area_conhecimento_id integer,
+    
+    CONSTRAINT areas_tema_pkey PRIMARY KEY (tema_id, area_conhecimento_id),
+    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id),
+    CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id)
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION
 );
@@ -61,12 +60,12 @@ CREATE TABLE questionario
 
 CREATE TABLE temas_questionario
 (
-    tema_id integer,
     questionario_id integer,
+    tema_id integer,
 
-    CONSTRAINT temas_questionario_pkey PRIMARY KEY (tema_id, questionario_id),
-    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id),
-    CONSTRAINT questionario_id_fkey FOREIGN KEY (questionario_id) REFERENCES questionario (id)
+    CONSTRAINT temas_questionario_pkey PRIMARY KEY (questionario_id, tema_id),
+    CONSTRAINT questionario_id_fkey FOREIGN KEY (questionario_id) REFERENCES questionario (id),
+    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id)
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION
 );

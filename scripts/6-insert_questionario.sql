@@ -1,5 +1,3 @@
----- Insert Questionarios ----
-
 DO $$
     DECLARE
 	    id_tema integer;
@@ -12,7 +10,7 @@ DO $$
  
 		-- buscar id tema e inserir na tabela temas_questionario
 		id_tema:= idTema('Python');
-		INSERT INTO temas_questionario(TEMA_ID, QUESTIONARIO_ID) VALUES(id_tema, id_Questionario);
+		INSERT INTO temas_questionario(QUESTIONARIO_ID, TEMA_ID) VALUES(id_Questionario, id_tema);
 
 		-- add questao e inserir na tabela questoes_questionario
 		id_questao:= idQuestao('Com relação a Algoritmos e Estrutura de Dados em Python, dadas as afirmações abaixo, segundo Farrer (1999), assinale a alternativa CORRETA:');
@@ -36,10 +34,10 @@ DO $$
 
 		-- buscar id tema e inserir na tabela temas_questionario
 		id_tema:= idTema('Algoritmos e Estrutura de Dados');
-		INSERT INTO temas_questionario(TEMA_ID, QUESTIONARIO_ID) VALUES(id_tema, id_Questionario);
+		INSERT INTO temas_questionario(QUESTIONARIO_ID, TEMA_ID) VALUES(id_Questionario, id_tema);
 
 		id_tema:= idTema('Python');
-		INSERT INTO temas_questionario(TEMA_ID, QUESTIONARIO_ID) VALUES(id_tema, id_Questionario);
+		INSERT INTO temas_questionario(QUESTIONARIO_ID, TEMA_ID) VALUES(id_Questionario, id_tema);
         
 		-- add questao e inserir na tabela questoes_questionario
 		id_questao:= idQuestao('Com relação a Algoritmos e Estrutura de Dados em Python, dadas as afirmações abaixo, segundo Farrer (1999), assinale a alternativa CORRETA:');
