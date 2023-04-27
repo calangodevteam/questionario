@@ -93,17 +93,14 @@ export class QuizFormComponent implements OnInit {
   }
 
   verificaTemaExiste(id:number): boolean{
-    let ocorrencia:boolean = false;
     for (let i = 0; i < this.temas.length; i++) {
       const temaFormGroup = this.temas.at(i) as FormGroup;
       let temaId:number = temaFormGroup.get('id')!.value;
       if(temaId === id){
-        ocorrencia = true;
-        break
+        return true;
       }
     }
-    return ocorrencia;
-
+    return false
   }
 
   verificaTemaQuestao(index:number){
@@ -159,15 +156,16 @@ export class QuizFormComponent implements OnInit {
     let id!:number;
     this.serviceQ.adicionar(questaoDto).subscribe((data:Questao) => id = data.id!);
 
+    console.log(questaoDto.questao.tema.id!+''+ questaoDto.questao.tema.nome)
     this.addQuestaoTema({
         id:id,
         nome:questaoDto.questao.texto,
         tema:{
-          id:questaoDto.questao.tema.id!,
+          id:Number(questaoDto.questao.tema.id!),
           nome:questaoDto.questao.tema.nome
         }
       })
-      
+
     this.showModal();
   }
 

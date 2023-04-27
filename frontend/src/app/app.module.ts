@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +34,7 @@ import { CreateQuestaoComponent } from './pages/create-questao/create-questao.co
 import { LoginMemoriaService } from './services/login.memoria.service';
 import { QuestaoCardComponent } from './componets/questao-card/questao-card.component';
 import { QuestionarioCardComponent } from './componets/questionario-card/questionario-card.component';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +68,9 @@ import { QuestionarioCardComponent } from './componets/questionario-card/questio
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [LoginMemoriaService],
   bootstrap: [AppComponent]

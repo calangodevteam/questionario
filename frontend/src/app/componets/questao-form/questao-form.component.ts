@@ -23,6 +23,7 @@ export class QuestaoFormComponent implements OnInit{
   temas: Tema[] = [];
   private questaoCont!: Questao;
   opcaoCerta!:number;
+  progress = true;
 
   constructor(private serviceT: ThemeService, private fb: FormBuilder) { }
 
@@ -176,6 +177,7 @@ export class QuestaoFormComponent implements OnInit{
     this.addNomeTema();
     this.onSubmit.emit(this.questionForm.value);
     this.questionForm.reset();
+    this.progress = false;
   }
 
 }

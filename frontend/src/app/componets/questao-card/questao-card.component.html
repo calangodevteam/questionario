@@ -22,11 +22,9 @@
     <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR TEXTOS MAIORES -->
     <div class="form-group">
       <label>Opções</label>
-      <select class="form-control" readonly>
-        <option *ngFor="let opcao of questao.opcoes">
-          {{opcao.texto}}
-        </option>
-      </select>
+      <div class="list-group">
+        <button class="list-group-item list-group-item-action" *ngFor="let opcao of questao.opcoes; let i =index">{{opcao.texto}}</button>
+      </div>
     </div>
 
     <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->
