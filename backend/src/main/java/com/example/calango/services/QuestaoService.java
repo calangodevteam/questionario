@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.example.calango.model.Opcao;
 import com.example.calango.model.Questao;
 import com.example.calango.repositories.QuestaoRepository;
-import com.example.calango.utilities.ImageUtility;
 
 @Service
 public class QuestaoService {
@@ -17,7 +16,8 @@ public class QuestaoService {
 	@Autowired
 	private QuestaoRepository repo;
 	
-	private ImageUtility image = new ImageUtility();
+	@Autowired
+	private ImageService image;
 	
 	public List<Questao> findAll() {
 		return repo.findByOrderByTemaNomeAsc();
@@ -37,7 +37,7 @@ public class QuestaoService {
 		
 		questao.getFiguras().forEach(figura -> {
 			String aux = figura.getAtributo();
-			figura.setAtributo(image.newName(aux));
+			figura.setAtributo(image.saveNuvem(aux));
 		});
 		
 		Questao qaux = repo.save(questao);

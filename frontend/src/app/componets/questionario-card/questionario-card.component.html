@@ -1,0 +1,50 @@
+<div class="card col-md-8 mx-auto my-3 bg-light">
+
+  <div class="px-3" data-toggle="collapse" attr.data-target="#questionario-{{questionario.id}}">
+    <h3 class="font-italic pt-3">Questionario: &nbsp;{{questionario.titulo}} </h3>
+    <small class="float-right text-muted">Mostrar/Esconder</small>
+  </div>
+
+  <div class="collapse p-3" id="questionario-{{questionario.id}}">
+
+    <div class="form-group">
+      <label>Quantidade de questões</label>
+      <input disabled type="text" value="{{questionario.qtd_questoes}}" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Duração</label>
+      <input disabled type="text" value="{{questionario.tempo_duracao}}" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Tempo disponível</label>
+      <input disabled type="text" value="{{questionario.tempo_disponivel}}" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Nível de dificuldade</label>
+      <input disabled type="text" value="{{questionario.dificuldade}}" class="form-control">
+    </div>
+
+    <hr>
+
+    <div class="form-group">
+      <h3>Temas</h3>
+        <div *ngFor="let tema of questionario.temas">
+            <input disabled type="text" value="{{tema.nome}}" class="form-control mb-2">
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="form-group">
+      <h3>Questões</h3>
+      <div class="bg-light mb-2" *ngFor="let questaoQuest of questionario.questoes">
+        <app-questao-card [questao]="questaoQuest"></app-questao-card>
+      </div>
+    </div>
+
+  </div>
+
+</div>
