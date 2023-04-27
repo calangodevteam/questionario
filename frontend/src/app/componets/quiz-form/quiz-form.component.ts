@@ -21,6 +21,7 @@ export class QuizFormComponent implements OnInit {
 
   questionarioForm!: FormGroup;
   modalVisible = false;
+  questaoNova = false;
   modalTitle ='Questão';
 
   constructor(private serviceT: ThemeService, private fb: FormBuilder, private serviceQ: QuestaoService) { }
@@ -38,6 +39,10 @@ export class QuizFormComponent implements OnInit {
       questoes: this.fb.array([])
     });
 
+  }
+
+  newQuestion() {
+    this.questaoNova = !this.questaoNova;
   }
 
   showModal() {
@@ -88,17 +93,14 @@ export class QuizFormComponent implements OnInit {
   }
 
   verificaTemaExiste(id:number): boolean{
-    let ocorrencia:boolean = false;
     for (let i = 0; i < this.temas.length; i++) {
       const temaFormGroup = this.temas.at(i) as FormGroup;
       let temaId:number = temaFormGroup.get('id')!.value;
       if(temaId === id){
-        ocorrencia = true;
-        break
+        return true;
       }
     }
-    return ocorrencia;
-
+    return false
   }
 
   verificaTemaQuestao(index:number){
@@ -151,8 +153,20 @@ export class QuizFormComponent implements OnInit {
   }
 
    submitQuestao(questaoDto: QuestaoDto):void{
-     this.serviceQ.adicionar(questaoDto).subscribe();
-     this.showModal();
+    let id!:number;
+    this.serviceQ.adicionar(questaoDto).subscribe((data:Questao) => id = data.id!);
+
+    console.log(questaoDto.questao.tema.id!+''+ questaoDto.questao.tema.nome)
+    this.addQuestaoTema({
+        id:id,
+        nome:questaoDto.questao.texto,
+        tema:{
+          id:Number(questaoDto.questao.tema.id!),
+          nome:questaoDto.questao.tema.nome
+        }
+      })
+
+    this.showModal();
   }
 
   submitQuestionario() {

@@ -1,7 +1,7 @@
 export class Figura {
 
   id?:number;
-  atributo?:File;
+  atributo?:File|string;
   descricao:string = "";
   questao_id?:number;
 
