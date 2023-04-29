@@ -17,7 +17,7 @@ Front-end e back-end do projeto de Prodocência da UERJ: "Sistema de Avaliação
 
 ## O que é isso?
 
-- **/Dockerfile**: Use se quiser montar e testar a aplicação na sua máquina sem a necessidade de ter que configurar cada ferramenta. Basta um simples "docker build -p 8080:8080 -p 5432:5432", onde 8080 e 5432 são as portas do Tomcat e PostgreSQL, respectivamente, dentro do container. Linux ou WSL necessário. Acesso da aplicação pelo localhost:8080.
+- **/Dockerfile**: Use se quiser montar e testar a aplicação na sua máquina sem a necessidade de ter que configurar cada ferramenta. Basta no diretório desse arquivo um simples "docker build -t nome_aleatorio123 ." seguido de "docker run -it --rm -p 8080:8080 -p 5432:5432 nome_aleatorio123" onde 8080 e 5432 são as portas do Tomcat e PostgreSQL, respectivamente, dentro do container. Linux ou WSL necessário. Acesso da aplicação pelo localhost:8080.
 
 - **/Dockerfile_GHActions**: Foi feito para ser usado pelo Github Actions para montar a imagem da aplicação que será implantada depois.
 
@@ -25,11 +25,13 @@ Front-end e back-end do projeto de Prodocência da UERJ: "Sistema de Avaliação
 
 - **/fly.toml**: Usado pelo cli do fly.io (que é chamado pelo Github Actions) para efetuar algumas configurações importantes do deploy da aplicação. O tipo de deploy é por imagem Docker, cuja identificação é definida no arquivo. O "internal port" como 8080 faz com que possamos acessar a aplicação pela porta 80 ou 443, ocorrendo um mapeamento.
 
-- **/.github/workflows/TesteBuildDeploy.yaml**: Script que executa uma série de ações (build com caching do NPM, Angular, Maven), testes (nada ainda) e deploy, aproventando-se de mais de 1 arquivo dos já listados acima. É ativado quando ocorre um pull request ou um push e, apenas se for um push para master, executa a parte do deploy.
+- **/.github/workflows/BuildTesteDeploy.yaml**: Script que executa uma série de ações (build com caching do NPM, Angular, Maven), testes (nada ainda) e deploy, aproventando-se de mais de 1 arquivo dos já listados acima. É ativado quando ocorre um pull request ou um push e, apenas se for um push para master, executa a parte do deploy.
 
 - **/backend**: Diretório contendo uma estrutura clássica de um projeto Spring Boot.
 
 - **/frontend**: Diretório contendo uma estrutura clássica de um projeto Angular.
+
+- **/scripts**: Scripts de inicialização do banco de dados. Eventualmente será movido para um lugar melhor.
 ## FAQ
 
 #### Como posso ajudar?
