@@ -19,7 +19,7 @@ env:
   #Define se o deploy no DockerHub e Fly.io será feito
   #True se a branch for master E for um push ou um workflow_dispatch
   #Essa variável de ambiente é usada por ifs no código
-  DEVE_PUBLICAR: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master'
+  DEVE_PUBLICAR: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master' }}
       
 jobs:
 
@@ -60,14 +60,17 @@ jobs:
           java-version: ${{ env.JAVA_VERSAO }}
           cache: 'maven'
         
-        #Constrói a aplicação com o Maven e passa a localização da JDK e do .jar do APP para a $GITHUB_ENV
+        #Constrói a aplicação com o Maven e passa a localização do .jar do APP para a $GITHUB_ENV
         #GITHUB_ENV é uma variável de ambiente especial. Tudo que é passado pra ela estará disponível entre os jobs
         #O ideal é deixar tudo mais modularizado, separando o Docker em um outro job e passando pra ele a JDK e o APP
-      - name: Maven (criação do .jar da aplicação e cópia da JDK para o diretório do projeto)
+      - name: Maven (Criação do .jar da aplicação)
         run: mvn package -f ${{ env.BACKEND_NOME_DIRETORIO }}/pom.xml &&
              echo "APP_LOCALIZACAO=$(ls ${{ env.BACKEND_NOME_DIRETORIO }}/target/*.jar)" >> $GITHUB_ENV
-             
-      - name: Debug Pasta Java
+      
+       #Verifica se a JDK que estamos usando tem $JAVA_HOME/lib/security/cacerts sendo um
+       #link simbólico apontando para um outro diretório do sistema.
+       #Se tiver, substitui esse link simbólico pelo arquivo original.    
+      - name: Cópia da JDK e de seus certificados digitais
         run: |
              mkdir jdk && cp -r $JAVA_HOME/* jdk &&
              echo "JDK_LOCALIZACAO=jdk" >> $GITHUB_ENV &&
