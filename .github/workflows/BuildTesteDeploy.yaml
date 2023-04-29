@@ -81,19 +81,19 @@ jobs:
               ls -l jdk/lib/security/cacerts
              fi
       
-      - name: Docker Buildx (Configuração)
-        if: env.DEVE_PUBLICAR
+      - name: Docker Buildx (Configuração - Se for pra branch principal)
+        if: env.DEVE_PUBLICAR == 'true'
         uses: docker/setup-buildx-action@v2.5.0
       
       - name: Docker Hub (Login - Se for pra branch principal)
-        if: env.DEVE_PUBLICAR
+        if: env.DEVE_PUBLICAR == 'true'
         uses: docker/login-action@v2.1.0
         with:
           username: ${{ vars.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Docker (Build da imagem. Deploy no DockerHub se for pra branch principal)
-        if: env.DEVE_PUBLICAR
+      - name: Docker (Build e deploy da imagem - Se for pra branch principal)
+        if: env.DEVE_PUBLICAR == 'true'
         uses: docker/build-push-action@v4.0.0
         with:
           context: .
@@ -107,11 +107,11 @@ jobs:
           tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
         
       - name: Fly.io (Setup - Se for pra branch principal)
-        if: env.DEVE_PUBLICAR
+        if: env.DEVE_PUBLICAR == 'true'
         uses: superfly/flyctl-actions/setup-flyctl@master
       
       - name: Fly.io (Deploy - Se for pra branch principal)
-        if: env.DEVE_PUBLICAR
+        if: env.DEVE_PUBLICAR == 'true'
         run: flyctl deploy
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
