@@ -19,7 +19,7 @@ env:
   #Define se o deploy no DockerHub e Fly.io será feito
   #True se a branch for master E for um push ou um workflow_dispatch
   #Essa variável de ambiente é usada por ifs no código
-  DEVE_PUBLICAR: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master' }}
+  DEVE_PUBLICAR: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master' }}
       
 jobs:
 
