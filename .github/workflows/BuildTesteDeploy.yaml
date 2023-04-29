@@ -1,0 +1,114 @@
+name: Build & Teste & Deploy
+
+on:
+
+  #Este workflow dispara sempre em resposta a um desses 3 eventos
+  #Porém, o deploy no DockerHub e Fly.io só será feito se for push ou workflow_dispatch para a branch master
+  #Existem ifs no código controlando isso
+  workflow_dispatch:
+  push:
+  pull_request:
+  
+env:
+  JAVA_VERSAO: '17'
+  JAVA_DISTRIBUICAO: 'temurin'
+  NODE_VERSAO: '16'
+  BACKEND_NOME_DIRETORIO: 'backend'
+  FRONTEND_NOME_DIRETORIO: 'frontend'
+
+  #Define se o deploy no DockerHub e Fly.io será feito
+  #True se a branch for master E for um push ou um workflow_dispatch
+  #Essa variável de ambiente é usada por ifs no código
+  DEVE_PUBLICAR: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/master'
+      
+jobs:
+
+  principal:
+  
+    name: Teste e Build. Deploy no DockerHub e Fly.io se for pra branch principal.
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+        #Pega o diretório de cache do Angular e o armazena em cache
+      - name: Angular (Cache do diretório .angular/cache)
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.FRONTEND_NOME_DIRETORIO }}/.angular/cache
+          key: ${{ runner.os }}-angular
+         
+      - name: Node (Setup)
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSAO }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.FRONTEND_NOME_DIRETORIO }}/package-lock.json
+          
+        #Instala o Angular e cria os arquvos estáticos do front-end
+        #Depois joga esses arquivos estáticos no diretório resources/static do Spring
+      - name: Angular (Build do projeto e adição dos arquivos estáticos ao back-end)
+        run: cd ${{ env.FRONTEND_NOME_DIRETORIO }} && npm ci && npm install -g @angular/cli && ng config cli.cache.environment all && ng build
+             && cp dist/*/* ../${{ env.BACKEND_NOME_DIRETORIO }}/src/main/resources/static
+      
+        #Prepara a JDK que vai ser usada pelo Maven abaixo para construir a aplicação
+      - name: Preparação da JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUICAO }}
+          java-version: ${{ env.JAVA_VERSAO }}
+          cache: 'maven'
+        
+        #Constrói a aplicação com o Maven e passa a localização da JDK e do .jar do APP para a $GITHUB_ENV
+        #GITHUB_ENV é uma variável de ambiente especial. Tudo que é passado pra ela estará disponível entre os jobs
+        #O ideal é deixar tudo mais modularizado, separando o Docker em um outro job e passando pra ele a JDK e o APP
+      - name: Maven (criação do .jar da aplicação e cópia da JDK para o diretório do projeto)
+        run: mvn package -f ${{ env.BACKEND_NOME_DIRETORIO }}/pom.xml &&
+             echo "APP_LOCALIZACAO=$(ls ${{ env.BACKEND_NOME_DIRETORIO }}/target/*.jar)" >> $GITHUB_ENV
+             
+      - name: Debug Pasta Java
+        run: |
+             mkdir jdk && cp -r $JAVA_HOME/* jdk &&
+             echo "JDK_LOCALIZACAO=jdk" >> $GITHUB_ENV &&
+             if test -L jdk/lib/security/cacerts ; then
+              caminho_original=$(realpath $JAVA_HOME/lib/security/cacerts) &&
+              rm jdk/lib/security/cacerts &&
+              cp $caminho_original jdk/lib/security &&   
+              ls -l jdk/lib/security/cacerts
+             fi
+      
+      - name: Docker Buildx (Configuração)
+        if: env.DEVE_PUBLICAR
+        uses: docker/setup-buildx-action@v2.5.0
+      
+      - name: Docker Hub (Login - Se for pra branch principal)
+        if: env.DEVE_PUBLICAR
+        uses: docker/login-action@v2.1.0
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Docker (Build da imagem. Deploy no DockerHub se for pra branch principal)
+        if: env.DEVE_PUBLICAR
+        uses: docker/build-push-action@v4.0.0
+        with:
+          context: .
+          file: Dockerfile_GHActions
+          
+          #O Dockerfile_GHActions espera receber um caminho para uma JDK e para o APP, pois ele passará ambos para a imagem
+          build-args: |
+            JDK_LOCALIZACAO=${{ env.JDK_LOCALIZACAO }}
+            APP_LOCALIZACAO=${{ env.APP_LOCALIZACAO }}
+          push: true
+          tags: ${{ vars.DOCKERHUB_USER }}/calangodev:latest
+        
+      - name: Fly.io (Setup - Se for pra branch principal)
+        if: env.DEVE_PUBLICAR
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      
+      - name: Fly.io (Deploy - Se for pra branch principal)
+        if: env.DEVE_PUBLICAR
+        run: flyctl deploy
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
