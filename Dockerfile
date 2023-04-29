@@ -30,6 +30,17 @@ WORKDIR /app/backend
 #CRIAÇÃO DO .JAR DA APLICAÇÃO
 RUN ./mvnw package
 
+RUN mkdir -p /app/jdk && cp -r $JAVA_HOME/* /app/jdk
+
+#Verifica se a JDK que estamos usando tem $JAVA_HOME/lib/security/cacerts sendo um
+#link simbólico apontando para um outro diretório do sistema.
+#Se tiver, substitui esse link simbólico pelo arquivo original.   
+RUN if test -L /app/jdk/lib/security/cacerts ; then \
+caminho_original=$(realpath $JAVA_HOME/lib/security/cacerts) && \
+rm /app/jdk/lib/security/cacerts && \
+cp $caminho_original /app/jdk/lib/security && \
+ls -l /app/jdk/lib/security/cacerts ; \
+fi
 
 #ETAPA DE INICIALIZAÇÃO DO POSTGRESQL
 FROM postgres:alpine
@@ -52,7 +63,7 @@ WORKDIR /app
 #JOGA O .JAR GERADO NA ETAPA ANTERIOR PARA O DIRETÓRIO ATUAL 
 COPY --from=frontjava /app/backend/target/*.jar .
 
-COPY --from=frontjava /opt/openjdk-17 /app/jdk
+COPY --from=frontjava /app/jdk /app/jdk
 RUN chmod +x /app/jdk/bin/*
 
 COPY DockerNovoEntryPoint.sh .
