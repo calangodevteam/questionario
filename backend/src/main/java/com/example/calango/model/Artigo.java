@@ -1,6 +1,5 @@
 package com.example.calango.model;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
