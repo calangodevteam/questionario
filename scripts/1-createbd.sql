@@ -48,6 +48,20 @@ CREATE TABLE areas_tema
 );
 
 
+CREATE TABLE temas_areas
+(
+    id SERIAL PRIMARY KEY,
+    tema_id integer NOT NULL,
+    area_conhecimento_id integer NOT NULL,
+    
+    CONSTRAINT unique_temas_areas_tema_area UNIQUE (tema_id, area_conhecimento_id),
+    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id),
+    CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id)
+		ON UPDATE NO ACTION
+		ON DELETE NO ACTION
+);
+
+
 CREATE TABLE questionario
 (
 	id SERIAL PRIMARY KEY,
@@ -78,6 +92,19 @@ CREATE TABLE questao
     tema_id integer,
 	opcao_correta integer,
     CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id)
+		ON UPDATE NO ACTION
+		ON DELETE NO ACTION
+);
+
+CREATE TABLE questao2
+(
+    id SERIAL PRIMARY KEY,
+    categoria_bloom bloom,
+    texto text,
+    temas_areas_id integer,
+    opcao_correta integer,
+    CONSTRAINT opcao_correta_fkey FOREIGN KEY (opcao_correta) REFERENCES opcao (id),
+    CONSTRAINT temas_areas_id_fkey FOREIGN KEY (temas_areas_id) REFERENCES temas_areas (id)
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION
 );

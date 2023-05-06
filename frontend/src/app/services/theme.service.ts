@@ -9,8 +9,8 @@ import { catchError, Observable, of, tap } from 'rxjs';
 })
 export class ThemeService {
 
-  private temasUrl = "/temas";
-  // private temasUrl = "http://localhost:8080/temas";
+  //private temasUrl = "/temas";
+  private temasUrl = "http://localhost:8080/temas";
   private http: HttpClient;
 
   httpOptions = {
