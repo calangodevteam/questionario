@@ -6,6 +6,7 @@ import { TemasAreas } from "./temasAreas";
 export class Questao {
 
   id?: number;
+  opcaoCorretaId: number = 0;
   texto: string = "";
   categoriaBloom: string = "Avaliação";
   temasAreas: TemasAreas = new TemasAreas();
@@ -34,17 +35,6 @@ export class Questao {
 
     this.artigos.splice(indice,1);
 
-  }
-
-  getCaminhoTema(){
-    let caminho = [];
-    let areaConhecimento = this.temasAreas.areaConhecimento;
-    while(areaConhecimento != null){
-      caminho.push(areaConhecimento.nome);
-      areaConhecimento = areaConhecimento.areaConhecimentoPai;
-    }
-    caminho.push(this.temasAreas.tema?.nome);
-    return caminho;
   }
 
 }

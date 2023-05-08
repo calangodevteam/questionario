@@ -2,29 +2,27 @@
 
   <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
   <div class="pt-3 px-3" data-toggle="collapse" attr.data-target="#questao-{{questao.id}}">
-      <h3 class="font-italic">{{questao.texto}} </h3>
-    <small class="float-right text-muted">Mostrar/Esconder</small>
+      <h5 class="list-group-item-heading">{{getAreasConhecimento()}}</h5>
+      <h5 class="list-group-item-heading">{{questao.temasAreas.tema?.nome}}</h5>
+      <hr>
+      <h4>{{questao.texto}} </h4>
+      <small class="float-right text-muted">Mostrar/Esconder</small>
   </div>
 
-  <!-- INFORMAÇÕES DA QUESTÃO ATUAL -->
+  <!-- INFORMAÇÕES DA QUESTÃO ATUAL --><hr>
   <div class="collapse px-3" id="questao-{{questao.id}}">
-
-    <div class="form-group">
-      <label>Tema</label>
-      <input disabled type="text" value="(Área tal > Software > Biometria) - Tema" class="form-control">
-    </div>
-
-    <div class="form-group">
-      <label>Categoria Bloom</label>
-      <input disabled type="text" value="{{questao.categoriaBloom}}" class="form-control">
-    </div>
 
     <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR TEXTOS MAIORES -->
     <div class="form-group">
       <label>Opções</label>
       <div class="list-group">
-        <button class="list-group-item list-group-item-action" *ngFor="let opcao of questao.opcoes; let i =index">{{opcao.texto}}</button>
+        <div class="list-group-item" [ngClass]="{'bg-success': questao.opcaoCorretaId == opcao.id}" *ngFor="let opcao of questao.opcoes; let i =index">{{opcao.texto}}</div>
       </div>
+    </div>
+
+    <div class="form-group">
+      <label>Categoria Bloom</label>
+      <input disabled type="text" value="{{questao.categoriaBloom}}" class="form-control">
     </div>
 
     <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR MELHOR ISSO -->

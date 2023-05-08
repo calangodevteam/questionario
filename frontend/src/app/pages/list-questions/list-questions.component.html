@@ -16,11 +16,29 @@
   </div>
 </div>
 -->
-<div class="container-fluid p-3">
-  <div class="col-md-12 p-1">
+<div class="container-fluid">
+  <div class="col-md-12 p-3">
     <h1>Listagem de Questões</h1>
   </div>
-    <div class="col-md-8 mx-auto mb-3" *ngFor="let questao of questoes; let j = index;">
-      <app-questao-card [questao]="questao"></app-questao-card>
+  <div class="d-flex">
+    <div class="col-md-8 mx-auto">
+      <div class="d-flex">
+        <div class="btn-group">
+          <button type="button" (click)="setSort('desc')" [ngClass]="{'btn-primary active': sort == 'desc'}" class="btn">Mais recentes</button>
+          <button type="button" (click)="setSort('asc')" [ngClass]="{'btn-primary active': sort == 'asc'}" class="btn">Mais antigos</button>
+        </div>
+      </div>
+      <app-questao-card class="ml-3" *ngFor="let questao of questoes;" [questao]="questao"></app-questao-card>
+     <div class="my-3"></div>
+
+      <div *ngIf="estadoBusca!=-1 && estadoBusca!=2 " class="d-flex my-3">
+        <div class="btn-group">
+          <button [disabled]="estadoBusca!=0" type="button" (click)="carregarMais()" class="btn btn-secondary">Mais...</button>
+        </div>
+      </div>
+      
+      <div *ngIf="estadoBusca==2" class="my-3">
+        <hr>É isso.
+      </div>
     </div>
 </div>

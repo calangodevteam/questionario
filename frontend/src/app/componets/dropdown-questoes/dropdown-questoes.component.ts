@@ -26,7 +26,7 @@ export class DropdownQuestoesComponent {
       this.obterTodos()
   }
   obterTodos(){
-    this.servicoQuestao.obterTodos()
+    this.servicoQuestao.obterTodos('desc', 0)
         .subscribe((questoes)=>this.questoes=questoes);
   }
 

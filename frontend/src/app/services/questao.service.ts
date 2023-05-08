@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Questao } from '../model/questao';
 import { catchError, map, Observable, of, tap } from 'rxjs';
@@ -45,8 +45,9 @@ export class QuestaoService {
       );
    }
 
-   obterTodos():Observable<Questao[]> {
-      return this.http.get<Questao[]>(this.questoesUrl)
+   obterTodos(sort: string, page: number):Observable<Questao[]> {
+      let params = new HttpParams().set('sort', sort).set('page', page);
+      return this.http.get<Questao[]>(this.questoesUrl, {params})
         .pipe(
           tap(_ => console.log('Questaos recuperados')),
           catchError(this.handleError<Questao[]>('obterTodos', []))

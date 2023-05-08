@@ -10,4 +10,14 @@ export class QuestaoCardComponent {
 
   @Input() questao!:Questao;
 
+  getAreasConhecimento(){
+    let caminho = [];
+    let areaConhecimento = this.questao.temasAreas.areaConhecimento;
+    while(areaConhecimento != null){
+      caminho.push(areaConhecimento.nome);
+      areaConhecimento = areaConhecimento.areaConhecimentoPai;
+    }
+    return caminho.reverse().join(" > ");
+  }
+
 }
