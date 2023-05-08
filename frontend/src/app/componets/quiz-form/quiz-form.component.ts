@@ -156,7 +156,8 @@ export class QuizFormComponent implements OnInit {
     let id!:number;
     this.serviceQ.adicionar(questaoDto).subscribe((data:Questao) => id = data.id!);
 
-    console.log(questaoDto.questao.tema.id!+''+ questaoDto.questao.tema.nome)
+    /*
+    //console.log(questaoDto.questao.tema.id!+''+ questaoDto.questao.tema.nome)
     this.addQuestaoTema({
         id:id,
         nome:questaoDto.questao.texto,
@@ -165,6 +166,7 @@ export class QuizFormComponent implements OnInit {
           nome:questaoDto.questao.tema.nome
         }
       })
+      */
 
     this.showModal();
   }

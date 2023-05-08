@@ -8,9 +8,11 @@
       <div class="m-3" *ngFor="let tema of temas; let i = index;">
         <h6 class="dropdown-header">{{tema.nome}}</h6>
         <div *ngFor="let questao of questoes; let j = index;">
+          <!--
           <div *ngIf="questao.tema.id === tema.id">
             <button class="dropdown-item" (click)="enviarQuestao(questao)"> {{questao.texto}}</button>
           </div>
+          -->
         </div>
         <div class="dropdown-divider"></div>
       </div>

@@ -1,14 +1,14 @@
 import { Artigo } from "./artigo";
 import { Figura } from "./figura";
 import { Opcao } from "./opcao";
-import { Tema } from "./tema";
+import { TemasAreas } from "./temasAreas";
 
 export class Questao {
 
   id?: number;
   texto: string = "";
   categoriaBloom: string = "Avaliação";
-  tema: Tema = new Tema();
+  temasAreas: TemasAreas = new TemasAreas();
   artigos: Artigo[] = [];
   figuras: Figura[] = [];
   opcoes: Opcao[] = [];
@@ -34,6 +34,17 @@ export class Questao {
 
     this.artigos.splice(indice,1);
 
+  }
+
+  getCaminhoTema(){
+    let caminho = [];
+    let areaConhecimento = this.temasAreas.areaConhecimento;
+    while(areaConhecimento != null){
+      caminho.push(areaConhecimento.nome);
+      areaConhecimento = areaConhecimento.areaConhecimentoPai;
+    }
+    caminho.push(this.temasAreas.tema?.nome);
+    return caminho;
   }
 
 }

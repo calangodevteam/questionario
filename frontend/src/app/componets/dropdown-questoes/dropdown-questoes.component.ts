@@ -38,8 +38,8 @@ export class DropdownQuestoesComponent {
   enviarQuestao(questao:Questao){
     this.questaoForm.id = questao.id!;
     this.questaoForm.nome = questao.texto;
-    this.questaoForm.tema.id = questao.tema.id!;
-    this.questaoForm.tema.nome = questao.tema.nome;
+    //this.questaoForm.tema.id = questao.tema.id!;
+    //this.questaoForm.tema.nome = questao.tema.nome;
     this.questaoAdd.emit(this.questaoForm);
   }
 

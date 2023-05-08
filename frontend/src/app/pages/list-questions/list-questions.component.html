@@ -1,3 +1,4 @@
+<!--
 <div class="container-fluid p-3">
 
   <div class="col-md-12 p-1">
@@ -13,4 +14,13 @@
       </div>
     </div>
   </div>
+</div>
+-->
+<div class="container-fluid p-3">
+  <div class="col-md-12 p-1">
+    <h1>Listagem de Questões</h1>
+  </div>
+    <div class="col-md-8 mx-auto mb-3" *ngFor="let questao of questoes; let j = index;">
+      <app-questao-card [questao]="questao"></app-questao-card>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Areas } from 'src/app/model/areas';
+//import { Areas } from 'src/app/model/areas';
 import { AreasService } from 'src/app/services/areas.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class ListAreasComponent implements OnInit{
   router: Router;
   servicoAreas: AreasService;
   areaId: number = 0;
-  areas: Areas[] = [];
+  //areas: Areas[] = [];
 
   constructor(router: Router, servicoAreas: AreasService) {
       this.router = router;
@@ -20,8 +20,8 @@ export class ListAreasComponent implements OnInit{
    }
 
   private obterAreas(){
-    this.servicoAreas.obterAreas()
-        .subscribe((areas)=>this.areas=areas);
+    //this.servicoAreas.obterAreas()
+        //.subscribe((areas)=>this.areas=areas);
   }
 
   ngOnInit(): void {
