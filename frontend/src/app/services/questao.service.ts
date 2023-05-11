@@ -9,8 +9,8 @@ import { QuestaoDto } from '../model/questao-dto';
 })
 export class QuestaoService {
 
-  // private questoesUrl = "/questoes";
-  private questoesUrl = "http://localhost:8080/questoes";
+  private questoesUrl = "/questoes";
+  // private questoesUrl = "http://localhost:8080/questoes";
   private http: HttpClient;
 
   httpOptions = {

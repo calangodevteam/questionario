@@ -2,8 +2,6 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 import { Questao } from 'src/app/model/questao';
-import { QuestaoDto } from 'src/app/model/questao-dto';
-import { QuestaoForm } from 'src/app/model/questao-form';
 import { Questionario } from 'src/app/model/questionario';
 import { Tema } from 'src/app/model/tema';
 import { QuestaoService } from 'src/app/services/questao.service';
@@ -158,7 +156,6 @@ export class QuizFormComponent implements OnInit {
 
   submitQuestionario() {
     this.addNomeTema();
-    // console.log(this.questionarioForm.value);
     this.onSubmit.emit(this.questionarioForm.value);
      this.questionarioForm.reset();
      this.deleteAllQuestao();
