@@ -2,10 +2,12 @@ package com.calangodevteam.backquestionario.application.dtos.existent;
 
 public class AreaConhecimentoExistentDTO {
 
-    private final Integer id;
-	private final String nome;
-    private final AreaConhecimentoExistentDTO areaConhecimentoPai;
+    private Integer id;
+	private String nome;
+    private AreaConhecimentoExistentDTO areaConhecimentoPai;
     
+    public AreaConhecimentoExistentDTO(){}
+
     public AreaConhecimentoExistentDTO(Integer id, String nome, AreaConhecimentoExistentDTO areaConhecimentoPai) {
         this.id = id;
         this.nome = nome;
@@ -16,12 +18,24 @@ public class AreaConhecimentoExistentDTO {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public AreaConhecimentoExistentDTO getAreaConhecimentoPai() {
         return areaConhecimentoPai;
     }
-    
+
+    public void setAreaConhecimentoPai(AreaConhecimentoExistentDTO areaConhecimentoPai) {
+        this.areaConhecimentoPai = areaConhecimentoPai;
+    }
+
 }

@@ -48,7 +48,7 @@ public class Questao2 {
 
     @OneToOne
     @JoinColumn(name = "opcao_correta")
-    private Opcao opcao_correta;
+    private Opcao opcaoCorreta;
     
     @ManyToOne
 	@JoinColumn(name="temas_areas_id")
@@ -58,18 +58,7 @@ public class Questao2 {
     @ManyToMany(mappedBy = "questoes")
     private List<Questionario> questionarios = new ArrayList<>();
 
-	public Questao2(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos, List<Figura> figuras,
-			List<Opcao> opcoes, Opcao opcao_correta, TemasAreas temasAreas, List<Questionario> questionarios) {
-		this.id = id;
-		this.texto = texto;
-		this.categoriaBloom = categoriaBloom;
-		this.artigos = artigos;
-		this.figuras = figuras;
-		this.opcoes = opcoes;
-		this.opcao_correta = opcao_correta;
-		this.temasAreas = temasAreas;
-		this.questionarios = questionarios;
-	}
+	public Questao2(){}
 
 	public Integer getId() {
 		return id;
@@ -119,12 +108,12 @@ public class Questao2 {
 		this.opcoes = opcoes;
 	}
 
-	public Opcao getOpcao_correta() {
-		return opcao_correta;
+	public Opcao getOpcaoCorreta() {
+		return opcaoCorreta;
 	}
 
-	public void setOpcao_correta(Opcao opcao_correta) {
-		this.opcao_correta = opcao_correta;
+	public void setOpcaoCorreta(Opcao opcao_correta) {
+		this.opcaoCorreta = opcao_correta;
 	}
 
 	public TemasAreas getTemasAreas() {

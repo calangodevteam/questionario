@@ -47,14 +47,14 @@ public class Questionario {
 	joinColumns = @JoinColumn(name = "questionario_id"),
 	inverseJoinColumns = @JoinColumn(name = "questao_id")
 	)
-	private List<Questao> questoes = new ArrayList<>();
+	private List<Questao2> questoes = new ArrayList<>();
 
 	public Questionario() {
 		
 	}
 
 	public Questionario(Integer id, String titulo, Integer qtd_questoes, Integer tempo_duracao,
-			Integer tempo_disponivel, Dificuldade dificuldade, List<Tema> temas, List<Questao> questoes) {
+			Integer tempo_disponivel, Dificuldade dificuldade, List<Tema> temas, List<Questao2> questoes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.qtd_questoes = qtd_questoes;
@@ -121,11 +121,11 @@ public class Questionario {
 		this.temas = temas;
 	}
 
-	public List<Questao> getQuestoes() {
+	public List<Questao2> getQuestoes() {
 		return questoes;
 	}
 
-	public void setQuestoes(List<Questao> questoes) {
+	public void setQuestoes(List<Questao2> questoes) {
 		this.questoes = questoes;
 	}
 

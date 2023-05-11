@@ -1,4 +1,4 @@
-package com.calangodevteam.backquestionario.application.dtos;
+package com.calangodevteam.backquestionario.application.dtos.existent;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.calangodevteam.backquestionario.domain.models.Figura;
 import com.calangodevteam.backquestionario.domain.models.Opcao;
 import com.calangodevteam.backquestionario.domain.models.enums.Bloom;
 
-public class QuestaoDTO {
+public class QuestaoExistentDTO {
 	
 	private Integer id;
 	private String texto;
@@ -15,23 +15,22 @@ public class QuestaoDTO {
 	private List<Artigo> artigos;
 	private List<Figura> figuras;
 	private List<Opcao> opcoes;
-    private Integer opcao_corretaId;
-	private TemaDTO tema;
-	
-	public QuestaoDTO() {
-		
-	}
+    private Integer opcaoCorretaId;
+	private TemasAreasExistentDTO temasAreas;
 
-	public QuestaoDTO(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos, List<Figura> figuras,
-			List<Opcao> opcoes, Integer opcao_corretaId, TemaDTO tema) {
+	public QuestaoExistentDTO(){}
+
+	public QuestaoExistentDTO(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos,
+			List<Figura> figuras, List<Opcao> opcoes, Integer opcaoCorretaId,
+			TemasAreasExistentDTO temasAreas) {
 		this.id = id;
 		this.texto = texto;
 		this.categoriaBloom = categoriaBloom;
 		this.artigos = artigos;
 		this.figuras = figuras;
 		this.opcoes = opcoes;
-		this.opcao_corretaId = opcao_corretaId;
-		this.tema = tema;
+		this.opcaoCorretaId = opcaoCorretaId;
+		this.temasAreas = temasAreas;
 	}
 
 	public Integer getId() {
@@ -40,6 +39,14 @@ public class QuestaoDTO {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 	public Bloom getCategoriaBloom() {
@@ -74,28 +81,20 @@ public class QuestaoDTO {
 		this.opcoes = opcoes;
 	}
 
-	public Integer getOpcao_corretaId() {
-		return opcao_corretaId;
+	public Integer getOpcaoCorretaId() {
+		return opcaoCorretaId;
 	}
 
-	public void setOpcao_corretaId(Integer opcao_corretaId) {
-		this.opcao_corretaId = opcao_corretaId;
+	public void setOpcaoCorretaId(Integer opcaoCorretaId) {
+		this.opcaoCorretaId = opcaoCorretaId;
 	}
 
-	public TemaDTO getTema() {
-		return tema;
+	public TemasAreasExistentDTO getTemasAreas() {
+		return temasAreas;
 	}
 
-	public void setTema(TemaDTO tema) {
-		this.tema = tema;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public void setTemasAreas(TemasAreasExistentDTO temasAreas) {
+		this.temasAreas = temasAreas;
 	}
 	
 }

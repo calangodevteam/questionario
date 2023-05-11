@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,48 +18,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calangodevteam.backquestionario.application.dtos.existent.TemaExistentDTO;
+import com.calangodevteam.backquestionario.application.dtos.existent.TemasAreasExistentDTO;
 import com.calangodevteam.backquestionario.domain.models.Tema;
 import com.calangodevteam.backquestionario.domain.services.TemaService;
+import com.calangodevteam.backquestionario.domain.services.TemasAreasService;
 
 @RestController
-@RequestMapping("temas")
+@RequestMapping("temasareas")
 @CrossOrigin(origins = "*")
-public class TemaController {
+public class TemasAreasController {
 	
 	@Autowired
-	private TemaService service;
-	
-	private ModelMapper modelMapper = new ModelMapper();
-	
-	@GetMapping
-	public List<TemaExistentDTO> findAll() {
-		
-		List<TemaExistentDTO> temasDto = new ArrayList<>();
-		service.findAll().forEach(tema -> temasDto.add(modelMapper.map(tema, TemaExistentDTO.class)));
-		return temasDto;
-	}
-	
-	@GetMapping("/area")
-	public List<Tema> findAByAreaConhecimento (@RequestParam Integer id){
-		
-		return service.findAByAreaConhecimento(id);
-	}
-	
-	@GetMapping("/{id}")
-	public Optional<Tema> findById (@PathVariable Integer id){
-		
-		return service.findById(id);
-		
-	}
-	
-	@PostMapping
-	public Tema create(@RequestBody Tema tema) {
-		return service.create(tema);
-	}
-	
-	@DeleteMapping("/{id}")
-	public String delete(@PathVariable Integer id) {
-		return service.delete(id);
-	}
+	private TemasAreasService service;
 
+	@GetMapping
+	public ResponseEntity<List<TemasAreasExistentDTO>> findAllTemasPaginatedByTemaNomeContainingIgnoreCaseAscOrDesc(
+		@RequestParam(name = "temanome") String temaNome,
+		@RequestParam(name = "page", defaultValue = "0") int page,
+    	@RequestParam(name = "size", defaultValue = "${backquestionario.paginacao.size.generico.padrao}") int size,
+		@RequestParam(name = "sort", defaultValue = "asc") String sort) {
+
+		return ResponseEntity.ok(service.findAllByTemaNomeContainingIgnoreCaseOrderByTemaNome(page, size, sort, temaNome));
+	}
 }

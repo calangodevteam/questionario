@@ -3,6 +3,8 @@ package com.calangodevteam.backquestionario.application.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.calangodevteam.backquestionario.application.dtos.existent.TemaDTO;
+
 public class AreasDTO {
 
 	private Integer id;

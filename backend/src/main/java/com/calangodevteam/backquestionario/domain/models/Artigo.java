@@ -1,6 +1,5 @@
 package com.calangodevteam.backquestionario.domain.models;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;

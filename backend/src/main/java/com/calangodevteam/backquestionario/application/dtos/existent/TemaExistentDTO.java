@@ -4,26 +4,26 @@ import java.util.List;
 
 public class TemaExistentDTO {
 	
-	private final Integer id;
-	private final String nome;
-	private final List<AreaConhecimentoExistentDTO> areasConhecimento;
+	private Integer id;
+	private String nome;
+
+	public TemaExistentDTO(){}
 	
-	public TemaExistentDTO(Integer id, String nome, List<AreaConhecimentoExistentDTO> areasConhecimento) {
+	public TemaExistentDTO(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.areasConhecimento = areasConhecimento;
 	}
-
 	public Integer getId() {
 		return id;
 	}
-
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
-
-	public List<AreaConhecimentoExistentDTO> getAreasConhecimento() {
-		return areasConhecimento;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
+
 }

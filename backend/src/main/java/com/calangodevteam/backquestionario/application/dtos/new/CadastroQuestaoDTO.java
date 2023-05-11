@@ -1,10 +1,10 @@
+/*
 package com.calangodevteam.backquestionario.application.dtos;
-
-import com.calangodevteam.backquestionario.domain.models.Questao;
+import com.calangodevteam.backquestionario.domain.models.Questao2;
 
 public class CadastroQuestaoDTO{
 	
-	private Questao questao;
+	private Questao2 questao;
 	private String opcao_correta;
 	
 	public CadastroQuestaoDTO(){
@@ -32,3 +32,4 @@ public class CadastroQuestaoDTO{
 		this.opcao_correta = opcao_correta;
 	}
 }
+ */

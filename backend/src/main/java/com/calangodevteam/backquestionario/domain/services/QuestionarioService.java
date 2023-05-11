@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.calangodevteam.backquestionario.domain.models.Questionario;
-import com.calangodevteam.backquestionario.domain.repositories.QuestaoRepository;
+import com.calangodevteam.backquestionario.domain.repositories.Questao2Repository;
 import com.calangodevteam.backquestionario.domain.repositories.QuestionarioRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class QuestionarioService {
 	private QuestionarioRepository repo;
 
 	@Autowired
-	private QuestaoRepository repoQuestao;
+	private Questao2Repository repoQuestao;
 	
 	public List<Questionario> findAll() {
 		return repo.findAll();

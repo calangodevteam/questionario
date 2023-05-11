@@ -40,14 +40,24 @@
       </div>
 
       <div formArrayName="figuras">
+        
         <div *ngFor="let figura of figuras.controls; let f = index">
-          <div class="form-group mb-3" [formGroupName]="f">
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="inputDescription{{f}}">Descrição</label>
-              <input class="form-control" type="text" id="inputDescription{{f}}" formControlName="descricao" />
-              <input class="form-control" type="file" (change)="arquivoSelec($event, f)">
+          <div class="form-group mb-2" [formGroupName]="f">
+            <div class="input-group mb-2">
               <button type="button" class="btn-danger btn" (click)="deleteFigura(f)">x</button>
             </div>
+            <div class="input-group mb-2">
+              <label class="input-group-text mr-2" for="input-img{{f}}">Imagem</label>
+              <input class="form-control" type="file" id="input-img{{f}}" (change)="arquivoSelec($event, f)">
+            </div>
+            
+            <div class="input-group mb-2">
+              <label class="input-group-text mr-2" for="input-descricao-img{{f}}">Descrição</label>
+              <input class="form-control" type="text" id="input-descricao-img{{f}}" formControlName="descricao" />
+            </div>
+  
+            <hr>
+
           </div>
         </div>
       </div>
@@ -62,10 +72,9 @@
 
       <div formArrayName="artigos">
         <div *ngFor="let artigo of artigos.controls; let i=index">
-          <div class="form-group p-3" [formGroupName]="i">
-            <hr>
+          <div class="form-group" [formGroupName]="i">
             <div class="form-inline justify-content-between mb-3">
-              <h2 class="title">Artigo</h2>
+              
               <button type="button" class="btn-danger btn" (click)="deleteArtigo(i)">x</button>
             </div>
             <div class="input-group mb-3">
@@ -111,15 +120,14 @@
       <div class="form-inline mb-3 ">
         <button (click)="addFourOpcao()" class="btn-default form-control" type="button"
           [disabled]="opcoes.length>0">Adicionar
-          opção</button>
-        <span class="text-center ml-3" *ngIf="opcoes.length>0">Não se esqueça de marcar a opção correta!</span>
+          Opção</button>
       </div>
 
       <div formArrayName="opcoes">
         <div *ngFor="let opcao of opcoes.controls; let k = index">
+          <label for="opcao-{{k+1}}-texto" class="input-group-texta">Opção {{k+1}}</label>
           <div class="form-group d-flex align-itens-center" [formGroupName]="k">
-            <span class="input-group-text" id="opc{{k}}">{{k+1}}</span>
-            <textarea class="form-control mb-1" id="opcao-{{k}}-texto" name="texto" rows="2" formControlName="texto" required></textarea>
+            <textarea class="form-control mb-1" id="opcao-{{k+1}}-texto" name="texto" rows="2" formControlName="texto" required></textarea>
           </div>
         </div>
       </div>
@@ -127,9 +135,9 @@
     </div>
 
     <div class="form-group mb-3 " *ngIf="opcoes.length>0">
-      <span class="input-group-text">Resposta Correta:</span>
-        <select class="form-control form-select form-select-lg mb-3 mw-100" formControlName="opcao_correta" required>
-          <option *ngFor="let option of opcoes.controls; let l=index" [value]="option.get('texto')?.value">{{l+1}}</option>
+        <label for="opcao_correta" class="input-group-texta">Resposta Correta:</label>
+        <select id="opcao_correta" class="form-control form-select form-select-lg mb-3 mw-100" formControlName="opcao_correta" required>
+          <option *ngFor="let option of opcoes.controls; let l=index" [value]="l+1">Opção {{l+1}}</option>
         </select>
     </div>
 

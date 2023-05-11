@@ -3,6 +3,7 @@ package com.calangodevteam.backquestionario.application.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.calangodevteam.backquestionario.application.dtos.existent.QuestaoExistentDTO;
 import com.calangodevteam.backquestionario.domain.models.enums.Dificuldade;
 
 public class QuestionarioDTO {
@@ -14,14 +15,14 @@ public class QuestionarioDTO {
 	private Integer tempo_disponivel;
 	private Dificuldade dificuldade;
 	private List<TemaQuest> temas= new ArrayList<>();
-	private List<QuestaoDTO> questoes = new ArrayList<>();
+	private List<QuestaoExistentDTO> questoes = new ArrayList<>();
 	
 	public QuestionarioDTO() {
 		
 	}
 
 	public QuestionarioDTO(Integer id, String titulo, Integer qtd_questoes, Integer tempo_duracao,
-			Integer tempo_disponivel, Dificuldade dificuldade, List<TemaQuest> temas, List<QuestaoDTO> questoes) {
+			Integer tempo_disponivel, Dificuldade dificuldade, List<TemaQuest> temas, List<QuestaoExistentDTO> questoes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.qtd_questoes = qtd_questoes;
@@ -80,11 +81,11 @@ public class QuestionarioDTO {
 		this.dificuldade = dificuldade;
 	}
 
-	public List<QuestaoDTO> getQuestoes() {
+	public List<QuestaoExistentDTO> getQuestoes() {
 		return questoes;
 	}
 
-	public void setQuestoes(List<QuestaoDTO> questoes) {
+	public void setQuestoes(List<QuestaoExistentDTO> questoes) {
 		this.questoes = questoes;
 	}
 	
