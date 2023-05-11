@@ -38,11 +38,11 @@ public class QuestaoController {
 		return questoesDto;
 	}
 	
-	@GetMapping("tema")
-	public List<QuestaoDTO> findByTema(@RequestParam Integer temaId) {
+	@GetMapping("/tema")
+	public List<QuestaoDTO> findByTema(@RequestParam Integer id) {
 		
 		List<QuestaoDTO> questoesDto = new ArrayList<>();
-		service.findByTema(temaId).forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
+		service.findByTema(id).forEach(questao -> questoesDto.add(modelMapper.map(questao, QuestaoDTO.class)));
 		return questoesDto;
 	}
 	

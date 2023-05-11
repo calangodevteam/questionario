@@ -35,7 +35,7 @@ public class Tema{
 	private List<Questao> questoes = new ArrayList<>();
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "temas")
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Questionario> questionarios = new ArrayList<>();
 	
 	private String nome;

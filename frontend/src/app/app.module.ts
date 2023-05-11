@@ -21,7 +21,6 @@ import { AreasComponent } from './componets/areas/areas.component';
 import { ListAreasComponent } from './componets/list-areas/list-areas.component';
 import { QuestaoFormComponent } from './componets/questao-form/questao-form.component';
 import { QuizFormComponent } from './componets/quiz-form/quiz-form.component';
-import { DropdownQuestoesComponent } from './componets/dropdown-questoes/dropdown-questoes.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ListQuestionsComponent } from './pages/list-questions/list-questions.component';
@@ -53,7 +52,6 @@ import { QuestionarioCardComponent } from './componets/questionario-card/questio
     CreateQuestaoComponent,
     QuestaoFormComponent,
     QuizFormComponent,
-    DropdownQuestoesComponent,
     QuestaoCardComponent,
     QuestionarioCardComponent
   ],
