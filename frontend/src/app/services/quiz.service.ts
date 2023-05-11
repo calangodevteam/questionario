@@ -9,8 +9,8 @@ import { Questionario } from '../model/questionario';
 })
 export class QuizService {
 
-  private questionariosUrl = "/questionarios";
-  // private questionariosUrl = "http://localhost:8080/questionarios";
+  // private questionariosUrl = "/questionarios";
+  private questionariosUrl = "http://localhost:8080/questionarios";
   private http: HttpClient;
 
   httpOptions = {

@@ -9,8 +9,8 @@ import { QuestaoDto } from '../model/questao-dto';
 })
 export class QuestaoService {
 
-  private questoesUrl = "/questoes";
-  // private questoesUrl = "http://localhost:8080/questoes";
+  // private questoesUrl = "/questoes";
+  private questoesUrl = "http://localhost:8080/questoes";
   private http: HttpClient;
 
   httpOptions = {
@@ -45,10 +45,18 @@ export class QuestaoService {
       );
    }
 
+   obterPorTema(temaId: number):Observable<Questao[]> {
+    return this.http.get<Questao[]>(`${this.questoesUrl}/tema?id=${temaId}`)
+      .pipe(
+        tap(_ => console.log('Questoes recuperados')),
+        catchError(this.handleError<Questao[]>('obterPorTema', []))
+      );
+  }
+
    obterTodos():Observable<Questao[]> {
       return this.http.get<Questao[]>(this.questoesUrl)
         .pipe(
-          tap(_ => console.log('Questaos recuperados')),
+          tap(_ => console.log('Questoes recuperadas')),
           catchError(this.handleError<Questao[]>('obterTodos', []))
         );
     }

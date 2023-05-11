@@ -13,7 +13,7 @@ public class QuestionarioDTO {
 	private Integer tempo_duracao;
 	private Integer tempo_disponivel;
 	private Dificuldade dificuldade;
-	private List<TemaQuest> temas= new ArrayList<>();
+	private TemaQuest tema;
 	private List<QuestaoDTO> questoes = new ArrayList<>();
 	
 	public QuestionarioDTO() {
@@ -21,14 +21,14 @@ public class QuestionarioDTO {
 	}
 
 	public QuestionarioDTO(Integer id, String titulo, Integer qtd_questoes, Integer tempo_duracao,
-			Integer tempo_disponivel, Dificuldade dificuldade, List<TemaQuest> temas, List<QuestaoDTO> questoes) {
+			Integer tempo_disponivel, Dificuldade dificuldade, TemaQuest tema, List<QuestaoDTO> questoes) {
 		this.id = id;
 		this.titulo = titulo;
 		this.qtd_questoes = qtd_questoes;
 		this.tempo_duracao = tempo_duracao;
 		this.tempo_disponivel = tempo_disponivel;
 		this.dificuldade = dificuldade;
-		this.temas = temas;
+		this.tema = tema;
 		this.questoes = questoes;
 	}
 
@@ -88,12 +88,12 @@ public class QuestionarioDTO {
 		this.questoes = questoes;
 	}
 	
-	public List<TemaQuest> getTemas() {
-		return temas;
+	public TemaQuest getTema() {
+		return tema;
 	}
 
-	public void setTemas(List<TemaQuest> temas) {
-		this.temas = temas;
+	public void setTema(TemaQuest tema) {
+		this.tema = tema;
 	}
 
 	private static class TemaQuest {

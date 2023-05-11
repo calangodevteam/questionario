@@ -10,6 +10,6 @@ public interface QuestaoRepository extends JpaRepository<Questao, Integer>{
 	
 	List<Questao> findByOrderByTemaNomeAsc();
 	
-	List<Questao> findByTema(Integer temaId);
+	List<Questao> findByTemaId(Integer temaId);
 
 }

@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 import { Questao } from 'src/app/model/questao';
 import { QuestaoDto } from 'src/app/model/questao-dto';
 import { QuestaoForm } from 'src/app/model/questao-form';
 import { Questionario } from 'src/app/model/questionario';
+import { Tema } from 'src/app/model/tema';
 import { QuestaoService } from 'src/app/services/questao.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
@@ -20,13 +21,22 @@ export class QuizFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Questionario>();
 
   questionarioForm!: FormGroup;
-  modalVisible = false;
-  questaoNova = false;
-  modalTitle ='Questão';
+  questaoQtdForm!: FormControl;
 
-  constructor(private serviceT: ThemeService, private fb: FormBuilder, private serviceQ: QuestaoService) { }
+  temas: Tema[] = [];
+  questoes_drop: Questao[] = [];
+
+  temaSec = false;
+  showAddQuest = false;
+  modalTitle ='Questão';
+  progress = true;
+
+  constructor(private serviceT: ThemeService, private fb: FormBuilder, private serviceQ: QuestaoService, private servicoQuestao: QuestaoService) { }
 
   ngOnInit() {
+
+    if (!this.questionario)
+    this.obterTemas();
 
     this.questionarioForm = this.fb.group({
       id: [null],
@@ -35,42 +45,57 @@ export class QuizFormComponent implements OnInit {
       tempo_disponivel: [null],
       qtd_questoes: [null],
       dificuldade: [null],
-      temas: this.fb.array([]),
+      tema: this.fb.group({
+        id: [null],
+        nome: [null]
+      }),
       questoes: this.fb.array([])
     });
 
+    this.questaoQtdForm = this.fb.control('');
+
   }
 
-  newQuestion() {
-    this.questaoNova = !this.questaoNova;
+  private obterTemas() {
+    this.serviceT.obterTemas()
+      .subscribe((temas) => this.temas = temas);
   }
 
-  showModal() {
-    this.modalVisible = !this.modalVisible;
+  obterPorTema(){
+    let temaId:number = this.tema.get('id')!.value;
+     this.servicoQuestao.obterPorTema(temaId)
+      .subscribe((questoes) => this.questoes_drop = questoes);
+  }
+
+  showAddQuestao(){
+    this.showAddQuest = !this.showAddQuest;
+  }
+
+  get QuestaoQtdForm() {
+    return Number(this.questaoQtdForm.value);
+  }
+
+  alterarTema() {
+    this.temaSec = this.questoes.length>0? true : false;
   }
 
   get qtd_questoes() {
     return this.questionarioForm.get('qtd_questoes');
   }
 
-  get temas() {
-    return this.questionarioForm.get('temas') as FormArray;
+  get tema() {
+    return this.questionarioForm.get('tema') as FormGroup;
   }
 
-  addTema() {
-
-     const tema = this.fb.group({
-      id: [null],
-      nome: [null],
-      areas_id:[null]
+  addNomeTema(){
+    let id:number = this.tema.get('id')!.value;
+    let nomeTema!:string;
+    this.temas.forEach(tema => {
+      if(id == tema.id)
+        nomeTema = tema.nome;
     });
-    this.temas.push(tema);
-  }
-
-  deleteTema(index: number) {
-    this.temas.removeAt(index);
-  }
-
+    this.tema?.patchValue({nome:nomeTema});
+ }
 
   get questoes() {
     return this.questionarioForm.get('questoes') as FormArray;
@@ -87,91 +112,61 @@ export class QuizFormComponent implements OnInit {
   }
 
   deleteQuestao(index: number) {
-    this.verificaTemaQuestao(index);
     this.questoes.removeAt(index);
     this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
   }
 
-  verificaTemaExiste(id:number): boolean{
-    for (let i = 0; i < this.temas.length; i++) {
-      const temaFormGroup = this.temas.at(i) as FormGroup;
-      let temaId:number = temaFormGroup.get('id')!.value;
-      if(temaId === id){
-        return true;
-      }
-    }
-    return false
+  deleteAllQuestao() {
+    this.questoes.clear();
+    this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
   }
 
-  verificaTemaQuestao(index:number){
-
-    let ocorrencia:number = 0;
-    const questaoGroup = this.questoes.at(index) as FormGroup;
-    const idTema: number = questaoGroup.get('temaId')!.value;
-
+  private VerificaQuestaoExiste(questaoId: number): boolean{
     for (let i = 0; i < this.questoes.length; i++) {
       const questaoFormGroup = this.questoes.at(i) as FormGroup;
-      let temaId:number = questaoFormGroup.get('temaId')!.value;
-      if(temaId === idTema){
-        ocorrencia+=1;
-        console.log('ocorrencia++'+ ocorrencia)
+      let id:number = questaoFormGroup.get('id')!.value;
+      if(id === questaoId){
+        return true
       }
     }
-
-    if(ocorrencia === 1){
-      for (let j = 0; j <= this.temas.length; j++) {
-        const temaFormGroup = this.temas.at(j) as FormGroup;
-        let temaId:number = temaFormGroup.get('id')!.value;
-        if(temaId === idTema){
-          this.deleteTema(j);
-          return
-        }
-      }
-    }
+    return false;
   }
 
-  addQuestaoTema(questaoForm: QuestaoForm){
+  addQuestaoComp(questaoAdd:Questao){
+
+    if(this.VerificaQuestaoExiste(questaoAdd.id!) === true)
+      return
 
     const questao = this.fb.group({
-      id: questaoForm.id,
-      nome: questaoForm.nome,
-      temaId: questaoForm.tema.id
+      id: questaoAdd.id,
+      nome: questaoAdd.texto,
+      temaId: questaoAdd.tema.id
     });
     this.questoes.push(questao);
 
-    const tema = this.fb.group({
-      id: questaoForm.tema.id,
-      nome: questaoForm.tema.nome,
-      areas_id:[null]
-    });
-
-    if(!this.verificaTemaExiste(questaoForm.tema.id))
-      this.temas.push(tema);
-
     this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
-
   }
 
-   submitQuestao(questaoDto: QuestaoDto):void{
-    let id!:number;
-    this.serviceQ.adicionar(questaoDto).subscribe((data:Questao) => id = data.id!);
-
-    console.log(questaoDto.questao.tema.id!+''+ questaoDto.questao.tema.nome)
-    this.addQuestaoTema({
-        id:id,
-        nome:questaoDto.questao.texto,
-        tema:{
-          id:Number(questaoDto.questao.tema.id!),
-          nome:questaoDto.questao.tema.nome
-        }
-      })
-
-    this.showModal();
+  addRandonQuest(){
+      const randomArray: number[] = [];
+      for (let i = 0; i < this.QuestaoQtdForm; i++) {
+        let randomNumber: number;
+        do {
+          randomNumber = Math.floor(Math.random() * this.questoes_drop.length);
+        } while (randomArray.includes(randomNumber));
+        randomArray.push(randomNumber);
+      }
+      randomArray.forEach(index => this.addQuestaoComp(this.questoes_drop[index]));
   }
 
   submitQuestionario() {
-     this.onSubmit.emit(this.questionarioForm.value);
+    this.addNomeTema();
+    this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
+    console.log(this.questionarioForm.value);
+    //  this.onSubmit.emit(this.questionarioForm.value);
      this.questionarioForm.reset();
+     this.deleteAllQuestao();
+     this.progress = false;
   }
 
 }

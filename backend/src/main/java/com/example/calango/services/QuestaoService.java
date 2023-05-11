@@ -25,7 +25,7 @@ public class QuestaoService {
 	
 	public List<Questao> findByTema(Integer temaId) {
 		
-		return repo.findByTema(temaId);
+		return repo.findByTemaId(temaId);
 	}
 	
 	public Optional<Questao> findById (Integer id){
