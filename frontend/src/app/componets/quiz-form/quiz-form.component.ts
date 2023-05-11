@@ -25,10 +25,7 @@ export class QuizFormComponent implements OnInit {
 
   temas: Tema[] = [];
   questoes_drop: Questao[] = [];
-
   temaSec = false;
-  showAddQuest = false;
-  modalTitle ='Questão';
   progress = true;
 
   constructor(private serviceT: ThemeService, private fb: FormBuilder, private serviceQ: QuestaoService, private servicoQuestao: QuestaoService) { }
@@ -65,10 +62,6 @@ export class QuizFormComponent implements OnInit {
     let temaId:number = this.tema.get('id')!.value;
      this.servicoQuestao.obterPorTema(temaId)
       .subscribe((questoes) => this.questoes_drop = questoes);
-  }
-
-  showAddQuestao(){
-    this.showAddQuest = !this.showAddQuest;
   }
 
   get QuestaoQtdForm() {
@@ -148,22 +141,25 @@ export class QuizFormComponent implements OnInit {
   }
 
   addRandonQuest(){
+
       const randomArray: number[] = [];
       for (let i = 0; i < this.QuestaoQtdForm; i++) {
         let randomNumber: number;
+        let idQuest: number;
         do {
           randomNumber = Math.floor(Math.random() * this.questoes_drop.length);
-        } while (randomArray.includes(randomNumber));
+          idQuest = this.questoes_drop[randomNumber].id!;
+        } while (randomArray.includes(randomNumber) || this.VerificaQuestaoExiste(idQuest));
         randomArray.push(randomNumber);
       }
       randomArray.forEach(index => this.addQuestaoComp(this.questoes_drop[index]));
+      this.questaoQtdForm.setValue(0);
   }
 
   submitQuestionario() {
     this.addNomeTema();
-    this.questionarioForm.patchValue({ qtd_questoes: this.questoes.length });
-    console.log(this.questionarioForm.value);
-    //  this.onSubmit.emit(this.questionarioForm.value);
+    // console.log(this.questionarioForm.value);
+    this.onSubmit.emit(this.questionarioForm.value);
      this.questionarioForm.reset();
      this.deleteAllQuestao();
      this.progress = false;
