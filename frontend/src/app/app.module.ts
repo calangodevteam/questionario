@@ -14,14 +14,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HeaderComponent } from './componets/header/header.component';
-import { FooterComponent } from './componets/footer/footer.component';
-import { RegisterUserComponent } from './componets/register-user/register-user.component';
-import { AreasComponent } from './componets/areas/areas.component';
-import { ListAreasComponent } from './componets/list-areas/list-areas.component';
-import { QuestaoFormComponent } from './componets/questao-form/questao-form.component';
-import { QuizFormComponent } from './componets/quiz-form/quiz-form.component';
-import { DropdownQuestoesComponent } from './componets/dropdown-questoes/dropdown-questoes.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { AreasComponent } from './components/areas/areas.component';
+import { ListAreasComponent } from './components/list-areas/list-areas.component';
+import { QuestaoFormComponent } from './components/questao-form/questao-form.component';
+import { QuizFormComponent } from './components/quiz-form/quiz-form.component';
+import { DropdownQuestoesComponent } from './components/dropdown-questoes/dropdown-questoes.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ListQuestionsComponent } from './pages/list-questions/list-questions.component';
@@ -32,8 +32,10 @@ import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
 import { CreateQuestaoComponent } from './pages/create-questao/create-questao.component';
 
 import { LoginMemoriaService } from './services/login.memoria.service';
-import { QuestaoCardComponent } from './componets/questao-card/questao-card.component';
-import { QuestionarioCardComponent } from './componets/questionario-card/questionario-card.component';
+import { QuestaoCardComponent } from './components/questao-card/questao-card.component';
+import { QuestionarioCardComponent } from './components/questionario-card/questionario-card.component';
+import { TemaBuscaModalComponent } from './components/tema-busca-modal/tema-busca-modal.component';
+import { ModalSelecaoTemaComponent } from './components/modal-selecao-tema/modal-selecao-tema.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { QuestionarioCardComponent } from './componets/questionario-card/questio
     QuizFormComponent,
     DropdownQuestoesComponent,
     QuestaoCardComponent,
-    QuestionarioCardComponent
+    QuestionarioCardComponent,
+    TemaBuscaModalComponent,
+    ModalSelecaoTemaComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,7 @@ import { QuestionarioCardComponent } from './componets/questionario-card/questio
     MatButtonModule,
     MatDialogModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [LoginMemoriaService],
   bootstrap: [AppComponent]

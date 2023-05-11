@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioMemoria } from 'src/app/model/usuario.memoria';
 import { LoginMemoriaService } from 'src/app/services/login.memoria.service';
-import { RegisterUserComponent } from 'src/app/componets/register-user/register-user.component';
+import { RegisterUserComponent } from 'src/app/components/register-user/register-user.component';
 
 @Component({
   selector: 'app-login',

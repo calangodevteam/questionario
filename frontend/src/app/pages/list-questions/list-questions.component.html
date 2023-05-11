@@ -16,29 +16,49 @@
   </div>
 </div>
 -->
+
 <div class="container-fluid">
   <div class="col-md-12 p-3">
     <h1>Listagem de Questões</h1>
   </div>
+
+  
   <div class="d-flex">
+
+
     <div class="col-md-8 mx-auto">
+
+      <button class="btn btn-secondary flex-shrink-0 mb-2" style="margin-right: 5px;" data-toggle="modal" data-target="#myModal">Escolher tema</button>
+      <h4 *ngIf="temasAreasSelecionado == null">
+        Nenhum tema selecionado. Mostrando todos.
+      </h4>
+      <div *ngIf="temasAreasSelecionado != null">
+        <b>{{temasAreasSelecionado.tema?.nome}}</b> {{ " - (" + getAreasConhecimento(temasAreasSelecionado) + ")"}}
+      </div>
+
+      <hr>
+
       <div class="d-flex">
         <div class="btn-group">
-          <button type="button" (click)="setSort('desc')" [ngClass]="{'btn-primary active': sort == 'desc'}" class="btn">Mais recentes</button>
-          <button type="button" (click)="setSort('asc')" [ngClass]="{'btn-primary active': sort == 'asc'}" class="btn">Mais antigos</button>
+          <button type="button" (click)="restElementsInfinitescrollService.setarParametroEResetar('sort', 'desc')" [ngClass]="{'btn-primary active': restElementsInfinitescrollService.httpParams.get('sort') == 'desc'}" class="btn">Mais recentes</button>
+          <button type="button" (click)="restElementsInfinitescrollService.setarParametroEResetar('sort', 'asc')" [ngClass]="{'btn-primary active': restElementsInfinitescrollService.httpParams.get('sort') == 'asc'}" class="btn">Mais antigos</button>
         </div>
       </div>
-      <app-questao-card class="ml-3" *ngFor="let questao of questoes;" [questao]="questao"></app-questao-card>
-     <div class="my-3"></div>
 
-      <div *ngIf="estadoBusca!=-1 && estadoBusca!=2 " class="d-flex my-3">
+      <app-questao-card class="ml-3" *ngFor="let questao of restElementsInfinitescrollService.getElementos();" [questao]="questao"></app-questao-card>
+      <div class="my-3"></div>
+
+      <div *ngIf="restElementsInfinitescrollService.getEstadoBusca() != restElementsInfinitescrollService.getEstadosElementos().INICIAL && restElementsInfinitescrollService.getEstadoBusca()!= restElementsInfinitescrollService.getEstadosElementos().ACABOU " class="d-flex my-3">
         <div class="btn-group">
-          <button [disabled]="estadoBusca!=0" type="button" (click)="carregarMais()" class="btn btn-secondary">Mais...</button>
+          <button [disabled]="restElementsInfinitescrollService.getEstadoBusca()!= restElementsInfinitescrollService.getEstadosElementos().PODE_TENTAR_CARREGAR_MAIS" type="button" (click)="restElementsInfinitescrollService.carregarMais()" class="btn btn-secondary">Mais...</button>
         </div>
       </div>
       
-      <div *ngIf="estadoBusca==2" class="my-3">
-        <hr>É isso.
+      <div *ngIf="restElementsInfinitescrollService.getEstadoBusca()== restElementsInfinitescrollService.getEstadosElementos().ACABOU" class="my-3">
+        <!-- <hr>É isso. -->
       </div>
     </div>
+
 </div>
+
+<app-modal-selecao-tema (onTemaSelecionado)="callbackSelecaoTema($event)"></app-modal-selecao-tema>
