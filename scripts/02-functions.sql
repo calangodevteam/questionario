@@ -1,3 +1,4 @@
+
 DROP PROCEDURE IF EXISTS insert_area;
 DROP FUNCTION IF EXISTS idArea;
 DROP FUNCTION IF EXISTS idTema;
@@ -6,6 +7,9 @@ DROP FUNCTION IF EXISTS idTemaQuestao;
 DROP FUNCTION IF EXISTS idOpcao;
 DROP FUNCTION IF EXISTS idArtigo;
 DROP FUNCTION IF EXISTS idQuestionario;
+DROP FUNCTION IF EXISTS idInst;
+DROP FUNCTION IF EXISTS idUnidade;
+DROP FUNCTION IF EXISTS idCurso;
 
 ---- Criação de Funções/ Procedures ----
 
@@ -85,5 +89,32 @@ CREATE FUNCTION idQuestionario(titulo_quest varchar) RETURNS integer AS $$
         BEGIN
 			SELECT ID INTO questId FROM questionario WHERE TITULO = titulo_quest;
 			RETURN questId;
+        END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION idInst(nome_inst varchar) RETURNS integer AS $$
+		DECLARE 
+			instId integer:= 0;
+        BEGIN
+			SELECT ID INTO instId FROM instituicao WHERE NOME = nome_inst;
+			RETURN instId;
+        END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION idUnidade(nome_uni varchar) RETURNS integer AS $$
+		DECLARE 
+			uniId integer:= 0;
+        BEGIN
+			SELECT ID INTO uniId FROM unidade WHERE NOME = nome_uni;
+			RETURN uniId;
+        END;
+$$ LANGUAGE plpgsql;
+
+CREATE FUNCTION idCurso(nome_curso varchar, modalidade_cur modalidade) RETURNS integer AS $$
+		DECLARE 
+			cursoId integer:= 0;
+        BEGIN
+			SELECT ID INTO cursoId FROM curso WHERE NOME = nome_curso AND MODALIDADE_CURSO = modalidade_cur;
+			RETURN cursoId;
         END;
 $$ LANGUAGE plpgsql;

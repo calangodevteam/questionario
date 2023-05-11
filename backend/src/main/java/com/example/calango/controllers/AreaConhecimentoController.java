@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.calango.model.AreaConhecimento;
 import com.example.calango.model.dto.AreasDTO;
 import com.example.calango.model.dto.SubAreas;
-import com.example.calango.repositories.AreaConhecimentoRepository;
 import com.example.calango.services.AreaConhecimentoService;
 
 @RestController

@@ -27,13 +27,9 @@
       <input disabled type="text" value="{{questionario.dificuldade}}" class="form-control">
     </div>
 
-    <hr>
-
     <div class="form-group">
-      <h3>Temas</h3>
-        <div *ngFor="let tema of questionario.temas">
-            <input disabled type="text" value="{{tema.nome}}" class="form-control mb-2">
-        </div>
+      <label>Tema</label>
+      <input disabled type="text" value="{{questionario.tema!.nome}}" class="form-control">
     </div>
 
     <hr>
