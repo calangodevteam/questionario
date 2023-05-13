@@ -35,18 +35,6 @@ CREATE TABLE tema
 	nome VARCHAR(255)
 );
 
-CREATE TABLE areas_tema
-(
-    tema_id integer,
-    area_conhecimento_id integer,
-    
-    CONSTRAINT areas_tema_pkey PRIMARY KEY (tema_id, area_conhecimento_id),
-    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id),
-    CONSTRAINT area_conhecimento_id_fkey FOREIGN KEY (area_conhecimento_id) REFERENCES area_conhecimento (id)
-		ON UPDATE NO ACTION
-		ON DELETE NO ACTION
-);
-
 
 CREATE TABLE temas_areas
 (
@@ -84,19 +72,8 @@ CREATE TABLE temas_questionario
 		ON DELETE NO ACTION
 );
 
-CREATE TABLE questao
-(
-    id SERIAL PRIMARY KEY,
-    categoria_bloom bloom,
-    texto text UNIQUE,
-    tema_id integer,
-	opcao_correta integer,
-    CONSTRAINT tema_id_fkey FOREIGN KEY (tema_id) REFERENCES tema (id)
-		ON UPDATE NO ACTION
-		ON DELETE NO ACTION
-);
 
-CREATE TABLE questao2
+CREATE TABLE questao
 (
     id SERIAL PRIMARY KEY,
     categoria_bloom bloom,

@@ -34,7 +34,7 @@ import { CreateQuestaoComponent } from './pages/create-questao/create-questao.co
 import { LoginMemoriaService } from './services/login.memoria.service';
 import { QuestaoCardComponent } from './components/questao-card/questao-card.component';
 import { QuestionarioCardComponent } from './components/questionario-card/questionario-card.component';
-import { TemaBuscaModalComponent } from './components/tema-busca-modal/tema-busca-modal.component';
+
 import { ModalSelecaoTemaComponent } from './components/modal-selecao-tema/modal-selecao-tema.component';
 
 
@@ -58,7 +58,6 @@ import { ModalSelecaoTemaComponent } from './components/modal-selecao-tema/modal
     DropdownQuestoesComponent,
     QuestaoCardComponent,
     QuestionarioCardComponent,
-    TemaBuscaModalComponent,
     ModalSelecaoTemaComponent
   ],
   imports: [

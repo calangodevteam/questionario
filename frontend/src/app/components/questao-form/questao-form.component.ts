@@ -7,6 +7,7 @@ import { Tema } from 'src/app/model/tema';
 import { QuestaoDto } from './../../model/questao-dto';
 
 import { ThemeService } from 'src/app/services/theme.service';
+import { TemasAreas } from 'src/app/model/temasAreas';
 
 @Component({
   selector: 'app-questao-form',
@@ -21,6 +22,8 @@ export class QuestaoFormComponent implements OnInit{
 
   questionForm!: FormGroup;
   temas: Tema[] = [];
+  temasAreasSelecionado: TemasAreas | null = null;
+
   private questaoCont!: Questao;
   opcaoCerta!:number;
   progress = true;
@@ -40,30 +43,31 @@ export class QuestaoFormComponent implements OnInit{
       this.obterTemas();
 
     this.questionForm = this.fb.group({
-      questao: this.fb.group({
         id: [null],
         texto: [null],
         categoriaBloom: [null],
-        tema: this.fb.group({
-          id: [null],
-          nome: [null],
-          areas_id:[null]
-        }),
+        temasAreasId: [null],
         artigos: this.fb.array([]),
         figuras: this.fb.array([]),
-        opcoes: this.fb.array([])
-      }),
-      opcao_correta:[null]
+        opcoes: this.fb.array([]),
+        indiceOpcaoCorreta:[null]
     });
 
   }
 
+  callbackSelecaoTema(temasAreas: TemasAreas | null){
+    this.temasAreasSelecionado = temasAreas;
+    if(temasAreas != null){
+      this.questionForm.get('temasAreasId')?.setValue(temasAreas.id);
+    }
+  }
+
   get tema() {
-    return this.questionForm.get('questao.tema') as FormGroup;
+    return this.questionForm.get('tema') as FormGroup;
   }
 
   get artigos() {
-    return this.questionForm.get('questao.artigos') as FormArray;
+    return this.questionForm.get('artigos') as FormArray;
   }
 
   addArtigo() {
@@ -96,7 +100,7 @@ export class QuestaoFormComponent implements OnInit{
   }
 
   get figuras() {
-    return this.questionForm.get('questao.figuras') as FormArray;
+    return this.questionForm.get('figuras') as FormArray;
   }
 
   addFigura() {
@@ -135,7 +139,7 @@ export class QuestaoFormComponent implements OnInit{
   }
 
   get opcoes() {
-    return this.questionForm.get('questao.opcoes') as FormArray;
+    return this.questionForm.get('opcoes') as FormArray;
   }
 
   addOpcao() {
@@ -161,23 +165,20 @@ export class QuestaoFormComponent implements OnInit{
     return this.questionForm.get('opcao_correta');
   }
 
-  addNomeTema(){
-     const questaoFormGroup = this.tema as FormGroup;
-     let id:number = questaoFormGroup.get('id')!.value;
-     let nomeTema!:string;
-     this.temas.forEach(tema => {
-       if(id == tema.id)
-         nomeTema = tema.nome;
-     });
-     this.questionForm.get('questao.tema')?.patchValue({nome:nomeTema});
-
-  }
-
   submit() {
-    this.addNomeTema();
     this.onSubmit.emit(this.questionForm.value);
     this.questionForm.reset();
     this.progress = false;
+  }
+
+  getAreasConhecimento(){
+    let caminho = [];
+    let areaConhecimento = this.temasAreasSelecionado?.areaConhecimento;
+    while(areaConhecimento != null){
+      caminho.push(areaConhecimento.nome);
+      areaConhecimento = areaConhecimento.areaConhecimentoPai;
+    }
+    return caminho.reverse().join(" > ");
   }
 
 }

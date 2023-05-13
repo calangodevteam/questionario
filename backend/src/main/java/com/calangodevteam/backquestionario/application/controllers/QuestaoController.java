@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calangodevteam.backquestionario.application.dtos.existent.QuestaoExistentDTO;
+import com.calangodevteam.backquestionario.application.dtos.fresh.CadastroQuestaoDTO;
 import com.calangodevteam.backquestionario.domain.models.TemasAreas;
 import com.calangodevteam.backquestionario.domain.repositories.TemasAreasRepository;
 //import com.calangodevteam.backquestionario.domain.models.Questao;
@@ -56,11 +58,12 @@ public class QuestaoController {
 		//return service.findById(id);
 	//}
 	
-	//@PostMapping
-	//public Questao create(@RequestBody CadastroQuestaoDTO questao) {
-		
-		//return service.create(questao.getQuestao(), questao.getOpcao_correta());
-	//}
+	@PostMapping
+	public ResponseEntity<QuestaoExistentDTO> create(@RequestBody CadastroQuestaoDTO questao) {
+		System.out.println(questao);
+		//Ver as melhores práticas aqui depois
+		return new ResponseEntity<>(service.create(questao), HttpStatus.CREATED);
+	}
 	
 	//@DeleteMapping("/{id}")
 	//public String delete(@PathVariable Integer id) {
