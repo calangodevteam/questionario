@@ -26,10 +26,6 @@ public class Tema{
 	inverseJoinColumns = @JoinColumn(name = "area_conhecimento_id")
 	)
 	private List<AreaConhecimento> areasConhecimento = new ArrayList<>();
-
-	@JsonIgnore
-	@ManyToMany(mappedBy = "temas")
-	private List<Questionario> questionarios = new ArrayList<>();
 	
 	private String nome;
 
@@ -38,10 +34,9 @@ public class Tema{
 	}
 
 	public Tema(Integer id, List<AreaConhecimento> areasConhecimento,
-			List<Questionario> questionarios, String nome) {
+			String nome) {
 		this.id = id;
 		this.areasConhecimento = areasConhecimento;
-		this.questionarios = questionarios;
 		this.nome = nome;
 	}
 
@@ -67,14 +62,6 @@ public class Tema{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<Questionario> getQuestionarios() {
-		return questionarios;
-	}
-
-	public void setQuestionarios(List<Questionario> questionarios) {
-		this.questionarios = questionarios;
 	}
 	
 }

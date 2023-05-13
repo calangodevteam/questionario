@@ -10,6 +10,6 @@ export class Questionario {
   tempo_duracao: number = 0;
   tempo_disponivel: number = 0;
   dificuldade: String = "Fácil";
-  temas?: Tema[];
+  //temas?: Tema[];
 
 }

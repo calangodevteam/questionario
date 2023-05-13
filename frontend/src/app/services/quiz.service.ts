@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Configuracao } from 'configuracao';
 
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Questionario } from '../model/questionario';
@@ -9,7 +10,7 @@ import { Questionario } from '../model/questionario';
 })
 export class QuizService {
 
-  private questionariosUrl = "/questionarios";
+  private questionariosUrl = Configuracao.urlQuestionario;
   // private questionariosUrl = "http://localhost:8080/questionarios";
   private http: HttpClient;
 
