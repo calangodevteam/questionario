@@ -1,0 +1,9 @@
+<div *ngIf="restElementsInfinitescrollService.getEstadoBusca() != restElementsInfinitescrollService.getEstadosElementos().INICIAL && restElementsInfinitescrollService.getEstadoBusca()!= restElementsInfinitescrollService.getEstadosElementos().ACABOU " class="d-flex my-3">
+  <div class="btn-group">
+    <button [disabled]="restElementsInfinitescrollService.getEstadoBusca()!= restElementsInfinitescrollService.getEstadosElementos().PODE_TENTAR_CARREGAR_MAIS" type="button" (click)="restElementsInfinitescrollService.carregarMais()" class="btn btn-secondary">Mais...</button>
+  </div>
+</div>
+
+<div *ngIf="restElementsInfinitescrollService.getEstadoBusca()== restElementsInfinitescrollService.getEstadosElementos().ACABOU" class="my-3">
+  <!-- <hr>É isso. -->
+</div>

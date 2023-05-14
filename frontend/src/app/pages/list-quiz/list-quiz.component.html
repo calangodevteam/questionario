@@ -1,17 +1,15 @@
 <div class="container-fluid p-3">
 
-  <!-- Descomente esse trecho para visualizar todas as areas -->
-  <!-- <div class="col-md-12 p-1">
-    <h1>Listagem areas</h1>
-    <app-list-areas></app-list-areas>
-  </div> -->
-
   <div class="col-md-12 p-1">
     <h1>Listagem de Questionários</h1>
   </div>
 
-  <div *ngFor="let questionario of questionarios">
-    <app-questionario-card [questionario]="questionario"></app-questionario-card>
+  <div class="col-md-8 mx-auto">
+    <app-ordenador-recentes [restElementsInfinitescrollService]=restElementsInfinitescrollService></app-ordenador-recentes>
+    <div *ngFor="let questionario of restElementsInfinitescrollService.getElementos()">
+      <app-questionario-card [questionario]="questionario"></app-questionario-card>
+    </div>
+    <app-carregador-elementos [restElementsInfinitescrollService]=restElementsInfinitescrollService></app-carregador-elementos>
   </div>
-
+  
 </div>

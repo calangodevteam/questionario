@@ -36,6 +36,8 @@ import { QuestaoCardComponent } from './components/questao-card/questao-card.com
 import { QuestionarioCardComponent } from './components/questionario-card/questionario-card.component';
 
 import { ModalSelecaoTemaComponent } from './components/modal-selecao-tema/modal-selecao-tema.component';
+import { CarregadorElementosComponent } from './components/paginacao/carregador-elementos.component';
+import { OrdenadorRecentesComponent } from './components/paginacao/ordenador-recentes.component';
 
 
 @NgModule({
@@ -58,7 +60,10 @@ import { ModalSelecaoTemaComponent } from './components/modal-selecao-tema/modal
     DropdownQuestoesComponent,
     QuestaoCardComponent,
     QuestionarioCardComponent,
-    ModalSelecaoTemaComponent
+    ModalSelecaoTemaComponent,
+    CarregadorElementosComponent,
+    OrdenadorRecentesComponent
+    
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Configuracao } from 'configuracao';
 import { Questionario } from 'src/app/model/questionario';
 import { QuizService } from 'src/app/services/quiz.service';
+import { RestElementsInfinitescrollService } from 'src/app/services/rest.elements.infinitescroll.service';
 
 @Component({
   selector: 'app-list-quiz',
@@ -13,19 +16,17 @@ export class ListQuizComponent implements OnInit{
   router: Router;
   quizService: QuizService;
   questionarios: Array<Questionario> = [];
+  public restElementsInfinitescrollService: RestElementsInfinitescrollService<Questionario>;
 
-  constructor(router: Router, quizService: QuizService) {
+  constructor(router: Router, quizService: QuizService, http: HttpClient) {
       this.router = router;
       this.quizService = quizService;
+      this.restElementsInfinitescrollService = new RestElementsInfinitescrollService<Questionario>(http);
    }
 
-  private obterTodos(){
-    this.quizService.obterTodos()
-        .subscribe((questionarios)=>this.questionarios=questionarios);
-  }
-
   ngOnInit(): void {
-    this.obterTodos();
+    this.restElementsInfinitescrollService.setElementsUrl(Configuracao.urlQuestionario);
+    this.restElementsInfinitescrollService.carregar();
   }
 
 }
