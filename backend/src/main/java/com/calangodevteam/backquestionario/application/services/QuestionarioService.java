@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.calangodevteam.backquestionario.application.dtos.RespostaPaginadaDTO;
+import com.calangodevteam.backquestionario.application.validation.ValidacaoPaginacao;
 import com.calangodevteam.backquestionario.domain.models.Questionario;
 import com.calangodevteam.backquestionario.domain.repositories.QuestionarioRepository;
 
@@ -18,19 +21,15 @@ public class QuestionarioService {
 	@Autowired
 	private QuestionarioRepository repoQuestionario;
 
-	@Value("${backquestionario.paginacao.size.generico.padrao}")
-	private int pageSizeMaximoPermitido;
+	@Autowired
+	private ValidacaoPaginacao validacaoPaginacao;
 	
-	public List<Questionario> findAll(int page, int size, String sort) {
+	public RespostaPaginadaDTO<Questionario> findAll(int page, int size, String sort) {
 
-		if(size > pageSizeMaximoPermitido)
-			throw new RuntimeException("PageSize não pode exceder " + pageSizeMaximoPermitido);
+		this.validacaoPaginacao.validar(size, sort);
 
-		if((sort.equals("asc") && sort.equals("desc")))
-			throw new RuntimeException("Método de ordenação " + sort + " não suportado!");
-
-		return repoQuestionario.findAll(PageRequest.of(page, size, Sort.by(Direction.fromString(sort), "id")))
-		.toList();
+		Page<Questionario> pagina = repoQuestionario.findAll(PageRequest.of(page, size, Sort.by(Direction.fromString(sort), "id")));
+		return new RespostaPaginadaDTO<>(pagina.toList(), pagina.hasNext());
 	}
 
 	public Questionario create(Questionario questionario) {

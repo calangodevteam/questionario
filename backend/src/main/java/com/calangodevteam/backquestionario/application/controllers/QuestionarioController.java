@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.calangodevteam.backquestionario.application.dtos.RespostaPaginadaDTO;
 import com.calangodevteam.backquestionario.application.services.QuestionarioService;
 import com.calangodevteam.backquestionario.domain.models.Questionario;
 
@@ -26,17 +27,17 @@ public class QuestionarioController {
 	private QuestionarioService questionarioService;
 
 	@GetMapping
-	public ResponseEntity<List<Questionario>> findAllByIdAscOrDesc(
+	public ResponseEntity<RespostaPaginadaDTO<Questionario>> findAllByIdAscOrDesc(
 		@RequestParam(name = "page", defaultValue = "0") int page,
     	@RequestParam(name = "size", defaultValue = "${backquestionario.paginacao.size.generico.padrao}") int size,
 		@RequestParam(name = "sort", defaultValue = "asc") String sort) {
 
-		List<Questionario> questionario = questionarioService.findAll(page, size, sort);
-		return ResponseEntity.ok(questionario);
+		return ResponseEntity.ok(questionarioService.findAll(page, size, sort));
 	}
 
 	@PostMapping
 	public ResponseEntity<Questionario> create(@RequestBody Questionario questionario) {
+
 		Questionario novoQuestionario = questionarioService.create(questionario);
 		URI location = ServletUriComponentsBuilder.
 		fromCurrentRequest().

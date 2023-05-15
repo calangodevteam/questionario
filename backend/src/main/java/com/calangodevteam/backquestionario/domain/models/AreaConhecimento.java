@@ -18,16 +18,16 @@ public class AreaConhecimento {
 
 	@ManyToOne
 	@JoinColumn(name = "id_pai")
-	private AreaConhecimento pai;
+	private AreaConhecimento areaConhecimentoPai;
 	
 	public AreaConhecimento() {
 		
 	}
 
-	public AreaConhecimento(Integer id, String nome, AreaConhecimento pai) {
+	public AreaConhecimento(Integer id, String nome, AreaConhecimento areaConhecimentoPai) {
 		this.id = id;
 		this.nome = nome;
-		this.pai = pai;
+		this.areaConhecimentoPai = areaConhecimentoPai;
 	}
 
 	public Integer getId() {
@@ -46,12 +46,12 @@ public class AreaConhecimento {
 		this.nome = nome;
 	}
 
-	public AreaConhecimento getPai() {
-		return pai;
+	public AreaConhecimento getAreaConhecimentoPai() {
+		return this.areaConhecimentoPai;
 	}
 
-	public void setPai(AreaConhecimento pai) {
-		this.pai = pai;
+	public void setPai(AreaConhecimento areaConhecimentoPai) {
+		this.areaConhecimentoPai = areaConhecimentoPai;
 	}
 	
 }
