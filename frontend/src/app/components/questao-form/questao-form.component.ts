@@ -6,7 +6,6 @@ import { Questao } from 'src/app/model/questao';
 import { Tema } from 'src/app/model/tema';
 import { QuestaoDto } from './../../model/questao-dto';
 
-import { ThemeService } from 'src/app/services/theme.service';
 import { TemasAreas } from 'src/app/model/temasAreas';
 
 @Component({
@@ -28,19 +27,11 @@ export class QuestaoFormComponent implements OnInit{
   opcaoCerta!:number;
   progress = true;
 
-  constructor(private serviceT: ThemeService, private fb: FormBuilder) { }
-
-  private obterTemas() {
-    this.serviceT.obterTemas()
-      .subscribe((temas) => this.temas = temas);
-  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
 
     this.questaoCont = this.questaoDto ? this.questaoDto.questao : new Questao();
-
-    if (!this.questaoDto)
-      this.obterTemas();
 
     this.questionForm = this.fb.group({
         id: [null],

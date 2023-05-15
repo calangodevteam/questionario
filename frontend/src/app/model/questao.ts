@@ -6,7 +6,7 @@ import { TemasAreas } from "./temasAreas";
 export class Questao {
 
   id?: number;
-  opcaoCorretaId: number = 0;
+  opcaoCorreta: Opcao = new Opcao();
   texto: string = "";
   categoriaBloom: string = "Avaliação";
   temasAreas: TemasAreas = new TemasAreas();
@@ -38,4 +38,3 @@ export class Questao {
   }
 
 }
-

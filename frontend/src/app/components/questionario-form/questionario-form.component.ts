@@ -1,12 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { of } from 'rxjs';
 import { Questao } from 'src/app/model/questao';
-import { QuestaoDto } from 'src/app/model/questao-dto';
-import { QuestaoForm } from 'src/app/model/questao-form';
 import { Questionario } from 'src/app/model/questionario';
 import { QuestaoService } from 'src/app/services/questao.service';
-import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-questionario-form',
@@ -23,7 +19,7 @@ export class QuestionarioFormComponent implements OnInit {
   modalVisible = false;
   modalTitle ='Selecione uma questão para incluir em seu questionário';
 
-  constructor(private serviceT: ThemeService, private fb: FormBuilder, private serviceQ: QuestaoService) { }
+  constructor(private fb: FormBuilder, private serviceQ: QuestaoService) { }
 
   ngOnInit() {
 

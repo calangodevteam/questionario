@@ -2,10 +2,8 @@ package com.calangodevteam.backquestionario.domain.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.calangodevteam.backquestionario.domain.models.enums.Dificuldade;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,17 +40,8 @@ public class Questionario {
 	)
 	private List<Questao2> questoes = new ArrayList<>();
 
-	public Questionario(){};
+	public Questionario(){
 
-	public Questionario(Integer id, String titulo, Integer qtdQuestoes, Integer tempoDuracao, Integer tempoDisponivel,
-			Dificuldade dificuldade, List<Questao2> questoes) {
-		this.id = id;
-		this.titulo = titulo;
-		this.qtdQuestoes = qtdQuestoes;
-		this.tempoDuracao = tempoDuracao;
-		this.tempoDisponivel = tempoDisponivel;
-		this.dificuldade = dificuldade;
-		this.questoes = questoes;
 	}
 
 	public Integer getId() {

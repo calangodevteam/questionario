@@ -24,12 +24,7 @@ public class TemasAreas {
     private AreaConhecimento areaConhecimento;
 
     public TemasAreas() {
-    }
-
-    public TemasAreas(Long id, Tema tema, AreaConhecimento areaConhecimento) {
-        this.id = id;
-        this.tema = tema;
-        this.areaConhecimento = areaConhecimento;
+        
     }
 
     public Long getId() {

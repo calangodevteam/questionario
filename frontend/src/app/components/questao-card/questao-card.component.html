@@ -17,7 +17,7 @@
     <div class="form-group">
       <label>Opções</label>
       <div class="list-group">
-        <div class="list-group-item" [ngClass]="{'bg-success': questao.opcaoCorretaId == opcao.id}" *ngFor="let opcao of questao.opcoes; let i =index">{{opcao.texto}}</div>
+        <div class="list-group-item" [ngClass]="{'bg-success': questao.opcaoCorreta.id == opcao.id}" *ngFor="let opcao of questao.opcoes; let i =index">{{opcao.texto}}</div>
       </div>
     </div>
 

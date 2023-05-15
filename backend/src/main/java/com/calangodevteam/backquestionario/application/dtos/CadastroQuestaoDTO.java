@@ -1,4 +1,4 @@
-package com.calangodevteam.backquestionario.application.dtos.existent;
+package com.calangodevteam.backquestionario.application.dtos;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.calangodevteam.backquestionario.domain.models.Figura;
 import com.calangodevteam.backquestionario.domain.models.Opcao;
 import com.calangodevteam.backquestionario.domain.models.enums.Bloom;
 
-public class QuestaoExistentDTO {
+public class CadastroQuestaoDTO {
 	
 	private Integer id;
 	private String texto;
@@ -15,23 +15,22 @@ public class QuestaoExistentDTO {
 	private List<Artigo> artigos;
 	private List<Figura> figuras;
 	private List<Opcao> opcoes;
-    private Integer opcaoCorretaId;
-	private TemasAreasExistentDTO temasAreas;
+    private Integer indiceOpcaoCorreta;
+	private Integer temasAreasId;
 
-	public QuestaoExistentDTO(){}
-
-	public QuestaoExistentDTO(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos,
-			List<Figura> figuras, List<Opcao> opcoes, Integer opcaoCorretaId,
-			TemasAreasExistentDTO temasAreas) {
+	public CadastroQuestaoDTO(Integer id, String texto, Bloom categoriaBloom, List<Artigo> artigos,
+			List<Figura> figuras, List<Opcao> opcoes, Integer indiceOpcaoCorreta, Integer temasAreasId) {
 		this.id = id;
 		this.texto = texto;
 		this.categoriaBloom = categoriaBloom;
 		this.artigos = artigos;
 		this.figuras = figuras;
 		this.opcoes = opcoes;
-		this.opcaoCorretaId = opcaoCorretaId;
-		this.temasAreas = temasAreas;
+		this.indiceOpcaoCorreta = indiceOpcaoCorreta;
+		this.temasAreasId = temasAreasId;
 	}
+
+	public CadastroQuestaoDTO(){}
 
 	public Integer getId() {
 		return id;
@@ -81,20 +80,19 @@ public class QuestaoExistentDTO {
 		this.opcoes = opcoes;
 	}
 
-	public Integer getOpcaoCorretaId() {
-		return opcaoCorretaId;
+	public Integer getIndiceOpcaoCorreta() {
+		return indiceOpcaoCorreta;
 	}
 
-	public void setOpcaoCorretaId(Integer opcaoCorretaId) {
-		this.opcaoCorretaId = opcaoCorretaId;
+	public void setIndiceOpcaoCorreta(Integer indiceOpcaoCorreta) {
+		this.indiceOpcaoCorreta = indiceOpcaoCorreta;
 	}
 
-	public TemasAreasExistentDTO getTemasAreas() {
-		return temasAreas;
+	public Integer getTemasAreasId() {
+		return temasAreasId;
 	}
 
-	public void setTemasAreas(TemasAreasExistentDTO temasAreas) {
-		this.temasAreas = temasAreas;
+	public void setTemasAreasId(Integer temasAreasId) {
+		this.temasAreasId = temasAreasId;
 	}
-	
 }

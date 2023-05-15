@@ -1,4 +1,4 @@
-package com.calangodevteam.backquestionario.domain.services;
+package com.calangodevteam.backquestionario.application.services;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -27,7 +27,6 @@ public class ImageService {
 	
 	public String imageExt(String image) {
 		String aux1 = image.substring(image.indexOf("/")+1, image.indexOf(";"));
-		System.out.println("IMPORTANTE: "+ aux1);
 		if(aux1.equals("jpeg"))
 			return ".jpg";
 		else		

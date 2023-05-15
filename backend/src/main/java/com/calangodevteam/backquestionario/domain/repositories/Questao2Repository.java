@@ -12,9 +12,5 @@ public interface Questao2Repository extends JpaRepository<Questao2, Integer>{
 
 	Page<Questao2> findAll(Pageable pageable);
 	Page<Questao2> findAllByTemasAreasId(Pageable pageable, int temasAreasId);
-	
-	//List<Questao2> findByOrderByTemaNomeAsc();
-	
-	//List<Questao2> findByTema(Integer temaId);
 
 }

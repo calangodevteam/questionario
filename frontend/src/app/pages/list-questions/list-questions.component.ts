@@ -1,7 +1,6 @@
 import { Questao } from './../../model/questao';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { ThemeService } from 'src/app/services/theme.service';
 import { RestElementsInfinitescrollService } from 'src/app/services/rest.elements.infinitescroll.service';
 import { Configuracao } from 'configuracao';
 import { TemasAreas } from 'src/app/model/temasAreas';
@@ -22,8 +21,7 @@ export class ListQuestionsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    http: HttpClient,
-    private serviceT: ThemeService) {
+    http: HttpClient) {
       this.restElementsInfinitescrollService = new RestElementsInfinitescrollService<Questao>(http);
       this.restElementsInfinitescrollServiceTema = new RestElementsInfinitescrollService<TemasAreas>(http);
     }

@@ -60,7 +60,9 @@ public class Questao2 {
     @ManyToMany(mappedBy = "questoes")
     private List<Questionario> questionarios = new ArrayList<>();
 
-	public Questao2(){}
+	public Questao2(){
+
+	}
 
 	public Integer getId() {
 		return id;
@@ -114,8 +116,8 @@ public class Questao2 {
 		return opcaoCorreta;
 	}
 
-	public void setOpcaoCorreta(Opcao opcao_correta) {
-		this.opcaoCorreta = opcao_correta;
+	public void setOpcaoCorreta(Opcao opcaoCorreta) {
+		this.opcaoCorreta = opcaoCorreta;
 	}
 
 	public TemasAreas getTemasAreas() {
