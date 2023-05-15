@@ -8,16 +8,16 @@ import { Injectable, OnInit } from '@angular/core';
 import { Configuracao } from 'configuracao';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ESTADOS_ELEMENTOS } from 'src/app/estadosElementos';
+import { RespostaPaginadaDTO } from '../model/RespostaPaginadaDTO';
 
 export class RestElementsInfinitescrollService<T> {
 
   public httpParams = new HttpParams();
 
-  //private questoesUrl = "/questoes";
   private elementsUrl: string = "";
   private http: HttpClient;
 
-  private elementos: T[] = [];
+  private respostaPaginadaDTO: RespostaPaginadaDTO<T> = new RespostaPaginadaDTO();
 
   private estadoBusca: number = ESTADOS_ELEMENTOS.INICIAL;
 
@@ -45,11 +45,12 @@ export class RestElementsInfinitescrollService<T> {
   }
 
   public getElementos(): T[]{
-    return this.elementos;
+    return this.respostaPaginadaDTO.elementos;
   }
 
   public reset(){
-    this.elementos = [];
+    this.respostaPaginadaDTO.elementos = [];
+    this.respostaPaginadaDTO.temMaisElementos = false;
     this.httpParams = this.httpParams.set(Configuracao.parametroDePage.chave, 0);
     this.estadoBusca = ESTADOS_ELEMENTOS.INICIAL;
   }
@@ -73,16 +74,12 @@ export class RestElementsInfinitescrollService<T> {
     this.carregar();
   }
 
-  private gerenciarNovosDados(elementos: T[]){
-    if(elementos.length == 0){
-      this.estadoBusca = ESTADOS_ELEMENTOS.ACABOU;
-      return;
-    }
-    this.estadoBusca = ESTADOS_ELEMENTOS.PODE_TENTAR_CARREGAR_MAIS;
+  private gerenciarNovosDados(respostaPaginadaDTO: RespostaPaginadaDTO<T>){
+    this.estadoBusca = respostaPaginadaDTO.temMaisElementos? ESTADOS_ELEMENTOS.PODE_TENTAR_CARREGAR_MAIS : ESTADOS_ELEMENTOS.ACABOU;
 
-    let clone = this.elementos.slice();
-    elementos.forEach((elemento) => clone.push(elemento));
-    this.elementos = clone;
+    let clone = this.respostaPaginadaDTO.elementos.slice();
+    respostaPaginadaDTO.elementos.forEach((elemento) => clone.push(elemento));
+    this.respostaPaginadaDTO.elementos = clone;
   }
 
   // Retorno, mesmo que vazio, impede que o app trave
@@ -95,10 +92,10 @@ export class RestElementsInfinitescrollService<T> {
 
   public carregar() {
     let params = this.httpParams;
-    this.http.get<T[]>(this.elementsUrl, {params})
+    this.http.get<RespostaPaginadaDTO<T>>(this.elementsUrl, {params})
       .pipe(
         tap(_ => console.log('Elementos recuperados')),
-        catchError(this.handleError<T[]>('carregar', []))
-      )?.subscribe((elementos) => this.gerenciarNovosDados(elementos));
+        catchError(this.handleError<RespostaPaginadaDTO<T>>('carregar', new RespostaPaginadaDTO()))
+      )?.subscribe((respostaPaginadaDTO) => this.gerenciarNovosDados(respostaPaginadaDTO));
   }
 }

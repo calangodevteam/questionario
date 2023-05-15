@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Questao } from 'src/app/model/questao';
+import { TemasAreas } from 'src/app/model/temasAreas';
 
 @Component({
   selector: 'app-questao-card',
@@ -13,13 +14,7 @@ export class QuestaoCardComponent {
   @Input() modoDeSelecao: boolean = false;
 
   getAreasConhecimento(){
-    let caminho = [];
-    let areaConhecimento = this.questao.temasAreas.areaConhecimento;
-    while(areaConhecimento != null){
-      caminho.push(areaConhecimento.nome);
-      areaConhecimento = areaConhecimento.areaConhecimentoPai;
-    }
-    return caminho.reverse().join(" > ");
+    return TemasAreas.getAreasConhecimento(this.questao.temasAreas.areaConhecimento);
   }
   
 }

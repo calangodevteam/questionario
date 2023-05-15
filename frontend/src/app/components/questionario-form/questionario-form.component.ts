@@ -47,7 +47,6 @@ export class QuestionarioFormComponent implements OnInit {
   }
   
   selecionarQuestao(questao: Questao):void{
-    console.log(questao.texto + "kkkk");
     let id!:number;
     //this.serviceQ.adicionar(questao).subscribe((data:Questao) => id = data.id!);
 

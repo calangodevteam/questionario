@@ -26,13 +26,7 @@ export class ModalSelecaoTemaComponent implements OnInit {
   }
 
   getAreasConhecimento(temasAreas: TemasAreas){
-    let caminho = [];
-    let areaConhecimento = temasAreas.areaConhecimento;
-    while(areaConhecimento != null){
-      caminho.push(areaConhecimento.nome);
-      areaConhecimento = areaConhecimento.areaConhecimentoPai;
-    }
-    return caminho.reverse().join(" > ");
+    return TemasAreas.getAreasConhecimento(temasAreas.areaConhecimento);
   }
 
   ngOnInit(): void {

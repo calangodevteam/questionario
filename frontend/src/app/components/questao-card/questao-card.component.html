@@ -3,7 +3,9 @@
   <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
   <div class="pt-3 px-3" data-toggle="collapse" attr.data-target="#questao-{{questao.id}}">
      
-      <b>{{questao.temasAreas.tema?.nome}}</b> {{ " - (" + getAreasConhecimento() + ")"}}
+      <ng-container *ngIf="questao.temasAreas != null">
+        <b>{{questao.temasAreas.tema?.nome}}</b> {{ " - (" + getAreasConhecimento() + ")"}}
+      </ng-container>
 
       <hr>
       <h4>{{questao.texto}} </h4>

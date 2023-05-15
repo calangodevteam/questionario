@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit{
 
   logar(): void{
     this.enviando = true;
-    console.log(this.login, this.senha)
     if(this.servLogin.entrar(this.login, this.senha)){
       this.router.navigateByUrl("/home");
     }

@@ -163,13 +163,7 @@ export class QuestaoFormComponent implements OnInit{
   }
 
   getAreasConhecimento(){
-    let caminho = [];
-    let areaConhecimento = this.temasAreasSelecionado?.areaConhecimento;
-    while(areaConhecimento != null){
-      caminho.push(areaConhecimento.nome);
-      areaConhecimento = areaConhecimento.areaConhecimentoPai;
-    }
-    return caminho.reverse().join(" > ");
+    return TemasAreas.getAreasConhecimento(this.temasAreasSelecionado?.areaConhecimento);
   }
 
 }
