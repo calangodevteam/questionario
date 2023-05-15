@@ -8,7 +8,7 @@ import { Questionario } from '../model/questionario';
 @Injectable({
   providedIn: 'root'
 })
-export class QuizService {
+export class QuestionarioService {
 
   private questionariosUrl = Configuracao.urlQuestionario;
   // private questionariosUrl = "http://localhost:8080/questionarios";
@@ -49,7 +49,7 @@ export class QuizService {
    obterTodos():Observable<Questionario[]> {
       return this.http.get<Questionario[]>(this.questionariosUrl)
         .pipe(
-          tap(_ => console.log('Questaos recuperados')),
+          tap(_ => console.log('Questionários recuperados')),
           catchError(this.handleError<Questionario[]>('obterTodos', []))
         );
     }

@@ -13,7 +13,7 @@ export class LoginMemoriaService{
   router: Router;
 
   /** Mudar para true para desativar a autenticação em memória */
-  isAuthenticated: boolean = true;
+  isAuthenticated: boolean = false;
   usuarioLogado: UsuarioMemoria = new UsuarioMemoria();
 
   constructor(router: Router) {

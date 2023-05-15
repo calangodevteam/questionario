@@ -20,22 +20,22 @@ import { RegisterUserComponent } from './components/register-user/register-user.
 import { AreasComponent } from './components/areas/areas.component';
 import { ListAreasComponent } from './components/list-areas/list-areas.component';
 import { QuestaoFormComponent } from './components/questao-form/questao-form.component';
-import { QuizFormComponent } from './components/quiz-form/quiz-form.component';
+import { QuestionarioFormComponent } from './components/questionario-form/questionario-form.component';
 import { DropdownQuestoesComponent } from './components/dropdown-questoes/dropdown-questoes.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ListQuestionsComponent } from './pages/list-questions/list-questions.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
-import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
-import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
+import { CreateQuestionarioComponent } from './pages/create-questionario/create-questionario.component';
+import { ListQuestionarioComponent } from './pages/list-questionario/list-questionario.component';
 import { CreateQuestaoComponent } from './pages/create-questao/create-questao.component';
 
 import { LoginMemoriaService } from './services/login.memoria.service';
 import { QuestaoCardComponent } from './components/questao-card/questao-card.component';
 import { QuestionarioCardComponent } from './components/questionario-card/questionario-card.component';
 
-import { ModalSelecaoTemaComponent } from './components/modal-selecao-tema/modal-selecao-tema.component';
+import { ModalSelecaoTemaComponent } from './components/paginacao/modal-selecao-tema.component';
 import { CarregadorElementosComponent } from './components/paginacao/carregador-elementos.component';
 import { OrdenadorRecentesComponent } from './components/paginacao/ordenador-recentes.component';
 
@@ -50,13 +50,13 @@ import { OrdenadorRecentesComponent } from './components/paginacao/ordenador-rec
     PageNotFoundComponent,
     LoginComponent,
     RegisterUserComponent,
-    CreateQuizComponent,
-    ListQuizComponent,
+    CreateQuestionarioComponent,
+    ListQuestionarioComponent,
     AreasComponent,
     ListAreasComponent,
     CreateQuestaoComponent,
     QuestaoFormComponent,
-    QuizFormComponent,
+    QuestionarioFormComponent,
     DropdownQuestoesComponent,
     QuestaoCardComponent,
     QuestionarioCardComponent,

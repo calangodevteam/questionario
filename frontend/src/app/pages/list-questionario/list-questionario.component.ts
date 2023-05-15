@@ -3,24 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Configuracao } from 'configuracao';
 import { Questionario } from 'src/app/model/questionario';
-import { QuizService } from 'src/app/services/quiz.service';
+import { QuestionarioService } from 'src/app/services/questionario.service';
 import { RestElementsInfinitescrollService } from 'src/app/services/rest.elements.infinitescroll.service';
 
 @Component({
-  selector: 'app-list-quiz',
-  templateUrl: './list-quiz.component.html',
-  styleUrls: ['./list-quiz.component.css']
+  selector: 'app-list-questionario',
+  templateUrl: './list-questionario.component.html',
+  styleUrls: ['./list-questionario.component.css']
 })
-export class ListQuizComponent implements OnInit{
+export class ListQuestionarioComponent implements OnInit{
 
   router: Router;
-  quizService: QuizService;
+  questionarioService: QuestionarioService;
   questionarios: Array<Questionario> = [];
   public restElementsInfinitescrollService: RestElementsInfinitescrollService<Questionario>;
 
-  constructor(router: Router, quizService: QuizService, http: HttpClient) {
+  constructor(router: Router, questionarioService: QuestionarioService, http: HttpClient) {
       this.router = router;
-      this.quizService = quizService;
+      this.questionarioService = questionarioService;
       this.restElementsInfinitescrollService = new RestElementsInfinitescrollService<Questionario>(http);
    }
 

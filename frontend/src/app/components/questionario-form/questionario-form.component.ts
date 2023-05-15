@@ -9,11 +9,11 @@ import { QuestaoService } from 'src/app/services/questao.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
-  selector: 'app-quiz-form',
-  templateUrl: './quiz-form.component.html',
-  styleUrls: ['./quiz-form.component.css']
+  selector: 'app-questionario-form',
+  templateUrl: './questionario-form.component.html',
+  styleUrls: ['./questionario-form.component.css']
 })
-export class QuizFormComponent implements OnInit {
+export class QuestionarioFormComponent implements OnInit {
 
   @Input() btnText!: string;
   @Input() questionario: Questionario | null = null;

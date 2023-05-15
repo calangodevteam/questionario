@@ -35,6 +35,14 @@ export class LoginComponent implements OnInit{
     this.enviando = false;
   }
 
+  entrarSemConta(): void{
+    this.servLogin.usuarioLogado.nome = "Convidado";
+    this.servLogin.usuarioLogado.email = "convidado@convidado.com.br";
+    this.servLogin.usuarioLogado.senha = "convidado";
+    this.servLogin.isAuthenticated = true;
+    this.router.navigateByUrl("/home");
+  }
+
   showCadUsu(): void{
     const dialogRef = this.dialogo.open(RegisterUserComponent);
 

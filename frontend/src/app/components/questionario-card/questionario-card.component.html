@@ -5,12 +5,7 @@
     <small class="float-right text-muted">Mostrar/Esconder</small>
   </div><hr>
 
-  <div class="collapse p-3" id="questionario-{{questionario.id}}">
-
-    <div class="form-group">
-      <label>Quantidade de questões</label>
-      <input disabled type="text" value="{{questionario.qtdQuestoes}}" class="form-control">
-    </div>
+  <div class="collapse px-3" id="questionario-{{questionario.id}}">
 
     <div class="form-group">
       <label>Duração</label>
@@ -40,7 +35,7 @@
     -->
 
     <div class="form-group">
-      <h3>Questões</h3>
+      <h3>Questões ({{questionario.qtdQuestoes}})</h3>
       <div class="bg-light mb-2" *ngFor="let questaoQuest of questionario.questoes">
         <app-questao-card [questao]="questaoQuest"></app-questao-card>
       </div>
