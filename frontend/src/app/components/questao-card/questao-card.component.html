@@ -58,4 +58,8 @@
     </div>
 
   </div>
+  
+</div>
+<div *ngIf="this.modoDeSelecao==true" class="d-flex ">
+  <button (click)="onSelecionarQuestao.emit(questao)" class="btn btn-secondary mt-1 ml-auto">Selecionar</button>
 </div>

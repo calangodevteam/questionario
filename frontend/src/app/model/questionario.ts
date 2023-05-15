@@ -6,9 +6,9 @@ export class Questionario {
   titulo: String = "";
   id: number = 0;
   questoes: Questao[] = [];
-  qtd_questoes: number = 0;
-  tempo_duracao: number = 0;
-  tempo_disponivel: number = 0;
+  qtdQuestoes: number = 0;
+  tempoDuracao: number = 0;
+  tempoDisponivel: number = 0;
   dificuldade: String = "Fácil";
   //temas?: Tema[];
 

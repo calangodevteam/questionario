@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.calangodevteam.backquestionario.application.dtos.existent.TemaExistentDTO;
 import com.calangodevteam.backquestionario.application.dtos.existent.TemasAreasExistentDTO;
 import com.calangodevteam.backquestionario.domain.models.Tema;
-import com.calangodevteam.backquestionario.domain.services.TemaService;
 import com.calangodevteam.backquestionario.domain.services.TemasAreasService;
 
 @RestController

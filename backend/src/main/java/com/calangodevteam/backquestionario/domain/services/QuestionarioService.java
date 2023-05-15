@@ -47,6 +47,19 @@ public class QuestionarioService {
 		return questionariosDto;
 	}
 
+	public Questionario create(QuestionarioDTO questionarioDTO) {
+
+		/*
+		questionario.getQuestoes().forEach(questao -> {
+			if(questao.getId() == null)
+				repoQuestao.save(questao);
+		});
+		 */
+		questionarioDTO.setQtdQuestoes(questionarioDTO.getQuestoes().size());
+		Questionario questionario = modelMapper.map(questionarioDTO, Questionario.class);
+		return repoQuestionario.save(questionario);
+	}
+
 	/*
 	
 	public Optional<Questionario> findById (Integer id){

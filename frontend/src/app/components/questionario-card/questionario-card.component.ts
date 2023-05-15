@@ -9,5 +9,6 @@ import { Questionario } from 'src/app/model/questionario';
 export class QuestionarioCardComponent {
 
   @Input() questionario!:Questionario;
+  
 
 }

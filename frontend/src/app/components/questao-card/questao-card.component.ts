@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Questao } from 'src/app/model/questao';
 
 @Component({
@@ -8,7 +8,9 @@ import { Questao } from 'src/app/model/questao';
 })
 export class QuestaoCardComponent {
 
-  @Input() questao!:Questao;
+  @Input() questao: Questao = new Questao();
+  @Output() onSelecionarQuestao: EventEmitter<Questao> = new EventEmitter<Questao>;
+  @Input() modoDeSelecao: boolean = false;
 
   getAreasConhecimento(){
     let caminho = [];
@@ -19,5 +21,5 @@ export class QuestaoCardComponent {
     }
     return caminho.reverse().join(" > ");
   }
-
+  
 }

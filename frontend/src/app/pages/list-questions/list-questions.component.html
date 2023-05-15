@@ -7,7 +7,7 @@
   <div class="d-flex">
 
 
-    <div class="col-md-8 mx-auto">
+    <div class="col-lg-9 col-md-12 mx-auto">
 
       <button class="btn btn-secondary flex-shrink-0 mb-2" style="margin-right: 5px;" data-toggle="modal" data-target="#modal-selecao-tema">Escolher tema</button>
       <h4 *ngIf="temasAreasSelecionado == null">
@@ -21,7 +21,7 @@
 
       <app-ordenador-recentes [restElementsInfinitescrollService]=restElementsInfinitescrollService></app-ordenador-recentes>
 
-      <app-questao-card class="ml-3" *ngFor="let questao of restElementsInfinitescrollService.getElementos();" [questao]="questao"></app-questao-card>
+      <app-questao-card [modoDeSelecao]=this.modoDeSelecao (onSelecionarQuestao)="onSelecionarQuestao.emit($event)" class="ml-3" *ngFor="let questao of restElementsInfinitescrollService.getElementos();" [questao]="questao"></app-questao-card>
       <div class="my-3"></div>
 
       <app-carregador-elementos [restElementsInfinitescrollService]=restElementsInfinitescrollService></app-carregador-elementos>

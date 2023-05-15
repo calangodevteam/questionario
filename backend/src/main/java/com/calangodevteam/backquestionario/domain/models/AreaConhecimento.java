@@ -33,21 +33,15 @@ public class AreaConhecimento {
 	@OneToMany(mappedBy = "pai", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AreaConhecimento> subAreas = new ArrayList<>();
 	
-	@JsonIgnore
-    @ManyToMany(mappedBy = "areasConhecimento")
-	private List<Tema> temas = new ArrayList<>();
-	
 	public AreaConhecimento() {
 		
 	}
 
-	public AreaConhecimento(Integer id, String nome, AreaConhecimento pai, List<AreaConhecimento> subAreas,
-			List<Tema> temas) {
+	public AreaConhecimento(Integer id, String nome, AreaConhecimento pai, List<AreaConhecimento> subAreas) {
 		this.id = id;
 		this.nome = nome;
 		this.pai = pai;
 		this.subAreas = subAreas;
-		this.temas = temas;
 	}
 
 	public Integer getId() {
@@ -82,14 +76,6 @@ public class AreaConhecimento {
 	public void setSubAreas(List<AreaConhecimento> subAreas) {
 		this.subAreas = subAreas;
 	}
-
-	public List<Tema> getTemas() {
-		return temas;
-	}
-
-	public void setTemas(List<Tema> temas) {
-		this.temas = temas;
-	}
 	
 	@Override
 	public int hashCode() {
@@ -107,26 +93,5 @@ public class AreaConhecimento {
 		AreaConhecimento other = (AreaConhecimento) obj;
 		return Objects.equals(id, other.id);
 	}
-
-
-// Funções da Arvore
-	
-	public void adicionarFilho(AreaConhecimento subArea) {
-		subArea.setPai(this);
-		subAreas.add(subArea);
-	}
-
-	public void removerFilho(AreaConhecimento subArea) {
-		subAreas.remove(subArea);
-		subArea.setPai(null);
-	}
-
-/* 
- * Para fins de mapeamento
- * 
- * public boolean isFolha() {
- *		return filhos.isEmpty();
- *	}
-*/
 	
 }

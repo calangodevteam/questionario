@@ -59,28 +59,56 @@ public class Questionario {
 		return id;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getTitulo() {
 		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public Integer getQtdQuestoes() {
 		return qtdQuestoes;
 	}
 
+	public void setQtdQuestoes(Integer qtdQuestoes) {
+		this.qtdQuestoes = qtdQuestoes;
+	}
+
 	public Integer getTempoDuracao() {
 		return tempoDuracao;
+	}
+
+	public void setTempoDuracao(Integer tempoDuracao) {
+		this.tempoDuracao = tempoDuracao;
 	}
 
 	public Integer getTempoDisponivel() {
 		return tempoDisponivel;
 	}
 
+	public void setTempoDisponivel(Integer tempoDisponivel) {
+		this.tempoDisponivel = tempoDisponivel;
+	}
+
 	public Dificuldade getDificuldade() {
 		return dificuldade;
 	}
 
+	public void setDificuldade(Dificuldade dificuldade) {
+		this.dificuldade = dificuldade;
+	}
+
 	public List<Questao2> getQuestoes() {
 		return questoes;
+	}
+
+	public void setQuestoes(List<Questao2> questoes) {
+		this.questoes = questoes;
 	}
 
 }

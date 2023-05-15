@@ -1,67 +1,52 @@
 <div class="col-md-12 d-flex align-items-center justify-content-center p-1">
-  <form class="bg-light col-md-6 col-sm-12  p-3" [formGroup]="questionarioForm" (ngSubmit)="submitQuestionario()">
+  <form class="bg-light col-md-8 col-sm-12  p-3" [formGroup]="questionarioForm" (ngSubmit)="submitQuestionario()">
     <div class="form-group">
       <div class="input-group mb-3">
         <span class="input-group-text" id="titulo">Titulo</span>
         <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" required>
       </div>
       <div class="input-group mb-3">
-        <input type="number" class="form-control" id="tempo_duracao" name="tempo_duracao"
-          formControlName="tempo_duracao" required>
-        <span class="input-group-text" id="tempo_duracao">Tempo de Duração (Min)</span>
+        <span class="input-group-text" id="tempoDuracao">Tempo de Duração (Min)</span>
+        <input type="number" class="form-control" id="tempoDuracao" name="tempoDuracao"
+          formControlName="tempoDuracao" required>
       </div>
       <div class="input-group mb-3">
-        <span class="input-group-text" id="tempo_disponivel">Tempo Disponível (Min)</span>
-        <input type="number" class="form-control" id="tempo_disponivel" name="tempo_disponivel"
-          formControlName="tempo_disponivel" required>
+        <span class="input-group-text" id="tempoDisponivel">Tempo Disponível (Min)</span>
+        <input type="number" class="form-control" id="tempoDisponivel" name="tempoDisponivel"
+          formControlName="tempoDisponivel" required>
       </div>
 
-
-     
 
 
       <div class="input-group mb-3">
         <span class="input-group-text">Dificuldade</span>
-        <select class="form-select col-md-4" aria-label="dificuldade" formControlName="dificuldade" required>
+        <select class="form-control" aria-label="dificuldade" formControlName="dificuldade" required>
           <option value="Fácil" selected>Fácil</option>
           <option value="Mediano">Mediano</option>
           <option value="Difícil">Difícil</option>
         </select>
-        <span class="input-group-text" id="qtd_questoes">Numero de Questões</span>
-        <input type="text" class="form-control" formControlName="qtd_questoes" readonly>
 
       </div>
     </div>
 
-    <div formArrayName="temas" *ngIf="temas.length>0">
-      <h2 class="title">Temas</h2>
-      <div *ngFor="let tema of temas.controls; let i = index">
-        <div class="form-group d-flex align-itens-center" [formGroupName]="i">
-          <span class="input-group-text" id="tema{{i}}">ID: {{tema.get('id')?.value}}</span>
-          <input type="text" class="form-control" id="tema-nome{{i}}" name="tema-nome{{i}}" value="{{tema.get('nome')?.value}}" readonly>
-        </div>
-      </div>
-    </div>
 
     <div class="form-inline" >
-      <app-dropdown-questoes
-        [questaoNova]="questaoNova"
-        (questaoAdd)="addQuestaoTema($event)"
-      ></app-dropdown-questoes>
-      <button (click)="showModal(); newQuestion();" class="btn-default form-control ml-3"
+
+      <button (click)="showModal();" class="btn-default form-control"
         type="button">
-        Criar Questão
+        Adicionar Questão
       </button>
+
     </div>
 
     <div formArrayName="questoes" *ngIf="questoes.length>0">
-      <h2 class="title pt-3">Questoes</h2>
+      <h2 class="title pt-3">Questões ({{questoes.length}})</h2>
       <div *ngFor="let questao of questoes.controls; let j = index">
         <div class="form-group" [formGroupName]="j">
           <ul class="list-group">
             <li class="list-group-item">
-              <button type="button" class="btn-danger btn" (click)="deleteQuestao(j)">x</button>
-              <span class="pl-3">{{questao.get('nome')?.value}}</span>
+              <button type="button" class="btn-danger btn mb-1" (click)="deleteQuestao(j)">x</button>
+              <app-questao-card *ngIf="questao.get('questao')?.value != null"  [questao]="questao.get('questao')?.value"></app-questao-card>
             </li>
           </ul>
         </div>
@@ -73,6 +58,8 @@
     </div>
   </form>
 
+  <!-- A LÓGICA ABAIXO CAUSA O COMPONENTE A SER DESTRUÍDO E RECRIADO PELO ANGULAR, COM ISSO O NGONINIT É ATIVADO TODA VEZ QUE ELE É ABERTO, FAZENDO REQUISIÇÕES DESNECESSÁRIAS À API -->
+  <!-- VERIFICAR DEPOIS MELHORES SOLUÇÕES DE MODAIS ANINHADOS -->
   <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': modalVisible}" [style.display]="modalVisible ? 'block' : 'none'">
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -83,15 +70,10 @@
           </button>
         </div>
         <div class="modal-body" *ngIf="modalVisible">
-          <app-questao-form
-          [btnText]="btnText"
-          (onSubmit)="submitQuestao($event)"
-          >
-          </app-questao-form>
+          <app-list-questions  [modoDeSelecao]=true (onSelecionarQuestao)="selecionarQuestao($event)"></app-list-questions>
         </div>
       </div>
     </div>
   </div>
-
 
 </div>

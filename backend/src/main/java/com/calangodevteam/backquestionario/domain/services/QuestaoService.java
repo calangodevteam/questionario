@@ -74,13 +74,13 @@ public class QuestaoService {
 			figura.setAtributo(imageService.saveNuvem(aux));
 		});
 
-		Questao2 questoa2tEMP = modelMapper.map(cadastroQuestaoDTO, Questao2.class);
+		Questao2 questao2 = modelMapper.map(cadastroQuestaoDTO, Questao2.class);
 
-		questoa2tEMP.setOpcaoCorreta(cadastroQuestaoDTO.getOpcoes().get(
+		questao2.setOpcaoCorreta(cadastroQuestaoDTO.getOpcoes().get(
 			cadastroQuestaoDTO.getIndiceOpcaoCorreta()
 		));
 	
-		questao2Repository.save(questoa2tEMP);
+		questao2Repository.save(questao2);
 		return null;
 	}
 	

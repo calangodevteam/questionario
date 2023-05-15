@@ -1,5 +1,5 @@
 import { Questao } from './../../model/questao';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from 'src/app/services/theme.service';
 import { RestElementsInfinitescrollService } from 'src/app/services/rest.elements.infinitescroll.service';
@@ -17,6 +17,8 @@ export class ListQuestionsComponent implements OnInit {
   public restElementsInfinitescrollService: RestElementsInfinitescrollService<Questao>;
   public restElementsInfinitescrollServiceTema: RestElementsInfinitescrollService<TemasAreas>;
   public temasAreasSelecionado: TemasAreas | null = null;
+  @Output() onSelecionarQuestao: EventEmitter<Questao> = new EventEmitter<Questao>;
+  @Input() modoDeSelecao: boolean = false;
 
   constructor(
     private router: Router,
