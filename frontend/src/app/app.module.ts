@@ -21,7 +21,6 @@ import { AreasComponent } from './components/areas/areas.component';
 import { ListAreasComponent } from './components/list-areas/list-areas.component';
 import { QuestaoFormComponent } from './components/questao-form/questao-form.component';
 import { QuestionarioFormComponent } from './components/questionario-form/questionario-form.component';
-import { DropdownQuestoesComponent } from './components/dropdown-questoes/dropdown-questoes.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ListQuestionsComponent } from './pages/list-questions/list-questions.component';
@@ -57,7 +56,6 @@ import { OrdenadorRecentesComponent } from './components/paginacao/ordenador-rec
     CreateQuestaoComponent,
     QuestaoFormComponent,
     QuestionarioFormComponent,
-    DropdownQuestoesComponent,
     QuestaoCardComponent,
     QuestionarioCardComponent,
     ModalSelecaoTemaComponent,
