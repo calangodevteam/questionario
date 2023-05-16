@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Questao } from '../model/questao';
 import { catchError, map, Observable, of, tap } from 'rxjs';
@@ -9,8 +9,8 @@ import { QuestaoDto } from '../model/questao-dto';
 })
 export class QuestaoService {
 
-  private questoesUrl = "/questoes";
-  // private questoesUrl = "http://localhost:8080/questoes";
+  //private questoesUrl = "/questoes";
+  private questoesUrl = "http://localhost:8080/questoes";
   private http: HttpClient;
 
   httpOptions = {
@@ -45,18 +45,11 @@ export class QuestaoService {
       );
    }
 
-   obterPorTema(temaId: number):Observable<Questao[]> {
-    return this.http.get<Questao[]>(`${this.questoesUrl}/tema?id=${temaId}`)
-      .pipe(
-        tap(_ => console.log('Questoes recuperados')),
-        catchError(this.handleError<Questao[]>('obterPorTema', []))
-      );
-  }
-
-   obterTodos():Observable<Questao[]> {
-      return this.http.get<Questao[]>(this.questoesUrl)
+   obterTodos(sort: string, page: number):Observable<Questao[]> {
+      let params = new HttpParams().set('sort', sort).set('page', page);
+      return this.http.get<Questao[]>(this.questoesUrl, {params})
         .pipe(
-          tap(_ => console.log('Questoes recuperadas')),
+          tap(_ => console.log('Questaos recuperados')),
           catchError(this.handleError<Questao[]>('obterTodos', []))
         );
     }

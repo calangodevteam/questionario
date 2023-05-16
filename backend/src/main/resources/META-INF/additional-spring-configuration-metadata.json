@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "key",
-  "type": "java.lang.String",
-  "description": "A description for 'key'"
-}]}
+{"properties": [
+  {
+    "name": "freeimage-upload-key",
+    "type": "java.lang.String",
+    "description": "Chave requerida pelo serviço do FreeImage para efetuar o upload das imagens."
+  },
+  {
+    "name": "backquestionario.paginacao.size.generico.padrao",
+    "type": "java.lang.Integer",
+    "description": "Define qual o tamanho padrão de uma página em casos de paginação, onde o usuário não especifíca o parâmetro size. Esse é um size padrão que pode ser aplicado quando não há um outro valor melhor pra um caso específico."
+  },
+  {
+    "name": "backquestionario.paginacao.size.generico.maximo",
+    "type": "java.lang.Integer",
+    "description": "Define qual o tamanho máximo permitido de uma página genérica."
+  }
+]}

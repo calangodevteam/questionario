@@ -6,14 +6,14 @@ import { ListQuestionsComponent } from './pages/list-questions/list-questions.co
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoginMemoriaService } from './services/login.memoria.service';
-import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
-import { ListQuizComponent } from './pages/list-quiz/list-quiz.component';
+import { CreateQuestionarioComponent } from './pages/create-questionario/create-questionario.component';
+import { ListQuestionarioComponent } from './pages/list-questionario/list-questionario.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [LoginMemoriaService] },
   {path: 'questoes', component: ListQuestionsComponent, canActivate: [LoginMemoriaService] },
-  {path: 'questionarios', component: ListQuizComponent, canActivate: [LoginMemoriaService] },
-  {path: 'questionarios/create', component: CreateQuizComponent, canActivate: [LoginMemoriaService] },
+  {path: 'questionarios', component: ListQuestionarioComponent, canActivate: [LoginMemoriaService] },
+  {path: 'questionarios/create', component: CreateQuestionarioComponent, canActivate: [LoginMemoriaService] },
   {path: 'questoes/create', component: CreateQuestaoComponent, canActivate: [LoginMemoriaService] },
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},

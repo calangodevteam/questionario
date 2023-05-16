@@ -1,14 +1,15 @@
 import { Artigo } from "./artigo";
 import { Figura } from "./figura";
 import { Opcao } from "./opcao";
-import { Tema } from "./tema";
+import { TemasAreas } from "./temasAreas";
 
 export class Questao {
 
   id?: number;
+  opcaoCorreta: Opcao = new Opcao();
   texto: string = "";
   categoriaBloom: string = "Avaliação";
-  tema: Tema = new Tema();
+  temasAreas: TemasAreas = new TemasAreas();
   artigos: Artigo[] = [];
   figuras: Figura[] = [];
   opcoes: Opcao[] = [];
@@ -37,4 +38,3 @@ export class Questao {
   }
 
 }
-

@@ -1,9 +1,10 @@
 import { Questao } from './../../model/questao';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Tema } from 'src/app/model/tema';
-import { QuestaoService } from 'src/app/services/questao.service';
-import { ThemeService } from 'src/app/services/theme.service';
+import { RestElementsInfinitescrollService } from 'src/app/services/rest.elements.infinitescroll.service';
+import { Configuracao } from 'configuracao';
+import { TemasAreas } from 'src/app/model/temasAreas';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-questions',
@@ -11,23 +12,42 @@ import { ThemeService } from 'src/app/services/theme.service';
   styleUrls: ['./list-questions.component.css']
 })
 export class ListQuestionsComponent implements OnInit {
-  temas: Tema[] =[];
-  questoes: Questao[] = [];
 
-  constructor(private router: Router, private servicoQuestao: QuestaoService, private serviceT: ThemeService) {}
+  public restElementsInfinitescrollService: RestElementsInfinitescrollService<Questao>;
+  public restElementsInfinitescrollServiceTema: RestElementsInfinitescrollService<TemasAreas>;
+  public temasAreasSelecionado: TemasAreas | null = null;
+  @Output() onSelecionarQuestao: EventEmitter<Questao> = new EventEmitter<Questao>;
+  @Input() modoDeSelecao: boolean = false;
 
-  private obterTodos(){
-    this.servicoQuestao.obterTodos()
-        .subscribe((questoes)=>this.questoes=questoes);
-  }
+  constructor(
+    private router: Router,
+    http: HttpClient) {
+      this.restElementsInfinitescrollService = new RestElementsInfinitescrollService<Questao>(http);
+      this.restElementsInfinitescrollServiceTema = new RestElementsInfinitescrollService<TemasAreas>(http);
+    }
 
-  private obterTemas() {
-    this.serviceT.obterTemas()
-      .subscribe((temas) => this.temas = temas);
+  callbackSelecaoTema(temasAreas: TemasAreas | null){
+    console.log(this.restElementsInfinitescrollService)
+    this.temasAreasSelecionado = temasAreas;
+    if(temasAreas == null){
+      this.restElementsInfinitescrollService.setarParametroEResetar('temasareasid', '')
+      return;
+    }
+    this.restElementsInfinitescrollService.setarParametroEResetar('temasareasid', temasAreas.id != null? temasAreas.id.toString() : '')
   }
 
   ngOnInit(): void {
-    this.obterTodos();
-    this.obterTemas();
+    this.restElementsInfinitescrollService.setElementsUrl(Configuracao.urlQuestao);
+    this.restElementsInfinitescrollServiceTema.httpParams = this.restElementsInfinitescrollServiceTema.httpParams.set("temasareasid", "");
+    this.restElementsInfinitescrollService.carregar();
+
+    this.restElementsInfinitescrollServiceTema.setElementsUrl(Configuracao.urlAreasTemas);
+    this.restElementsInfinitescrollServiceTema.httpParams = this.restElementsInfinitescrollServiceTema.httpParams.set("temanome", "");
+    this.restElementsInfinitescrollServiceTema.carregar();
   }
+
+  getAreasConhecimento(temasAreas: TemasAreas){
+    return TemasAreas.getAreasConhecimento(temasAreas.areaConhecimento);
+  }
+
 }

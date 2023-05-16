@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { Areas } from '../model/areas';
+//import { Areas } from '../model/areaConhecimento';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class AreasService {
       return of(result as T);
     };
   }
-
+/*
     obterAreas():Observable<Areas[]> {
     return this.http.get<Areas[]>(this.areasUrl)
           .pipe(
@@ -35,4 +35,5 @@ export class AreasService {
            catchError(this.handleError<Areas[]>('obterTodos', []))
          );
      }
+     */
 }

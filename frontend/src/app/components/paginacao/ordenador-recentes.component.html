@@ -1,0 +1,6 @@
+<div class="d-flex">
+  <div class="btn-group">
+    <button type="button" (click)="restElementsInfinitescrollService.setarParametroEResetar('sort', 'desc')" [ngClass]="{'btn-primary active': restElementsInfinitescrollService.httpParams.get('sort') == 'desc'}" class="btn">Mais recentes</button>
+    <button type="button" (click)="restElementsInfinitescrollService.setarParametroEResetar('sort', 'asc')" [ngClass]="{'btn-primary active': restElementsInfinitescrollService.httpParams.get('sort') == 'asc'}" class="btn">Mais antigos</button>
+  </div>
+</div>
