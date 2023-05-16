@@ -20,7 +20,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "questao")
 public class Questao2 {
@@ -59,81 +65,5 @@ public class Questao2 {
     @JsonIgnore
     @ManyToMany(mappedBy = "questoes")
     private List<Questionario> questionarios = new ArrayList<>();
-
-	public Questao2(){
-
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-	public Bloom getCategoriaBloom() {
-		return categoriaBloom;
-	}
-
-	public void setCategoriaBloom(Bloom categoriaBloom) {
-		this.categoriaBloom = categoriaBloom;
-	}
-
-	public List<Artigo> getArtigos() {
-		return artigos;
-	}
-
-	public void setArtigos(List<Artigo> artigos) {
-		this.artigos = artigos;
-	}
-
-	public List<Figura> getFiguras() {
-		return figuras;
-	}
-
-	public void setFiguras(List<Figura> figuras) {
-		this.figuras = figuras;
-	}
-
-	public List<Opcao> getOpcoes() {
-		return opcoes;
-	}
-
-	public void setOpcoes(List<Opcao> opcoes) {
-		this.opcoes = opcoes;
-	}
-
-	public Opcao getOpcaoCorreta() {
-		return opcaoCorreta;
-	}
-
-	public void setOpcaoCorreta(Opcao opcaoCorreta) {
-		this.opcaoCorreta = opcaoCorreta;
-	}
-
-	public TemasAreas getTemasAreas() {
-		return temasAreas;
-	}
-
-	public void setTemasAreas(TemasAreas temasAreas) {
-		this.temasAreas = temasAreas;
-	}
-
-	public List<Questionario> getQuestionarios() {
-		return questionarios;
-	}
-
-	public void setQuestionarios(List<Questionario> questionarios) {
-		this.questionarios = questionarios;
-	}
 
 }

@@ -6,7 +6,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "temas_areas")
 public class TemasAreas {
@@ -22,33 +28,5 @@ public class TemasAreas {
     @ManyToOne
     @JoinColumn(name = "area_conhecimento_id")
     private AreaConhecimento areaConhecimento;
-
-    public TemasAreas() {
-        
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Tema getTema() {
-        return tema;
-    }
-
-    public void setTema(Tema tema) {
-        this.tema = tema;
-    }
-
-    public AreaConhecimento getAreaConhecimento() {
-        return areaConhecimento;
-    }
-
-    public void setAreaConhecimento(AreaConhecimento areaConhecimento) {
-        this.areaConhecimento = areaConhecimento;
-    }
 
 }

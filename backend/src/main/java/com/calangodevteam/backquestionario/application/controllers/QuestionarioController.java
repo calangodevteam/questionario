@@ -1,7 +1,6 @@
 package com.calangodevteam.backquestionario.application.controllers;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ import com.calangodevteam.backquestionario.application.services.QuestionarioServ
 import com.calangodevteam.backquestionario.domain.models.Questionario;
 
 @RestController
-@RequestMapping("questionarios")
+@RequestMapping("api/questionarios")
 @CrossOrigin(origins = "*")
 public class QuestionarioController {
 	

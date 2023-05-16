@@ -2,7 +2,6 @@ package com.calangodevteam.backquestionario.domain.models;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CollectionTable;
@@ -12,7 +11,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Artigo {
 	
@@ -29,57 +34,5 @@ public class Artigo {
 	@ElementCollection
 	@CollectionTable(name="autor_artigo")
 	private Set<String> autor = new HashSet<>();
-	
-	public Artigo() {
-		
-	}
-
-	public Artigo(Integer id, String url, String titulo, Date dataPublicacao, Set<String> autor) {
-		this.id = id;
-		this.url = url;
-		this.titulo = titulo;
-		this.dataPublicacao = dataPublicacao;
-		this.autor = autor;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public Date getDataPublicacao() {
-		return dataPublicacao;
-	}
-
-	public void setDataPublicacao(Date dataPublicacao) {
-		this.dataPublicacao = dataPublicacao;
-	}
-
-	public Set<String> getAutor() {
-		return autor;
-	}
-
-	public void setAutor(Set<String> autor) {
-		this.autor = autor;
-	}
 	
 }
