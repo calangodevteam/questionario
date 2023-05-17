@@ -1,7 +1,10 @@
 package com.calangodevteam.backquestionario.domain.exceptions;
 
 public class BadRequestException extends RuntimeException{
-    public BadRequestException(String mensagemDeErro){
-        super(mensagemDeErro);
+	
+    private static final long serialVersionUID = 1L;
+
+	public BadRequestException(String mensagem){
+        super(mensagem);
     }
 }
