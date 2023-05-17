@@ -1,5 +1,5 @@
-FrontEnd/node_modules/
-FrontEnd/dist/
-FrontEnd/.angular/
-BackEnd/target/
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+backend/target/
 */.vscode/

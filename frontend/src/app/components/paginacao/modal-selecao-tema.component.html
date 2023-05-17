@@ -1,0 +1,40 @@
+<div class="modal" id="modal-selecao-tema">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title">Seleção de Tema</span>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-2" id="inputField" placeholder="Nome do tema, exemplo: 'Java'. Mostrando todos." #inputElement2
+  (input)="
+          restElementsInfinitescrollServiceTema.setarParametroEResetar('temanome', inputElement2.value);
+        ">
+  
+        <div class="form-group">
+          <div class="list-group">
+            <ng-container *ngFor="let temasAreas of restElementsInfinitescrollServiceTema.getElementos()">
+              <span data-dismiss="modal" (click)="selecionarTema(temasAreas)" class="list-group-item list-group-item-action">
+                <b>{{temasAreas.tema?.nome}}</b> - ({{getAreasConhecimento(temasAreas)}})
+              </span>
+            </ng-container>
+
+          </div>
+        </div>
+
+        <button *ngIf="restElementsInfinitescrollServiceTema.getEstadoBusca() != restElementsInfinitescrollServiceTema.getEstadosElementos().INICIAL && restElementsInfinitescrollServiceTema.getEstadoBusca()!= restElementsInfinitescrollServiceTema.getEstadosElementos().ACABOU" [disabled]="restElementsInfinitescrollServiceTema.getEstadoBusca()!= restElementsInfinitescrollServiceTema.getEstadosElementos().PODE_TENTAR_CARREGAR_MAIS" type="button" (click)="restElementsInfinitescrollServiceTema.carregarMais()" class="btn btn-secondary mr-2">Mais...</button>
+        <button type="button" data-dismiss="modal" (click)="selecionarTema(null)" class="btn btn-secondary">Nenhum tema</button>
+        
+        <div *ngIf="restElementsInfinitescrollServiceTema.getEstadoBusca()== restElementsInfinitescrollServiceTema.getEstadosElementos().ACABOU" class="my-3">
+          <!-- <hr>É isso. -->
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

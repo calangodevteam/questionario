@@ -13,6 +13,7 @@
           <div class="form-group">
               <button type="submit" class="btn btn-primary" [disabled]="enviando">Entrar</button>
               <button (click)="showCadUsu()" type="button" class="btn ml-1" [disabled]="enviando">Cadastrar</button>
+              <button (click)="entrarSemConta()" type="button" class="btn" [disabled]="enviando">(Para testes) Entrar sem conta</button>
           </div>
           <hr>
           <div id="mensagem" *ngIf="mensagem != ''">

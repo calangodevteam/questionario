@@ -1,0 +1,17 @@
+backquestionario:
+  paginacao:
+    size:
+      generico:
+        padrao: 4
+        maximo: 4
+
+freeimage-upload-key: 6d207e02198a847aa98d0a2a901485a5
+
+server:
+    port: 8080
+    
+spring:
+  profiles:
+    active: "dev"
+  application: 
+    name: CalangoDev

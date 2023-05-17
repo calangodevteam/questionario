@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioMemoria } from 'src/app/model/usuario.memoria';
 import { LoginMemoriaService } from 'src/app/services/login.memoria.service';
-import { RegisterUserComponent } from 'src/app/componets/register-user/register-user.component';
+import { RegisterUserComponent } from 'src/app/components/register-user/register-user.component';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit{
 
   logar(): void{
     this.enviando = true;
-    console.log(this.login, this.senha)
     if(this.servLogin.entrar(this.login, this.senha)){
       this.router.navigateByUrl("/home");
     }
@@ -33,6 +32,14 @@ export class LoginComponent implements OnInit{
       this.router.navigateByUrl("/login");
     }
     this.enviando = false;
+  }
+
+  entrarSemConta(): void{
+    this.servLogin.usuarioLogado.nome = "Convidado";
+    this.servLogin.usuarioLogado.email = "convidado@convidado.com.br";
+    this.servLogin.usuarioLogado.senha = "convidado";
+    this.servLogin.isAuthenticated = true;
+    this.router.navigateByUrl("/home");
   }
 
   showCadUsu(): void{

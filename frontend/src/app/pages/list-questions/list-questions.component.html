@@ -1,16 +1,33 @@
 <div class="container-fluid p-3">
-
   <div class="col-md-12 p-1">
     <h1>Listagem de Questões</h1>
   </div>
-  <div class="card col-md-8 mx-auto mb-3 bg-light" *ngFor="let tema of temas; let i = index;">
-    <div class="p-3">
-      <h2 class="card-title"> {{tema.nome}} </h2>
-      <div *ngFor="let questao of questoes; let j = index;">
-        <div *ngIf="questao.tema.id === tema.id" class="mb-2">
-          <app-questao-card [questao]="questao"></app-questao-card>
-        </div>
+
+  
+  <div class="d-flex">
+
+
+    <div class="col-lg-9 col-md-12 mx-auto">
+
+      <button class="btn btn-secondary flex-shrink-0 mb-2" style="margin-right: 5px;" data-toggle="modal" data-target="#modal-selecao-tema">Escolher tema</button>
+      <h4 *ngIf="temasAreasSelecionado == null">
+        Nenhum tema selecionado. Mostrando todos.
+      </h4>
+      <div *ngIf="temasAreasSelecionado != null">
+        <b>{{temasAreasSelecionado.tema?.nome}}</b> {{ " - (" + getAreasConhecimento(temasAreasSelecionado) + ")"}}
       </div>
+
+      <hr>
+
+      <app-ordenador-recentes [restElementsInfinitescrollService]=restElementsInfinitescrollService></app-ordenador-recentes>
+
+      <app-questao-card [modoDeSelecao]=this.modoDeSelecao (onSelecionarQuestao)="onSelecionarQuestao.emit($event)" class="ml-3" *ngFor="let questao of restElementsInfinitescrollService.getElementos();" [questao]="questao"></app-questao-card>
+      <div class="my-3"></div>
+
+      <app-carregador-elementos [restElementsInfinitescrollService]=restElementsInfinitescrollService></app-carregador-elementos>
+
     </div>
-  </div>
+
 </div>
+
+<app-modal-selecao-tema (onTemaSelecionado)="callbackSelecaoTema($event)"></app-modal-selecao-tema>

@@ -1,0 +1,148 @@
+<form class="col-md-8 mx-auto" [formGroup]="questionForm" (ngSubmit)="submit()">
+
+  <div class="mb-3" required>
+    <button type="button" class="btn btn-secondary flex-shrink-0 mb-2" style="margin-right: 5px;" data-toggle="modal" data-target="#modal-selecao-tema">Escolher tema</button>
+    <br>
+    <h4 *ngIf="temasAreasSelecionado == null">
+      Nenhum tema selecionado. Escolha um.
+    </h4>
+    <div *ngIf="temasAreasSelecionado != null">
+      <b>{{temasAreasSelecionado.tema?.nome}}</b> {{ " - (" + getAreasConhecimento() + ")"}}
+    </div>
+  </div>
+
+  <div>
+    <div class="form-group">
+
+      <label for="textoEnum">Enunciado:</label>
+      <textarea class="form-control mb-3" id="textoEnum" name="textoEnum" rows="3" formControlName="texto"
+        required></textarea>
+
+
+      <app-modal-selecao-tema (onTemaSelecionado)="callbackSelecaoTema($event)"></app-modal-selecao-tema>
+
+      <label for="bloom">Categoria Bloom</label>
+      <select class="form-control mb-3" id="bloom" name="categoriaBloom" formControlName="categoriaBloom" required>
+        <option value="Avaliação" selected>Avaliação</option>
+        <option value="Síntese">Síntese</option>
+        <option value="Analise">Analise</option>
+        <option value="Aplicação">Aplicação</option>
+        <option value="Compreensão">Compreensão</option>
+        <option value="Conhecimento">Conhecimento</option>
+      </select>
+
+    </div>
+
+    <hr>
+
+    <div class="form-inline mb-3 ">
+      <button (click)="addFigura()" class="btn-default form-control" type="button">Adicionar Figura</button>
+    </div>
+
+    <div formArrayName="figuras">
+      
+      <div class="p-3" *ngFor="let figura of figuras.controls; let f = index">
+        <div class="form-group mb-2" [formGroupName]="f">
+          <div class="input-group mb-2">
+            <button type="button" class="btn-danger btn" (click)="deleteFigura(f)">x</button>
+          </div>
+          <div class="input-group mb-2">
+            <label class="input-group-text mr-2" for="input-img{{f}}">Imagem</label>
+            <input class="form-control" type="file" id="input-img{{f}}" (change)="arquivoSelec($event, f)">
+          </div>
+          
+          <div class="input-group mb-2">
+            <label class="input-group-text mr-2" for="input-descricao-img{{f}}">Descrição</label>
+            <input class="form-control" type="text" id="input-descricao-img{{f}}" formControlName="descricao" />
+          </div>
+
+          <hr>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-inline mb-3 ">
+        <button (click)="addArtigo()" class="btn-default form-control" type="button">Adicionar
+          Artigo</button>
+    </div>
+
+
+    <div formArrayName="artigos">
+      <div class="p-3" *ngFor="let artigo of artigos.controls; let i=index">
+        <div class="form-group" [formGroupName]="i">
+          <div class="form-inline justify-content-between mb-3">
+            
+            <button type="button" class="btn-danger btn" (click)="deleteArtigo(i)">x</button>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="artigo-{{i}}-title">Titulo</span>
+            <input type="text" class="form-control" id="artigo-{{i}}-title" name="titulo" formControlName="titulo"
+              required>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="https://example.com" id="artigo-{{i}}-url"
+                name="url" formControlName="url" required>
+              <span class="input-group-text" id="artigo-{{i}}-url">URL</span>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="artigo-{{i}}-date">Data Publicação</span>
+            <input type="date" class="form-control" id="artigo-{{i}}-date" name="data" placeholder="yyyy-MM-dd"
+              formControlName="dataPublicacao" required />
+          </div>
+
+          <div class="form-group row">
+            <div class="col-auto">
+              <button (click)="addAutorControl(i)" class="btn-default form-control" type="button">Adicionar
+                Autor</button>
+            </div>
+          </div>
+
+          <div formArrayName="autor">
+            <div class="p-3" *ngFor="let text of getAutorControls(i).controls; let j=index">
+              <div class="d-flex form-group">
+                <span class="input-group-text" id="autor{{j}}">Autor</span>
+                <input type="text" class="form-control" id="autor{{j}}" formControlName="{{j}}" required />
+                <button type="button" class="btn-danger btn" (click)="deleteAutorControl(i,j)">x</button>
+              </div>
+            </div>
+          </div>
+          <hr>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="form-inline mb-3 ">
+      <button (click)="addFourOpcao()" class="btn-default form-control" type="button"
+        [disabled]="opcoes.length>0">Adicionar
+        Opção</button>
+    </div>
+
+    <div formArrayName="opcoes">
+      <div *ngFor="let opcao of opcoes.controls; let k = index">
+        <label for="opcao-{{k+1}}-texto" class="input-group-texta">Opção {{k+1}}</label>
+        <div class="form-group d-flex align-itens-center" [formGroupName]="k">
+          <textarea class="form-control mb-1" id="opcao-{{k+1}}-texto" name="texto" rows="2" formControlName="texto" required></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3 " *ngIf="opcoes.length>0">
+      <label for="indiceOpcaoCorreta" class="input-group-texta">Resposta Correta:</label>
+      <select id="indiceOpcaoCorreta" class="form-control form-select form-select-lg mb-3 mw-100" formControlName="indiceOpcaoCorreta" required>
+        <option *ngFor="let option of opcoes.controls; let l=index" [value]="l">Opção {{l+1}}</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <button class="btn-primary form-control" type="submit">{{ btnText }}</button>
+  </div>
+</form>
+<div class="p-4">
+  <mat-progress-bar *ngIf="!progress" mode="indeterminate" ></mat-progress-bar>
+</div>

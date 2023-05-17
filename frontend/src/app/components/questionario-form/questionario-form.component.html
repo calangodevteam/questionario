@@ -1,0 +1,79 @@
+<div class="col-md-12 d-flex align-items-center justify-content-center p-1">
+  <form class="bg-light col-md-8 col-sm-12  p-3" [formGroup]="questionarioForm" (ngSubmit)="submitQuestionario()">
+    <div class="form-group">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="titulo">Titulo</span>
+        <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" required>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="tempoDuracao">Tempo de Duração (Min)</span>
+        <input type="number" class="form-control" id="tempoDuracao" name="tempoDuracao"
+          formControlName="tempoDuracao" required>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="tempoDisponivel">Tempo Disponível (Min)</span>
+        <input type="number" class="form-control" id="tempoDisponivel" name="tempoDisponivel"
+          formControlName="tempoDisponivel" required>
+      </div>
+
+
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Dificuldade</span>
+        <select class="form-control" aria-label="dificuldade" formControlName="dificuldade" required>
+          <option value="Fácil" selected>Fácil</option>
+          <option value="Mediano">Mediano</option>
+          <option value="Difícil">Difícil</option>
+        </select>
+
+      </div>
+    </div>
+
+
+    <div class="form-inline" >
+
+      <button (click)="showModal();" class="btn-default form-control"
+        type="button">
+        Adicionar Questão
+      </button>
+
+    </div>
+
+    <div formArrayName="questoes" *ngIf="questoes.length>0">
+      <h2 class="title pt-3">Questões ({{questoes.length}})</h2>
+      <div *ngFor="let questao of questoes.controls; let j = index">
+        <div class="form-group" [formGroupName]="j">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <button type="button" class="btn-danger btn mb-1" (click)="deleteQuestao(j)">x</button>
+              <app-questao-card *ngIf="questao.get('questao')?.value != null"  [questao]="questao.get('questao')?.value"></app-questao-card>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <button class="btn-primary form-control" type="submit">{{ btnText }}</button>
+    </div>
+  </form>
+
+  <!-- A LÓGICA ABAIXO CAUSA O COMPONENTE A SER DESTRUÍDO E RECRIADO PELO ANGULAR, COM ISSO O NGONINIT É ATIVADO TODA VEZ QUE ELE É ABERTO, FAZENDO REQUISIÇÕES DESNECESSÁRIAS À API -->
+  <!-- VERIFICAR DEPOIS MELHORES SOLUÇÕES DE MODAIS ANINHADOS -->
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': modalVisible}" [style.display]="modalVisible ? 'block' : 'none'">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">{{modalTitle}}</h2>
+          <button type="button" class="close" aria-label="Close" (click)="showModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="modalVisible">
+          <app-list-questions  [modoDeSelecao]=true (onSelecionarQuestao)="selecionarQuestao($event)"></app-list-questions>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
