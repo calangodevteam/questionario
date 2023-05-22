@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,5 +46,9 @@ public class Questionario {
 	inverseJoinColumns = @JoinColumn(name = "questao_id")
 	)
 	private List<Questao2> questoes = new ArrayList<>();
+	
+	@ManyToOne
+	@JoinColumn(name="temas_areas_id")
+	private TemasAreas temasAreas;
 
 }

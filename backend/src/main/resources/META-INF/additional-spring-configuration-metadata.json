@@ -6,12 +6,12 @@
   },
   {
     "name": "backquestionario.paginacao.size.generico.padrao",
-    "type": "java.lang.String",
+    "type": "java.lang.Integer",
     "description": "A description for 'backquestionario.paginacao.size.generico.padrao'"
   },
   {
     "name": "backquestionario.paginacao.size.generico.maximo",
-    "type": "java.lang.String",
+    "type": "java.lang.Integer",
     "description": "A description for 'backquestionario.paginacao.size.generico.maximo'"
   }
 ]}
