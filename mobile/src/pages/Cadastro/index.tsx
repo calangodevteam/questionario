@@ -1,61 +1,131 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {styles} from './styles';
-import {Text, Button, Avatar, TextInput} from 'react-native-paper';
+import {Text, Button, Avatar, TextInput, HelperText, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
-const Cadastro = () => {
+const Cadastro = ({navigation}: any) => {
+
+  const theme = useTheme();
+
+  const [instituicao, setInstituicao] = useState('');
+  const [unidade, setUnidade] = useState('');
+  const [cep, setCep] = useState('');
+  const [curso, setCurso] = useState('');
+  const [modelo, setModelo] = useState('');
+
+  const handleSignUp = () => {
+    navigation.navigate('user');
+  };
+
+  const erroInstituicao = () => {
+    return instituicao.length < 2 && instituicao != '' ? true : false;
+  };
+  const erroUnidade = () => {
+    return unidade.length < 2 && unidade != '' ? true : false;
+  };
+  const erroCep = () => {
+    return cep.length < 2 && cep != '' ? true : false;
+  };
+  const erroCurso = () => {
+    return curso.length < 2 && curso != '' ? true : false;
+  };
+  const erroModelo = () => {
+    return modelo.length < 2 && modelo != '' ? true : false;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Avatar.Image size={125} source={require('../../assets/avatar.png')} />
-        <Text>Bem vindo(a)!</Text>
-      </View>
-      <View>
-        <Text>Instituição</Text>
-        <TextInput
-          mode="outlined"
-          placeholder="Insira sua instituição"
-          value={''}
-          onChangeText={() => {}}
-        />
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        keyboardDismissMode="none"
+        >
+        <View style={styles.containerImage}>
+          <Avatar.Image
+            style={styles.image}
+            size={120}
+            source={require('../../assets/avatar.png')}
+          />
+          <Text>Bem vindo(a)!</Text>
+        </View>
 
-        <Text>Unidade ou Polo</Text>
-        <TextInput
-          mode="outlined"
-          placeholder="Insira a unidade ou polo que você cursa"
-          value={''}
-          onChangeText={() => {}}
-        />
+        <View style={styles.containerInput}>
+            <TextInput  
+              mode="outlined"
+              label="Instituição"
+              placeholder="Insira sua instituição"
+              error={erroInstituicao()}
+              value={instituicao}
+              onChangeText={setInstituicao}
+            />
+            <HelperText type="error" padding='none' visible={erroInstituicao()}>
+            Instituição invalida!
+          </HelperText>
+        </View>
 
-        <Text>CEP</Text>
-        <TextInput
-          mode="outlined"
-          inputMode="numeric"
-          placeholder="Insira seu CEP"
-          value={''}
-          onChangeText={() => {}}
-        />
+        <View style={styles.containerInput}>
+            <TextInput
+              mode="outlined"
+              label="Unidade ou Polo"
+              placeholder="Insira a sua unidade ou polo"
+              error={erroUnidade()}
+              value={unidade}
+              onChangeText={setUnidade}
+            />
+            <HelperText type="error" padding='none' visible={erroUnidade()}>
+            Unidade ou Polo invalido!
+          </HelperText>
+        </View>
 
-        <Text>Curso</Text>
-        <TextInput
-          mode="outlined"
-          placeholder="Insira seu curso"
-          value={''}
-          onChangeText={() => {}}
-        />
+        <View style={styles.containerInput}>
+            <TextInput
+              mode="outlined"
+              label="CEP"
+              placeholder="Insira seu CEP"
+              inputMode="numeric"
+              error={erroCep()}
+              value={cep}
+              onChangeText={setCep}
+            />
+            <HelperText type="error" padding='none' visible={erroCep()}>
+            CEP invalido!
+          </HelperText>
+        </View>
 
-        <Text>Modelo</Text>
-        <TextInput
-          mode="outlined"
-          placeholder="Insira o modelo que está cursando"
-          value={''}
-          onChangeText={() => {}}
-        />
-      </View>
-      <Button mode="contained" onPress={() => console.log('Pressed')}>
-        Avançar
-      </Button>
+        <View style={styles.containerInput}>
+            <TextInput
+              mode="outlined"
+              label="Curso"
+              placeholder="Insira seu curso"
+              error={erroCurso()}
+              value={curso}
+              onChangeText={setCurso}
+            />
+            <HelperText type="error" padding='none' visible={erroCurso()}>
+              Curso invalido!
+          </HelperText>
+        </View>
+
+        <View style={styles.containerInput}>
+            <TextInput
+              mode="outlined"
+              label="Modelo"
+              placeholder="Insira o modelo que está cursando"
+              error={erroModelo()}
+              value={modelo}
+              onChangeText={setModelo}
+            />
+            <HelperText type="error" padding='none' visible={erroModelo()}>
+              Modelo invalido!
+          </HelperText>
+        </View>
+
+        <Button style={styles.button} buttonColor={theme.colors.onBackground} mode="contained" onPress={handleSignUp}>
+          Avançar
+        </Button>
+
+      </ScrollView>
     </SafeAreaView>
   );
 };

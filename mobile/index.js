@@ -3,16 +3,19 @@
  */
 
 import {AppRegistry} from 'react-native';
-import { PaperProvider } from 'react-native-paper';
 import App from './App';
 import {name as appName} from './app.json';
 
-export default function Main() {
+import { PaperProvider } from 'react-native-paper';
+import { defaultTheme } from './src/theme/Theme';
+
+const Main = () => {
   return (
-    <PaperProvider>
+    <PaperProvider theme={defaultTheme}>
       <App />
     </PaperProvider>
   );
 }
+export default Main;
 
 AppRegistry.registerComponent(appName, () => App);

@@ -1,18 +1,19 @@
-import React from 'react';
-import { styles } from './styles';
-import { Text } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Image } from 'react-native';
+import {styles} from './styles';
+import {Text, TouchableRipple, useTheme} from 'react-native-paper';
+import {Image, View} from 'react-native';
 
-const Inicial = () => {
+const Inicial = ({navigation}: any) => {
   return (
-    <SafeAreaView style={styles.container}>
-        <Text>CALANGO</Text>
-        <Image
-            source={require('../../assets/logo300.png')}
-        />
+    <TouchableRipple
+      style={[styles.container]}
+      onPress={() => navigation.navigate('login')}
+      rippleColor="rgba(202, 202, 202, 0.01)">
+      <View style={[styles.view]}>
+        <Text>CALANGO </Text>
+        <Image style={[styles.image]} source={require('../../assets/logo300.png')} />
         <Text>versão 0.0.0.1</Text>
-    </SafeAreaView>
+      </View>
+    </TouchableRipple>
   );
 };
 
