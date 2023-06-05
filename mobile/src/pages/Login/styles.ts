@@ -5,15 +5,19 @@ export const styles = StyleSheet.create({
     flex:1,
     alignItems:'center',
     justifyContent:'center',
-    paddingTop: 110,
+    paddingTop: 100,
     paddingBottom: 94,
   },
   text: {
-    marginTop:99,
-    marginBottom: 26,
+    marginTop:80,
+    marginBottom: 45,
     alignItems:'center',
   },
   image:{
-    marginBottom:65,
+    marginBottom:60,
+  },
+  button: {
+    width: 330,
+    height: 45,
   },
 });

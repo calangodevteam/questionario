@@ -22,6 +22,7 @@ const fontConfig = {
 export const defaultTheme = {
   ...MD3LightTheme,
   ...LightTheme,
+  roundness: 12,
   colors: {
     ...MD3LightTheme.colors,
     ...LightTheme.colors,
@@ -42,6 +43,7 @@ export const defaultTheme = {
 export const darkTheme = {
   ...MD3DarkTheme,
   ...DarkTheme,
+  roundness: 12,
   colors: {
     ...MD3DarkTheme.colors,
     ...DarkTheme.colors,

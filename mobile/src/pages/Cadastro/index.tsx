@@ -7,7 +7,6 @@ import {ScrollView, View} from 'react-native';
 const Cadastro = ({navigation}: any) => {
 
   const theme = useTheme();
-
   const [instituicao, setInstituicao] = useState('');
   const [unidade, setUnidade] = useState('');
   const [cep, setCep] = useState('');
@@ -47,12 +46,13 @@ const Cadastro = ({navigation}: any) => {
             size={120}
             source={require('../../assets/avatar.png')}
           />
-          <Text>Bem vindo(a)!</Text>
+          <Text variant='titleMedium'>Bem vindo(a)!</Text>
         </View>
 
         <View style={styles.containerInput}>
             <TextInput  
               mode="outlined"
+              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
               label="Instituição"
               placeholder="Insira sua instituição"
               error={erroInstituicao()}
@@ -67,6 +67,7 @@ const Cadastro = ({navigation}: any) => {
         <View style={styles.containerInput}>
             <TextInput
               mode="outlined"
+              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
               label="Unidade ou Polo"
               placeholder="Insira a sua unidade ou polo"
               error={erroUnidade()}
@@ -81,6 +82,7 @@ const Cadastro = ({navigation}: any) => {
         <View style={styles.containerInput}>
             <TextInput
               mode="outlined"
+              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
               label="CEP"
               placeholder="Insira seu CEP"
               inputMode="numeric"
@@ -96,6 +98,7 @@ const Cadastro = ({navigation}: any) => {
         <View style={styles.containerInput}>
             <TextInput
               mode="outlined"
+              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
               label="Curso"
               placeholder="Insira seu curso"
               error={erroCurso()}
@@ -110,6 +113,7 @@ const Cadastro = ({navigation}: any) => {
         <View style={styles.containerInput}>
             <TextInput
               mode="outlined"
+              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
               label="Modelo"
               placeholder="Insira o modelo que está cursando"
               error={erroModelo()}

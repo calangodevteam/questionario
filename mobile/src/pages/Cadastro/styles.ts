@@ -18,10 +18,6 @@ export const styles = StyleSheet.create({
   containerInput: {
     marginHorizontal: 10,
   },
-  containerForm: {
-    alignSelf:'center',
-    justifyContent:'center',
-  },
   image:{
     marginBottom:4,
   },
