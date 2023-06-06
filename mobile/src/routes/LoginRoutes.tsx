@@ -3,6 +3,7 @@ import Inicial from "../pages/Inicial";
 import Login from "../pages/Login";
 import Cadastro from "../pages/Cadastro";
 import User from "../pages/User";
+import BottomRoutes from "./BottomRoutes";
 
 const {Navigator, Screen} = createNativeStackNavigator();
 
@@ -24,8 +25,8 @@ const LoginRoutes = () => {
         component={Cadastro}
       />
       <Screen 
-        name="user" 
-        component={User}
+        name="app" 
+        component={BottomRoutes}
       />
     </Navigator>
   );

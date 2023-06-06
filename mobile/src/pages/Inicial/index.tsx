@@ -1,8 +1,12 @@
 import {styles} from './styles';
 import {Text, TouchableRipple, useTheme} from 'react-native-paper';
 import {Image, View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const Inicial = ({navigation}: any) => {
+const Inicial = () => {
+
+  const navigation = useNavigation();
+
   const theme = useTheme()
   return (
     <TouchableRipple

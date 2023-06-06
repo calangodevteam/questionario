@@ -3,8 +3,11 @@ import {styles} from './styles';
 import {Text, Button, Avatar, TextInput, HelperText, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView, View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const Cadastro = ({navigation}: any) => {
+const Cadastro = () => {
+
+  const navigation = useNavigation();
 
   const theme = useTheme();
   const [instituicao, setInstituicao] = useState('');
@@ -14,7 +17,7 @@ const Cadastro = ({navigation}: any) => {
   const [modelo, setModelo] = useState('');
 
   const handleSignUp = () => {
-    navigation.navigate('user');
+    navigation.navigate('app');
   };
 
   const erroInstituicao = () => {

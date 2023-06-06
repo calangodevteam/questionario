@@ -3,9 +3,12 @@ import {styles} from './styles';
 import {Text, Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Image} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const Login = ({navigation}:any) => {
+const Login = () => {
 
+  const navigation = useNavigation();
+  
   const handleSignUpGoogle = () => {
     navigation.navigate('cadastro');
   }
