@@ -14,7 +14,7 @@ const Login = () => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <Image style={styles.image} source={require('../../assets/estudante.png')} />
+      <Image style={styles.image} source={require('../../../assets/estudante.png')} />
       <Text variant='displaySmall'>Bem vindo(a)!</Text>
       <Text variant='titleMedium' style={styles.text}>Faça o login com o google e vamos começar!</Text>
       <Button

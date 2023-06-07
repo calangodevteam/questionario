@@ -1,13 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Inicial from "../pages/Inicial";
-import Login from "../pages/Login";
-import Cadastro from "../pages/Cadastro";
-import User from "../pages/User";
+import Login from "../pages/Auth/Login";
+import Cadastro from "../pages/Auth/Cadastro";
 import BottomRoutes from "./BottomRoutes";
 
 const {Navigator, Screen} = createNativeStackNavigator();
 
-const LoginRoutes = () => {
+const AuthRoutes = () => {
   return (
     <Navigator
     screenOptions={{headerShown: false}}
@@ -32,4 +31,4 @@ const LoginRoutes = () => {
   );
 }
 
-export default LoginRoutes;
+export default AuthRoutes;

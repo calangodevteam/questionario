@@ -6,11 +6,10 @@
  */
 
 import { useCallback, useMemo, useState } from 'react';
-import Inicial from './src/pages/Inicial';
 import { PreferencesContext, darkTheme, defaultTheme } from './src/theme/Theme';
 import { PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import LoginRoutes from './src/routes/LoginRoutes';
+import AuthRoutes from './src/routes/AuthRoutes';
 
 const App = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);
@@ -33,7 +32,7 @@ const App = () => {
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
         <NavigationContainer theme={theme}>
-          <LoginRoutes/>
+          <AuthRoutes/>
         </NavigationContainer>
       </PaperProvider>
     </PreferencesContext.Provider>

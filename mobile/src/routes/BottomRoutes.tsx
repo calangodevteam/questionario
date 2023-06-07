@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BottomNavigation, useTheme } from 'react-native-paper';
 import User from '../pages/User';
-import Campanhas from '../pages/Campanhas';
 import Ranking from '../pages/Ranking';
+import CampanhasRoutes from './CampanhasRoutes';
 
 const BottomRoutes = () => {
 
@@ -15,7 +15,7 @@ const BottomRoutes = () => {
     ]);
   
     const renderScene = BottomNavigation.SceneMap({
-      campanhas: Campanhas,
+      campanhas: CampanhasRoutes,
       ranking: Ranking,
       user: User,
     });

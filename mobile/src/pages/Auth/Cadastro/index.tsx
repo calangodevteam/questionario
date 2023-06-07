@@ -47,7 +47,7 @@ const Cadastro = () => {
           <Avatar.Image
             style={styles.image}
             size={120}
-            source={require('../../assets/avatar.png')}
+            source={require('../../../assets/avatar.png')}
           />
           <Text variant='titleMedium'>Bem vindo(a)!</Text>
         </View>
