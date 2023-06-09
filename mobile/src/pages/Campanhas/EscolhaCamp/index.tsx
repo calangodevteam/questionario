@@ -4,9 +4,10 @@ import { Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, View } from 'react-native';
 import { useEffect, useState } from 'react';
-import { Questionario } from '../../../utils/Questionario';
 import ModalQuestionario from '../../../components/ModalQuestionario';
 import ListEmpty from '../../../components/ListEmpty';
+import { QuestionarioImpl  } from '../../../utils/data';
+import { Questionario } from '../../../@types/questionario';
 
 const EscolhaCamp = () => {
 
@@ -14,16 +15,16 @@ const EscolhaCamp = () => {
   const navigation = useNavigation();
 
   const [visible, setVisible] = useState(false);
-  const [campanhas, setCampanhas] = useState<any[]>([]);
-  const [qtdQUestoes, setQtdQuestoes] = useState(0);
+  const [campanhas, setCampanhas] = useState<Questionario[]>([]);
+  const [campanha, setCampanha] = useState<Questionario>();
 
   useEffect(() => {
-    setCampanhas(Questionario)
+    setCampanhas(QuestionarioImpl)
   }, []);
   
   const handleConfirm = () => {
     showModal();
-    navigation.navigate('questoes_camp');
+    navigation.navigate('questoes_camp', campanha!);
   }
 
   const showModal = () => setVisible(!visible);
@@ -56,7 +57,7 @@ const EscolhaCamp = () => {
           onPress={
             () => {
               showModal(); 
-              setQtdQuestoes(item.qtdQuestoes);
+              setCampanha(item);
             }
           }
         > 
@@ -66,7 +67,7 @@ const EscolhaCamp = () => {
       />
       <ModalQuestionario 
         visible={visible} 
-        qtdQuestoes={qtdQUestoes}
+        qtdQuestoes={campanha? campanha.qtdQuestoes : 0 }
         onClose={() => showModal()}
         navigate={handleConfirm}
       />

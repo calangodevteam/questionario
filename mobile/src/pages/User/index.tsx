@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 
 import { styles } from './styles';
-import { PreferencesContext } from '../../theme/Theme';
 import { Button, Switch } from 'react-native-paper';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { PreferencesContext } from '../../contexts/ThemeContext';
 
  const User = () => {
 

@@ -6,10 +6,11 @@
  */
 
 import { useCallback, useMemo, useState } from 'react';
-import { PreferencesContext, darkTheme, defaultTheme } from './src/theme/Theme';
+import { darkTheme, defaultTheme } from './src/theme/Theme';
 import { PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthRoutes from './src/routes/AuthRoutes';
+import { PreferencesContext } from './src/contexts/ThemeContext';
 
 const App = () => {
   const [isThemeDark, setIsThemeDark] = useState(false);

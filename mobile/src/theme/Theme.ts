@@ -2,12 +2,11 @@ import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
-import { createContext } from 'react';
+
 import {
   MD3DarkTheme,
   MD3LightTheme,
   adaptNavigationTheme,
-  configureFonts,
 } from 'react-native-paper';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
@@ -49,8 +48,3 @@ export const darkTheme = {
     ...DarkTheme.colors,
   },
 };
-
-export const PreferencesContext = createContext({
-  toggleTheme: () => {},
-  isThemeDark: false,
-});
