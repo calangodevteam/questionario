@@ -29,6 +29,7 @@ const CampanhasRoutes = () => {
         name="questoes_camp" 
         component={QuestoesCamp}
         options={{
+          headerShown: false,
           title:'Questões',
         }}
       />

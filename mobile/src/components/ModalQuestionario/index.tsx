@@ -4,12 +4,13 @@ import { View } from 'react-native';
 
 interface props {
   visible: boolean;
+  titulo:string
   qtdQuestoes: number,
   onClose: () => void;
   navigate: () => void;
 }
 
-const ModalQuestionario = ({visible, qtdQuestoes, onClose, navigate}: props) => {
+const ModalQuestionario = ({visible,titulo, qtdQuestoes, onClose, navigate}: props) => {
     const theme = useTheme();
   return (
     <Portal>
@@ -18,7 +19,7 @@ const ModalQuestionario = ({visible, qtdQuestoes, onClose, navigate}: props) => 
         onDismiss={onClose}
         contentContainerStyle={[{backgroundColor: theme.colors.background},styles.container]}
     >
-        <Text variant='bodyMedium' style={styles.text}>Exame de Programação</Text>
+        <Text variant='bodyMedium' style={styles.text}>{titulo}</Text>
         <Text variant='bodyMedium' style={styles.text}>Questões</Text>
         
         <View style={[{backgroundColor: theme.colors.tertiaryContainer}, styles.view]}>

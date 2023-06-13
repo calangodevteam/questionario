@@ -16,6 +16,7 @@ export interface Artigo {
   id: number;
   url: string;
   titulo: string;
+  conteudo: string;
   dataPublicacao: string;
   autor: string[];
 }
