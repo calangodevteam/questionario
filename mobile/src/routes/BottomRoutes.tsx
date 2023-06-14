@@ -26,6 +26,7 @@ const BottomRoutes = () => {
             onIndexChange={setIndex}
             renderScene={renderScene}
             labeled={false}
+            barStyle={{ backgroundColor: '#694fad', }}
         />
     );
 }

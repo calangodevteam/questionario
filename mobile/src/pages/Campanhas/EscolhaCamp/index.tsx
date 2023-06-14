@@ -1,6 +1,6 @@
 import {styles} from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { BottomNavigation, Button, Text, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, View } from 'react-native';
 import { useEffect, useState } from 'react';

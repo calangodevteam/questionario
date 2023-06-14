@@ -37,6 +37,7 @@ const CampanhasRoutes = () => {
         name="resultado_camp" 
         component={ResultadoCamp}
         options={{
+          headerShown: false,
           title:'Resultado Obtido',
         }}
       />
