@@ -68,6 +68,7 @@ const EscolhaCamp = () => {
       <ModalQuestionario 
         visible={visible}
         titulo={campanha? campanha.titulo : '' }
+        dificuldade={campanha? campanha.dificuldade : ''}
         qtdQuestoes={campanha? campanha.qtdQuestoes : 0 }
         onClose={() => showModal()}
         navigate={handleConfirm}

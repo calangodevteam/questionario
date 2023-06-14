@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
 },
   view: {
-    marginVertical: 20,
+    marginVertical: 15,
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
@@ -23,6 +23,6 @@ export const styles = StyleSheet.create({
     width: 200,
   },
   text: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
 });

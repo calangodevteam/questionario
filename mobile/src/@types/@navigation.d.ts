@@ -1,4 +1,5 @@
-import { Questionario } from "./questionario";
+import { Questionario, Resultado } from "./questionario";
+
 
 export declare global {
   namespace ReactNavigation {
@@ -10,7 +11,7 @@ export declare global {
       historico_camp: undefined;
       escolha_camp: undefined;
       questoes_camp: Questionario;
-      resultado_camp: undefined;
+      resultado_camp: Resultado;
     }
   }
 }

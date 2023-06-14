@@ -12,3 +12,9 @@ export interface Questionario {
   temasAreas: TemasAreas;
   questoes: Questao[];
 }
+
+export interface Resultado {
+  acertos: number,
+  qtdQuestoes: number;
+  dificuldade:string,
+}

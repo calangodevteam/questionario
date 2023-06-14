@@ -98,11 +98,6 @@ export const QuestionarioImpl:Questionario[] = [
               id: 2,
               atributo: 'https:\\/\\/iili.io\\/HUkgmw7.png',
               descricao: 'Foto Leandro Musser',
-            },
-            {
-              id: 3,
-              atributo: 'https:\\/\\/iili.io\\/HUkgmw7.png',
-              descricao: 'Foto Leandro Musser',
             },],
           opcoes: [
             {id: 117, texto: 'Aqui vai uma resposta que eu não sei qual é em algum momento'},
@@ -130,12 +125,7 @@ export const QuestionarioImpl:Questionario[] = [
               autor: ['Leandro Musser', 'Jhony'],
             },
           ],
-          figuras: [            
-          {
-            id: 1,
-            atributo: 'https:\\/\\/iili.io\\/HUkgmw7.png',
-            descricao: 'Foto Leandro Musser',
-          },],
+          figuras: [],
           opcoes: [
             {id: 121, texto: '1'},
             {id: 122, texto: 'Óbvio que é 2'},
@@ -152,7 +142,7 @@ export const QuestionarioImpl:Questionario[] = [
     {
       id: 2,
       titulo: 'Prova de Teste',
-      qtdQuestoes: 11,
+      qtdQuestoes: 6,
       tempoDuracao: 99,
       tempoDisponivel: 999,
       dificuldade: 'Difícil',
@@ -204,7 +194,7 @@ export const QuestionarioImpl:Questionario[] = [
         },
         {
           id: 54,
-          texto: 'Questão aleatória para criar volume',
+          texto: 'Qual o foco apresentado no artigo?',
           categoriaBloom: 'Analise',
           artigos: [
             {
@@ -232,17 +222,17 @@ export const QuestionarioImpl:Questionario[] = [
         {
           id: 12,
           texto:
-            'teste questao',
+            'Quanto é 1+1',
           categoriaBloom: 'Aplicação',
           artigos: [],
           figuras: [],
           opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
+            {id: 225, texto: '2'},
+            {id: 226, texto: '4'},
+            {id: 227, texto: '3'},
+            {id: 228, texto: '7'},
           ],
-          opcaoCorreta: {id: 128, texto: '49501'},
+          opcaoCorreta: {id: 225, texto: '2'},
           temasAreas: {
             id: 11,
           },
@@ -250,17 +240,17 @@ export const QuestionarioImpl:Questionario[] = [
         {
           id: 22,
           texto:
-            'teste questao',
+            'O que é uma vaca',
           categoriaBloom: 'Aplicação',
           artigos: [],
           figuras: [],
           opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
+            {id: 325, texto: 'um tipo de vegetal'},
+            {id: 326, texto: 'uma planta comestível'},
+            {id: 327, texto: 'um animal'},
+            {id: 328, texto: 'um animal invertebrado'},
           ],
-          opcaoCorreta: {id: 128, texto: '49501'},
+          opcaoCorreta: {id: 327, texto: 'um animal'},
           temasAreas: {
             id: 11,
           },
@@ -268,17 +258,17 @@ export const QuestionarioImpl:Questionario[] = [
         {
           id: 82,
           texto:
-            'teste questao',
+            'quantas folhas tem um trevo?',
           categoriaBloom: 'Aplicação',
           artigos: [],
           figuras: [],
           opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
+            {id: 325, texto: '4'},
+            {id: 326, texto: '2'},
+            {id: 327, texto: '3'},
+            {id: 328, texto: '1'},
           ],
-          opcaoCorreta: {id: 128, texto: '49501'},
+          opcaoCorreta: {id: 327, texto: '3'},
           temasAreas: {
             id: 11,
           },
@@ -286,107 +276,17 @@ export const QuestionarioImpl:Questionario[] = [
         {
           id: 82,
           texto:
-            'teste questao',
+            'Qual a resposta está correta?',
           categoriaBloom: 'Aplicação',
           artigos: [],
           figuras: [],
           opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
+            {id: 425, texto: '1+1 é 3'},
+            {id: 426, texto: '1 x 1! é 1'},
+            {id: 427, texto: '2/1 é 4'},
+            {id: 428, texto: 'A terra é quadrada'},
           ],
-          opcaoCorreta: {id: 128, texto: '49501'},
-          temasAreas: {
-            id: 11,
-          },
-        },
-        {
-          id: 72,
-          texto:
-            'teste questao',
-          categoriaBloom: 'Aplicação',
-          artigos: [],
-          figuras: [],
-          opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
-          ],
-          opcaoCorreta: {id: 128, texto: '49501'},
-          temasAreas: {
-            id: 11,
-          },
-        },
-        {
-          id: 42,
-          texto:
-            'teste questao',
-          categoriaBloom: 'Aplicação',
-          artigos: [],
-          figuras: [],
-          opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
-          ],
-          opcaoCorreta: {id: 128, texto: '49501'},
-          temasAreas: {
-            id: 11,
-          },
-        },
-        {
-          id: 11,
-          texto:
-            'teste questao',
-          categoriaBloom: 'Aplicação',
-          artigos: [],
-          figuras: [],
-          opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
-          ],
-          opcaoCorreta: {id: 128, texto: '49501'},
-          temasAreas: {
-            id: 11,
-          },
-        },
-        {
-          id: 17,
-          texto:
-            'teste questao',
-          categoriaBloom: 'Aplicação',
-          artigos: [],
-          figuras: [],
-          opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
-          ],
-          opcaoCorreta: {id: 128, texto: '49501'},
-          temasAreas: {
-            id: 11,
-          },
-        },
-        {
-          id: 14,
-          texto:
-            'teste questao',
-          categoriaBloom: 'Aplicação',
-          artigos: [],
-          figuras: [],
-          opcoes: [
-            {id: 125, texto: '128'},
-            {id: 126, texto: '256'},
-            {id: 127, texto: '1023'},
-            {id: 128, texto: '49501'},
-          ],
-          opcaoCorreta: {id: 128, texto: '49501'},
+          opcaoCorreta: {id: 426, texto: '1 x 1! é 1'},
           temasAreas: {
             id: 11,
           },
