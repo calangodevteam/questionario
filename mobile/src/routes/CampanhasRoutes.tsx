@@ -3,6 +3,7 @@ import HistoricoCamp from "../pages/Campanhas/HistoricoCamp";
 import EscolhaCamp from "../pages/Campanhas/EscolhaCamp";
 import QuestoesCamp from "../pages/Campanhas/QuestoesCamp";
 import ResultadoCamp from "../pages/Campanhas/ResultadoCamp";
+import BottomRoutes from "./BottomRoutes";
 
 const {Navigator, Screen} = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ const CampanhasRoutes = () => {
     >
       <Screen 
         name="historico_camp"
-        component={HistoricoCamp}
+        component={BottomRoutes}
         options={{
           headerShown: false,
         }}

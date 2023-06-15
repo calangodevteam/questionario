@@ -1,6 +1,10 @@
 import { Questionario, Resultado } from "./questionario";
 
-
+export interface Resultado {
+  acertos: number,
+  qtdQuestoes: number;
+  dificuldade:string,
+}
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {

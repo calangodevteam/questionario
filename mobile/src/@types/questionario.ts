@@ -13,8 +13,9 @@ export interface Questionario {
   questoes: Questao[];
 }
 
-export interface Resultado {
-  acertos: number,
-  qtdQuestoes: number;
-  dificuldade:string,
+export interface Resposta{
+  alunoId: number,
+  questionario: Questionario,
+  qtd_acertos: number,
+  data_respondido: string,
 }

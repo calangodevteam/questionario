@@ -3,8 +3,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   Button,
   Card,
+  Dialog,
   IconButton,
   List,
+  Portal,
   ProgressBar,
   RadioButton,
   Text,
@@ -19,9 +21,9 @@ import {Image, ScrollView, View} from 'react-native';
 import {Figura, Questao} from '../../../@types/questao';
 import QuestaoOpcao from '../../../components/QuestaoOpcao';
 import QuestaoArtigo from '../../../components/QuestaoArtigo';
+import {respostaImpl} from '../../../utils/data';
 
 const QuestoesCamp = () => {
-
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -32,9 +34,14 @@ const QuestoesCamp = () => {
 
   const [acertos, setAcertos] = useState(0);
 
-  const [questAtual, setQuestAtual] = useState<Questao>(questionario.questoes[index]);
+  const [questAtual, setQuestAtual] = useState<Questao>(
+    questionario.questoes[index],
+  );
 
-  const [valueOption, setValueOption] = useState(questAtual.opcoes[0].id.toString());
+  const [valueOption, setValueOption] = useState(
+    questAtual.opcoes[0].id.toString(),
+  );
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setQuestAtual(questionario.questoes[index]);
@@ -44,20 +51,25 @@ const QuestoesCamp = () => {
     setValueOption(questAtual.opcoes[0].id.toString());
   }, [questAtual]);
 
-  const  handleValidateResponse = () => {
-    if(questAtual.opcaoCorreta.id.toString() == valueOption) {
-      setAcertos(acertos+1);
+  const showDialog = () => setVisible(!visible);
+
+  const navigate = () => {
+    navigation.navigate('resultado_camp', {
+      acertos: acertos,
+      dificuldade: questionario.dificuldade,
+      qtdQuestoes: questionario.qtdQuestoes,
+    });
+  };
+
+  const handleResponse = () => {
+    if (questAtual.opcaoCorreta.id.toString() == valueOption) {
+      setAcertos(acertos + 1);
     }
-  }
-  const handleResponse = () => index == questionario.questoes.length - 1? (
-    navigation.navigate(
-      'resultado_camp', 
-      {
-        acertos:acertos,
-        dificuldade:questionario.dificuldade,
-        qtdQuestoes:questionario.qtdQuestoes,
-      })
-  ): setIndex(index + 1);
+
+    if (index == questionario.questoes.length - 1) {
+      showDialog();
+    } else setIndex(index + 1);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -76,17 +88,20 @@ const QuestoesCamp = () => {
             {questAtual!.texto}
           </Text>
 
-          <View
-            style ={styles.imageView}
-          >
-            {questAtual.figuras.map((fig) =>(
+          <View style={styles.imageView}>
+            {questAtual.figuras.map(fig => (
               <TouchableRipple
-                key={`touch${fig.id}`} 
+                key={`touch${fig.id}`}
                 style={styles.touchImage}
-                background={{color:"rgba(0, 0, 0, .30)"}}
-                onPress={() => {console.log('clicou')}}
-              >
-              <Image key={`fig${fig.id}`} style={styles.image} source={{ uri: fig.atributo }} />
+                background={{color: 'rgba(0, 0, 0, .30)'}}
+                onPress={() => {
+                  console.log('clicou');
+                }}>
+                <Image
+                  key={`fig${fig.id}`}
+                  style={styles.image}
+                  source={{uri: fig.atributo}}
+                />
               </TouchableRipple>
             ))}
           </View>
@@ -115,9 +130,43 @@ const QuestoesCamp = () => {
           </RadioButton.Group>
         </ScrollView>
       </View>
-      <Button mode="contained" onPress={() => {handleValidateResponse(); handleResponse()}}>
-        {questionario.questoes.length != 1 && index != questionario.questoes.length - 1 ? 'Proxima': 'Finalizar'}
+      <Button
+        mode="contained"
+        onPress={() => {
+          handleResponse();
+        }}>
+        {questionario.questoes.length != 1 &&
+        index != questionario.questoes.length - 1
+          ? 'Proxima'
+          : 'Finalizar'}
       </Button>
+      <Portal>
+        <Dialog
+          visible={visible}
+          onDismiss={showDialog}
+          style={{paddingTop: 10, backgroundColor: theme.colors.background}}>
+          <Image
+            source={require('../../../assets/champagne.png')}
+            style={styles.imageDialogo}
+          />
+          <Dialog.Title style={{textAlign: 'center'}}>Parabéns</Dialog.Title>
+          <Dialog.Content style={{alignItems: 'center'}}>
+            <Text variant="titleMedium">Você concluiu este questionário!</Text>
+          </Dialog.Content>
+          <Dialog.Actions style={styles.actionContainerDialogo}>
+            <Button
+              mode="elevated"
+              contentStyle={styles.buttonDialogo}
+              icon={'arrow-right'}
+              onPress={() => {
+                showDialog();
+                navigate();
+              }}>
+              Ir Para Resultados
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </SafeAreaView>
   );
 };

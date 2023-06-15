@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
-import {AnimatedFAB, Text} from 'react-native-paper';
+import {AnimatedFAB, Button, Text, useTheme} from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native';
+import ListEmpty from '../../../components/ListEmpty';
+import { respostaImpl } from '../../../utils/data';
 
 const HistoricoCamp = () => {
 
+  const theme = useTheme();
   const navigation = useNavigation();
 
   const [isExtended, setIsExtended] = useState(false);
@@ -20,7 +24,38 @@ const HistoricoCamp = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text> Campanhas </Text>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={respostaImpl}
+        keyExtractor={(resp) => resp.questionario.id.toString()}
+        ListEmptyComponent={
+          <ListEmpty
+            title='Hístico de Campanha Vazio!'
+            subTitle='Clique em iniciar campanha e se divirta!'
+            icon={{
+              name:'book-open-page-variant-outline', 
+              size:80, 
+              color:theme.colors.onBackground
+            }} 
+          />
+        }
+        renderItem={({ item }) => (
+          <Button
+          mode="elevated"
+          icon="chevron-right"
+          contentStyle={{flexDirection: 'row-reverse', justifyContent: 'space-between', height:45}}
+          labelStyle={{color: theme.colors.onBackground}}
+          style={{marginHorizontal:30, marginVertical:10}}
+          onPress={
+            () => {
+              console.log('clicou!')
+            }
+          }
+        > 
+        {item.questionario.titulo} 
+        </Button>
+        )}
+      />
       <AnimatedFAB
         variant='primary'
         icon={'plus'}

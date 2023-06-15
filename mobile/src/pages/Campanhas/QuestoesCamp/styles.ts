@@ -33,4 +33,17 @@ export const styles = StyleSheet.create({
   text: {
     marginVertical:10,
   },
+  imageDialogo: {
+    width:62, 
+    height:62, 
+    alignSelf:'center',
+  },
+  actionContainerDialogo: {
+    paddingBottom:30, 
+    justifyContent:'center',
+  },
+  buttonDialogo: {
+    paddingHorizontal:15, 
+    flexDirection:'row-reverse',
+  }
 });

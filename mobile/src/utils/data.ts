@@ -1,4 +1,15 @@
-import { Questionario } from "../@types/questionario";
+import { Questionario, Resposta } from "../@types/questionario";
+
+export interface Aluno{
+  id: number,
+  nome: string,
+  instituicao: string,
+  unidade: string,
+  cep: string,
+  curso: string,
+  modelo: string,
+  estrelas:number,
+}
 
 export const UsuariosImpl = [
     {
@@ -295,3 +306,17 @@ export const QuestionarioImpl:Questionario[] = [
     },
   ];
   
+export const respostaImpl: Resposta[] = [
+  {
+      alunoId: 1,
+      questionario: QuestionarioImpl[0],
+      qtd_acertos: 1,
+      data_respondido: new Date().toString(),
+  },
+  {
+    alunoId: 1,
+    questionario: QuestionarioImpl[1],
+    qtd_acertos: 4,
+    data_respondido: new Date().toString(),
+},
+];

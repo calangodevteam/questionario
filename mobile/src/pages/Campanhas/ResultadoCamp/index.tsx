@@ -2,11 +2,11 @@ import {styles} from './styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Button, Card, Text, useTheme} from 'react-native-paper';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {Resultado} from '../../../@types/questionario';
 import {Image, View} from 'react-native';
 import {useState} from 'react';
 import { moedasGanhas } from '../../../utils/Pontuacao';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { Resultado } from '../../../@types/@navigation';
 
 const ResultadoCamp = () => {
   const theme = useTheme();
@@ -44,6 +44,7 @@ const ResultadoCamp = () => {
               size={125}
               width={8}
               fill={porcento}
+              duration={1000}
               onAnimationComplete={() => complete()}
               tintColor={definedColor()}
               backgroundColor={theme.colors.surfaceVariant} style={{marginVertical:25}}>
