@@ -1,30 +1,28 @@
-interface Dificulade {
-    nome:string,
-    moedas: number,
-};
-
-const pontuacao: Dificulade[] = [
+const pontuacao = [
     {
         nome:'Fácil', 
-        moedas:3
+        moedas:3,
+        exp: 100,
     },
     {
         nome:'Mediano', 
-        moedas:5
+        moedas:5,
+        exp: 300,
     },
     {
         nome:'Difícil', 
-        moedas:8
+        moedas:8,
+        exp: 500,
     },
 ]
 
-export const moedasGanhas = (dificuldade:string) => {
+export const moedasGanhas = (dificuldade:string, acertos:number) => {
     
     for(let dif of pontuacao){
         if(dif.nome == dificuldade)
-            return dif.moedas;
+            return {moedas: (dif.moedas*acertos), exp: (dif.exp*acertos)};
         else
             continue;
     }
-    return 0;
+    return {moedas: 0, exp: 0};
 }
