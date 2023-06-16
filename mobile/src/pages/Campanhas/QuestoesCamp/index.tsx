@@ -22,9 +22,10 @@ import {Figura, Questao} from '../../../@types/questao';
 import QuestaoOpcao from '../../../components/QuestaoOpcao';
 import QuestaoArtigo from '../../../components/QuestaoArtigo';
 import {respostaImpl} from '../../../utils/data';
+import { AppTheme } from '../../../@types/theme';
 
 const QuestoesCamp = () => {
-  const theme = useTheme();
+  const theme = useTheme<AppTheme>();
   const navigation = useNavigation();
 
   const route = useRoute();
@@ -54,7 +55,7 @@ const QuestoesCamp = () => {
   const showDialog = () => setVisible(!visible);
 
   const navigate = () => {
-    navigation.navigate('resultado_camp', {
+    navigation.navigate('camp_resultado', {
       acertos: acertos,
       dificuldade: questionario.dificuldade,
       qtdQuestoes: questionario.qtdQuestoes,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BottomNavigation, useTheme } from 'react-native-paper';
 import User from '../pages/User';
 import Ranking from '../pages/Ranking';
-import CampanhasRoutes from './CampanhasRoutes';
+import CampanhasRoutes from './AppRoutes';
 import HistoricoCamp from '../pages/Campanhas/HistoricoCamp';
 
 const BottomRoutes = () => {

@@ -6,10 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 import ListEmpty from '../../../components/ListEmpty';
 import { respostaImpl } from '../../../utils/data';
+import { AppTheme } from '../../../@types/theme';
 
 const HistoricoCamp = () => {
 
-  const theme = useTheme();
+  const theme = useTheme<AppTheme>();
   const navigation = useNavigation();
 
   const [isExtended, setIsExtended] = useState(false);
@@ -19,7 +20,7 @@ const HistoricoCamp = () => {
   }, []);
 
   const handleCampanha = () => {
-    navigation.navigate('escolha_camp');
+    navigation.navigate('camp_escolha');
   }
 
   return (

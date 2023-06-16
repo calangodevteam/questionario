@@ -4,12 +4,13 @@ import {Text, Button, Avatar, TextInput, HelperText, useTheme} from 'react-nativ
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { AppTheme } from '../../../@types/theme';
 
 const Cadastro = () => {
 
   const navigation = useNavigation();
 
-  const theme = useTheme();
+  const theme = useTheme<AppTheme>();
   const [instituicao, setInstituicao] = useState('');
   const [unidade, setUnidade] = useState('');
   const [cep, setCep] = useState('');

@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     alignItems:'center',
   },
   image:{
-    marginTop: 66,
+    marginTop: 60,
     marginBottom:20,
   },
 });

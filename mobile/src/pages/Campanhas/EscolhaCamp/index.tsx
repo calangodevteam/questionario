@@ -8,10 +8,11 @@ import ModalQuestionario from '../../../components/ModalQuestionario';
 import ListEmpty from '../../../components/ListEmpty';
 import { QuestionarioImpl  } from '../../../utils/data';
 import { Questionario } from '../../../@types/questionario';
+import { AppTheme } from '../../../@types/theme';
 
 const EscolhaCamp = () => {
 
-  const theme = useTheme();
+  const theme = useTheme<AppTheme>();
   const navigation = useNavigation();
 
   const [visible, setVisible] = useState(false);
@@ -24,7 +25,7 @@ const EscolhaCamp = () => {
   
   const handleConfirm = () => {
     showModal();
-    navigation.navigate('questoes_camp', campanha!);
+    navigation.navigate('camp_questoes', campanha!);
   }
 
   const showModal = () => setVisible(!visible);

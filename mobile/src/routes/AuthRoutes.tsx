@@ -2,8 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Inicial from "../pages/Inicial";
 import Login from "../pages/Auth/Login";
 import Cadastro from "../pages/Auth/Cadastro";
-import BottomRoutes from "./BottomRoutes";
-import CampanhasRoutes from "./CampanhasRoutes";
+import AppRoutes from "./AppRoutes";
 
 const {Navigator, Screen} = createNativeStackNavigator();
 
@@ -26,7 +25,7 @@ const AuthRoutes = () => {
       />
       <Screen 
         name="app"
-        component={CampanhasRoutes}
+        component={AppRoutes}
       />
     </Navigator>
   );

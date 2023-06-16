@@ -22,6 +22,9 @@ export const defaultTheme = {
   colors: {
     ...MD3LightTheme.colors,
     ...LightTheme.colors,
+    success:'#7bff00',
+    warning:'#fae62e',
+    errorLight:'#ff0000',
   },
 
 };
@@ -34,5 +37,8 @@ export const darkTheme = {
   colors: {
     ...MD3DarkTheme.colors,
     ...DarkTheme.colors,
+    success:'#7bff00',
+    warning:'#fae62e',
+    errorLight:'#ff0000',
   },
 };

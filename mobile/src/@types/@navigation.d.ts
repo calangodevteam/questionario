@@ -5,6 +5,7 @@ export interface Resultado {
   qtdQuestoes: number;
   dificuldade:string,
 }
+
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
@@ -12,10 +13,10 @@ export declare global {
       login: undefined;
       cadastro: undefined;
       app: undefined;
-      historico_camp: undefined;
-      escolha_camp: undefined;
-      questoes_camp: Questionario;
-      resultado_camp: Resultado;
+      camp_historico: undefined;
+      camp_escolha: undefined;
+      camp_questoes: Questionario;
+      camp_resultado: Resultado;
     }
   }
 }

@@ -7,27 +7,27 @@ import BottomRoutes from "./BottomRoutes";
 
 const {Navigator, Screen} = createNativeStackNavigator();
 
-const CampanhasRoutes = () => {
+const AppRoutes = () => {
   return (
     <Navigator
     screenOptions={{}}
     >
       <Screen 
-        name="historico_camp"
+        name="camp_historico"
         component={BottomRoutes}
         options={{
           headerShown: false,
         }}
       />
       <Screen 
-        name="escolha_camp" 
+        name="camp_escolha" 
         component={EscolhaCamp} 
         options={{
           title:'Lista de Campanhas',
         }}
       />
       <Screen 
-        name="questoes_camp" 
+        name="camp_questoes" 
         component={QuestoesCamp}
         options={{
           headerShown: false,
@@ -35,7 +35,7 @@ const CampanhasRoutes = () => {
         }}
       />
       <Screen 
-        name="resultado_camp" 
+        name="camp_resultado"
         component={ResultadoCamp}
         options={{
           headerShown: false,
@@ -46,4 +46,4 @@ const CampanhasRoutes = () => {
   );
 }
 
-export default CampanhasRoutes;
+export default AppRoutes;

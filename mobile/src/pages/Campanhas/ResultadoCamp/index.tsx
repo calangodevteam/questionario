@@ -7,9 +7,10 @@ import {useState} from 'react';
 import {moedasGanhas} from '../../../utils/Pontuacao';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {Resultado} from '../../../@types/@navigation';
+import { AppTheme } from '../../../@types/theme';
 
 const ResultadoCamp = () => {
-  const theme = useTheme();
+  const theme = useTheme<AppTheme>();
   const navigation = useNavigation();
 
   const route = useRoute();
@@ -21,14 +22,14 @@ const ResultadoCamp = () => {
   const pontuacao = moedasGanhas(resultado.dificuldade, resultado.acertos);
 
   const aux = () => {
-    navigation.navigate('historico_camp');
+    navigation.navigate('camp_historico');
   };
 
   const complete = () => setShowPercente(!showPercente);
 
   const definedColor = () => {
-    if (porcento > 60) return '#7bff00';
-    else return porcento < 40 ? '#ff0000' : '#fae62e';
+    if (porcento > 60) return theme.colors.success;
+    else return porcento < 40 ? theme.colors.errorLight : theme.colors.warning;
   };
 
   return (
@@ -39,7 +40,7 @@ const ResultadoCamp = () => {
           <AnimatedCircularProgress
             size={125}
             width={8}
-            backgroundWidth={12}
+            backgroundWidth={10}
             fill={porcento}
             duration={1000}
             onAnimationComplete={() => complete()}
@@ -93,7 +94,7 @@ const ResultadoCamp = () => {
             </Text>
             <Text
               variant="headlineMedium"
-              style={{color: '#7bff00', fontWeight: '900'}}>
+              style={{color: theme.colors.success, fontWeight: '900'}}>
               {showPercente ? resultado.acertos : ''}
             </Text>
             <Text variant="titleLarge" style={{marginTop: 40}}>
@@ -101,7 +102,7 @@ const ResultadoCamp = () => {
             </Text>
             <Text
               variant="headlineMedium"
-              style={{color: '#ff0000', fontWeight: '900'}}>
+              style={{color: theme.colors.errorLight, fontWeight: '900'}}>
               {showPercente ? resultado.qtdQuestoes - resultado.acertos : ''}
             </Text>
           </View>
