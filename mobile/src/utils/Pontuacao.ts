@@ -14,7 +14,7 @@ const pontuacao = [
         moedas:8,
         exp: 500,
     },
-]
+];
 
 export const moedasGanhas = (dificuldade:string, acertos:number) => {
     
@@ -25,4 +25,4 @@ export const moedasGanhas = (dificuldade:string, acertos:number) => {
             continue;
     }
     return {moedas: 0, exp: 0};
-}
+};

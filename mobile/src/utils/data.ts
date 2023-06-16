@@ -1,5 +1,4 @@
 import { Questionario, Resposta } from "../@types/questionario";
-
 export interface Aluno{
   id: number,
   nome: string,
@@ -9,6 +8,9 @@ export interface Aluno{
   curso: string,
   modelo: string,
   estrelas:number,
+  level:number,
+  exp:number,
+  nextLevel:number,
 }
 
 export const UsuariosImpl = [
@@ -21,6 +23,9 @@ export const UsuariosImpl = [
         curso: 'TADS',
         modelo: 'Presencial',
         estrelas:200,
+        level:1,
+        exp:300,
+        nextLevel:500,
     },
     {
         id: 2,
@@ -31,6 +36,9 @@ export const UsuariosImpl = [
         curso: 'Farmácia',
         modelo: 'Presencial',
         estrelas:120,
+        level:3,
+        exp:1050,
+        nextLevel:1125,
     },
     {
         id: 3,
@@ -41,6 +49,9 @@ export const UsuariosImpl = [
         curso: 'Ciência da Computação',
         modelo: 'Presencial',
         estrelas:200,
+        level:3,
+        exp:750,
+        nextLevel:1125,
     },
     {
         id: 4,
@@ -51,6 +62,9 @@ export const UsuariosImpl = [
         curso: 'TADS',
         modelo: 'Presencial',
         estrelas:205,
+        level:2,
+        exp:600,
+        nextLevel:750,
     },
 ];
 

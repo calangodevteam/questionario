@@ -9,12 +9,7 @@ export const styles = StyleSheet.create({
 },
   view: {
     marginVertical: 15,
-    padding: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 155,
-    width: 155,
-    borderRadius: 200,
+    alignSelf:'center',
   },
   contentModal: {
     flexDirection: 'row-reverse',

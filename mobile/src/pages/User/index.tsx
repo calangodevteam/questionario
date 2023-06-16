@@ -5,6 +5,8 @@ import { styles } from './styles';
 import { Button, Switch } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { PreferencesContext } from '../../contexts/ThemeContext';
+import UsuLevelCard from '../../components/UsuLevelCard';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
  const User = () => {
 
@@ -16,10 +18,11 @@ import { PreferencesContext } from '../../contexts/ThemeContext';
         navigation.navigate('inicial');
       }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
         <Switch color={'red'} value={isThemeDark} onValueChange={toggleTheme} />
         <Button  mode="contained" onPress={aux}> Iniciar </Button>
-    </View>
+        <UsuLevelCard/>
+    </SafeAreaView>
   );
 }
 

@@ -25,6 +25,7 @@ export const defaultTheme = {
     success:'#7bff00',
     warning:'#fae62e',
     errorLight:'#ff0000',
+    scoreColor:'#F3B14E',
   },
 
 };
@@ -40,5 +41,6 @@ export const darkTheme = {
     success:'#7bff00',
     warning:'#fae62e',
     errorLight:'#ff0000',
+    scoreColor:'#F3B14E',
   },
 };

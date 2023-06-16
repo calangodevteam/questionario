@@ -1,4 +1,4 @@
-import {Button, Modal, Portal, Text, useTheme} from 'react-native-paper';
+import {Badge, Button, Modal, Portal, Text, useTheme} from 'react-native-paper';
 import { styles } from './styles';
 import { View } from 'react-native';
 
@@ -23,11 +23,7 @@ const ModalQuestionario = ({visible,titulo, dificuldade, qtdQuestoes, onClose, n
         <Text variant='titleLarge' style={styles.text}>{titulo}</Text>
         <Text variant='bodyLarge' style={styles.text}>Dificuldade: {dificuldade}</Text>
         <Text variant='bodyMedium' style={styles.text}>Questões</Text>
-        
-        <View style={[{backgroundColor: theme.colors.tertiaryContainer}, styles.view]}>
-            <Text variant='displaySmall'>{qtdQuestoes}</Text>
-        </View>
-
+        <Badge style={[{backgroundColor: theme.colors.tertiaryContainer}, styles.view]} size={155}>{qtdQuestoes}</Badge>
         <Button
           mode="elevated"
           icon="arrow-right-thin"
