@@ -27,7 +27,7 @@ public class Unidade {
 	private Endereco endereco;
 	
 	@ManyToOne
-    @JoinColumn(name = "intituicao_id")
-	private Instituicao intituicao;
+    @JoinColumn(name = "instituicao_id")
+	private Instituicao instituicao;
 
 }

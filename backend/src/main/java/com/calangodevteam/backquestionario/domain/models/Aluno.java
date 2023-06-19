@@ -32,7 +32,7 @@ public class Aluno {
 	private Endereco endereco;
 	
 	@ManyToOne
-	@JoinColumn(name="curso_unidade_id")
-	private CursosUnidade cursoUnidade;
+	@JoinColumn(name="cursos_unidade_id")
+	private CursosUnidade cursosUnidade;
 	
 }

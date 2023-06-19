@@ -12,6 +12,6 @@ server:
     
 spring:
   profiles:
-    active: "test"
+    active: "dev"
   application: 
     name: CalangoDev
