@@ -35,4 +35,7 @@ public class Artigo {
 	@CollectionTable(name="autor_artigo")
 	private Set<String> autor = new HashSet<>();
 	
+	@Column(columnDefinition="TEXT")
+	private String conteudo;
+	
 }

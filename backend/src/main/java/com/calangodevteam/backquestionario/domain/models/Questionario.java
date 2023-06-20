@@ -1,6 +1,7 @@
 package com.calangodevteam.backquestionario.domain.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.calangodevteam.backquestionario.domain.models.enums.Dificuldade;
@@ -50,5 +51,8 @@ public class Questionario {
 	@ManyToOne
 	@JoinColumn(name="temas_areas_id")
 	private TemasAreas temasAreas;
+	
+	@Column(name = "data_criacao")
+	private Date dataCriacao;
 
 }
