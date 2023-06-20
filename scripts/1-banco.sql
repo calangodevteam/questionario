@@ -83,7 +83,7 @@ BEGIN
 	
 	var_exp := var_exp + NEW.experiencia;
 	
-	WHILE var_exp > NEW.prox_nivel LOOP
+	WHILE var_exp >= NEW.prox_nivel LOOP
      	var_nivel := var_nivel+1;
 		var_exp := var_exp - var_prox_nivel;
 		var_prox_nivel := var_prox_nivel*1.5;

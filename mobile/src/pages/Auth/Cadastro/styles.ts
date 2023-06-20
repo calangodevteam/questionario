@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
   },
   containerImage: {
     alignItems:'center',
-    paddingVertical:15,
-    marginVertical: 30,
+    paddingBottom:10,
+    marginVertical: 27,
   },
   containerInput: {
     marginHorizontal: 10,
@@ -21,9 +21,18 @@ export const styles = StyleSheet.create({
   image:{
     marginBottom:4,
   },
+  titleButton: {
+    marginVertical:10,
+  },
+  buttonEsc: {
+    flexDirection: 'row-reverse', 
+    justifyContent:'space-between', 
+    height:50,
+},
   button: {
     alignSelf:'center',
-    marginVertical:30,
+    marginTop: 50,
+    marginBottom:25,
     width:311,
   },
 });

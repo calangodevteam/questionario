@@ -7,7 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.calangodevteam.backquestionario.application.dtos.InsertPontuacaoDTO;
 import com.calangodevteam.backquestionario.application.services.PontuacaoService;
 import com.calangodevteam.backquestionario.domain.models.Pontuacao;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/pontuacoes")
@@ -40,8 +42,8 @@ public class PontuacaoController {
 	}
 	
 	
-	@PostMapping
-	public ResponseEntity<Pontuacao> update(@RequestBody InsertPontuacaoDTO pontDto) {
+	@PatchMapping
+	public ResponseEntity<Pontuacao> update(@Valid @RequestBody InsertPontuacaoDTO pontDto) {
 
 		Integer resp = pontuacaoService.update(pontDto);
 		return resp == 0?ResponseEntity.notFound().build(): ResponseEntity.noContent().build();

@@ -19,7 +19,7 @@ public class TemasAreas {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "tema_id")

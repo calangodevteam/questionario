@@ -1,6 +1,5 @@
 package com.calangodevteam.backquestionario.application.dtos;
-
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InsertPontuacaoDTO {
-	
+
 	Integer estrelas;
 	Integer experiencia;
 	
-	@NotBlank(message="Insira o Id do Aluno!")
+	@NotNull
 	Integer aluno_id;
 }

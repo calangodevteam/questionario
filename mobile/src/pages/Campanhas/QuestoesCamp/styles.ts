@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   containerQuestao: {
     paddingHorizontal:0,
     marginHorizontal:0,
-    maxHeight: 600,
+    maxHeight: 680,
     marginVertical:10,
     marginBottom:20,
   },

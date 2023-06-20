@@ -11,6 +11,7 @@ export interface Questionario {
   dificuldade: string;
   temasAreas: TemasAreas;
   questoes: Questao[];
+  dataCriacao: string;
 }
 
 export interface Resposta{

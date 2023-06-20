@@ -24,7 +24,7 @@ public class CursosUnidade {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     
 	@Column(name = "modalidade_curso")
 	@Enumerated(EnumType.STRING)

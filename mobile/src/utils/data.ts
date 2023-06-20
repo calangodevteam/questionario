@@ -163,6 +163,7 @@ export const QuestionarioImpl:Questionario[] = [
           },
         },
       ],
+      dataCriacao:'2023-05-14T00:00:00.000+00:00',
     },
     {
       id: 2,
@@ -317,6 +318,7 @@ export const QuestionarioImpl:Questionario[] = [
           },
         },
       ],
+      dataCriacao:'2023-05-14T00:00:00.000+00:00',
     },
   ];
   

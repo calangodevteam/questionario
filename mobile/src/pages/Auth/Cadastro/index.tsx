@@ -6,35 +6,33 @@ import {ScrollView, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppTheme } from '../../../@types/theme';
 
+interface esc {
+  id:number,
+  value: string,
+}
+
 const Cadastro = () => {
 
   const navigation = useNavigation();
 
   const theme = useTheme<AppTheme>();
-  const [instituicao, setInstituicao] = useState('');
-  const [unidade, setUnidade] = useState('');
-  const [cep, setCep] = useState('');
-  const [curso, setCurso] = useState('');
-  const [modelo, setModelo] = useState('');
+  const [instituicao, setInstituicao] = useState<esc>({id:0,value:''});
+  const [unidade, setUnidade] = useState<esc>({id:0,value:''});
+  const [cep, setCep] = useState<esc>({id:0,value:''});
+  const [curso, setCurso] = useState<esc>({id:0,value:''});
+  const [modelo, setModelo] = useState<esc>({id:0,value:''});
+
+  const[validacao,setValidacao] = useState(false);
+
+  const validar = () => setValidacao(true);
+
+  const verificaOpVazia = () => {
+    return instituicao.id<1 || unidade.id<1 || cep.id<1 || curso.id<1 || modelo.id<1? true:false
+  }
 
   const handleSignUp = () => {
-    navigation.navigate('app');
-  };
 
-  const erroInstituicao = () => {
-    return instituicao.length < 2 && instituicao != '' ? true : false;
-  };
-  const erroUnidade = () => {
-    return unidade.length < 2 && unidade != '' ? true : false;
-  };
-  const erroCep = () => {
-    return cep.length < 2 && cep != '' ? true : false;
-  };
-  const erroCurso = () => {
-    return curso.length < 2 && curso != '' ? true : false;
-  };
-  const erroModelo = () => {
-    return modelo.length < 2 && modelo != '' ? true : false;
+    verificaOpVazia()? validar(): navigation.navigate('app');
   };
 
   return (
@@ -54,81 +52,74 @@ const Cadastro = () => {
         </View>
 
         <View style={styles.containerInput}>
-            <TextInput  
-              mode="outlined"
-              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
-              label="Instituição"
-              placeholder="Insira sua instituição"
-              error={erroInstituicao()}
-              value={instituicao}
-              onChangeText={setInstituicao}
-            />
-            <HelperText type="error" padding='none' visible={erroInstituicao()}>
-            Instituição invalida!
-          </HelperText>
+          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Instituição</Text>
+          <Button icon="arrow-right"
+           mode="elevated" 
+           buttonColor={theme.colors.background}
+           textColor={instituicao.id<1 && validacao? theme.colors.error:theme.colors.outline}
+           contentStyle={styles.buttonEsc}
+           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
+           onPress={() => console.log('Pressed')}
+           >
+            {instituicao.id<1?'Escolha uma Opção...': instituicao.value}
+          </Button>
         </View>
 
         <View style={styles.containerInput}>
-            <TextInput
-              mode="outlined"
-              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
-              label="Unidade ou Polo"
-              placeholder="Insira a sua unidade ou polo"
-              error={erroUnidade()}
-              value={unidade}
-              onChangeText={setUnidade}
-            />
-            <HelperText type="error" padding='none' visible={erroUnidade()}>
-            Unidade ou Polo invalido!
-          </HelperText>
+          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Unidade ou Polo</Text>
+          <Button icon="arrow-right"
+           mode="elevated" 
+           buttonColor={theme.colors.background}
+           textColor={unidade.id<1 && validacao? theme.colors.error:theme.colors.outline}
+           contentStyle={styles.buttonEsc}
+           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
+           onPress={() => console.log('Pressed')}
+           >
+            {unidade.id<1?'Escolha uma Opção...': unidade.value}
+          </Button>
         </View>
 
         <View style={styles.containerInput}>
-            <TextInput
-              mode="outlined"
-              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
-              label="CEP"
-              placeholder="Insira seu CEP"
-              inputMode="numeric"
-              error={erroCep()}
-              value={cep}
-              onChangeText={setCep}
-            />
-            <HelperText type="error" padding='none' visible={erroCep()}>
-            CEP invalido!
-          </HelperText>
+          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>CEP</Text>
+          <Button icon="arrow-right"
+           mode="elevated" 
+           buttonColor={theme.colors.background}
+           textColor={cep.id<1 && validacao? theme.colors.error:theme.colors.outline}
+           contentStyle={styles.buttonEsc}
+           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
+           onPress={() => console.log('Pressed')}
+           >
+            {cep.id<1?'Insira seu CEP...': cep.value}
+          </Button>
         </View>
 
         <View style={styles.containerInput}>
-            <TextInput
-              mode="outlined"
-              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
-              label="Curso"
-              placeholder="Insira seu curso"
-              error={erroCurso()}
-              value={curso}
-              onChangeText={setCurso}
-            />
-            <HelperText type="error" padding='none' visible={erroCurso()}>
-              Curso invalido!
-          </HelperText>
+          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Curso</Text>
+          <Button icon="arrow-right"
+           mode="elevated" 
+           buttonColor={theme.colors.background}
+           textColor={curso.id<1 && validacao? theme.colors.error:theme.colors.outline}
+           contentStyle={styles.buttonEsc}
+           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
+           onPress={() => console.log('Pressed')}
+           >
+            {curso.id<1?'Escolha uma Opção...': curso.value}
+          </Button>
         </View>
 
         <View style={styles.containerInput}>
-            <TextInput
-              mode="outlined"
-              outlineStyle={{borderRadius: theme.roundness, elevation: 3, borderColor: theme.colors.elevation.level5}}
-              label="Modelo"
-              placeholder="Insira o modelo que está cursando"
-              error={erroModelo()}
-              value={modelo}
-              onChangeText={setModelo}
-            />
-            <HelperText type="error" padding='none' visible={erroModelo()}>
-              Modelo invalido!
-          </HelperText>
+        <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Modelo</Text>
+          <Button icon="arrow-right"
+           mode="elevated" 
+           buttonColor={theme.colors.background}
+           textColor={modelo.id<1 && validacao? theme.colors.error:theme.colors.outline}
+           contentStyle={styles.buttonEsc}
+           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
+           onPress={() => console.log('Pressed')}
+           >
+            {modelo.id<1?'Escolha uma Opção...': modelo.value}
+          </Button>
         </View>
-
         <Button style={styles.button} buttonColor={theme.colors.onBackground} mode="contained" onPress={handleSignUp}>
           Avançar
         </Button>
