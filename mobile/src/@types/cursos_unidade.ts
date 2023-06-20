@@ -1,19 +1,23 @@
+import { Endereco } from "./endereco";
+import { Modalidade } from "./enums";
+import { Instituicao } from "./instituicao";
 
-export interface Unidade{id
-    nome
-    endereco
-    instituicao}
+export interface Unidade {
+  id:number;
+  nome:string;
+  endereco?:Endereco;
+  instituicao: Instituicao;
+}
 
-export interface Cursos {id
-nome}
+export interface Curso {
+  id:number;
+  nome:string;
+}
 
-
-
-
-
-export interface CursosUnidade{id
-modalidade
-curso
-unidade}
-
+export interface CursosUnidade {
+  id:number;
+  modalidade:Modalidade;
+  curso?:Curso;
+  unidade?:Unidade;
+}
 

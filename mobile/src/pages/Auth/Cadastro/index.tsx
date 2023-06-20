@@ -1,33 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
 import {Text, Button, Avatar, TextInput, HelperText, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppTheme } from '../../../@types/theme';
-
-interface esc {
-  id:number,
-  value: string,
-}
+import Select from '../../../components/Select';
+import { instituicaImpl, unidadeImpl } from '../../../utils/data';
 
 const Cadastro = () => {
 
   const navigation = useNavigation();
 
   const theme = useTheme<AppTheme>();
-  const [instituicao, setInstituicao] = useState<esc>({id:0,value:''});
-  const [unidade, setUnidade] = useState<esc>({id:0,value:''});
-  const [cep, setCep] = useState<esc>({id:0,value:''});
-  const [curso, setCurso] = useState<esc>({id:0,value:''});
-  const [modelo, setModelo] = useState<esc>({id:0,value:''});
+  const [instituicao, setInstituicao] = useState(0);
+  const [unidade, setUnidade] = useState(0);
+  const [cep, setCep] = useState(0);
+  const [curso, setCurso] = useState(0);
+  const [modelo, setModelo] = useState(0);
 
   const[validacao,setValidacao] = useState(false);
 
   const validar = () => setValidacao(true);
 
   const verificaOpVazia = () => {
-    return instituicao.id<1 || unidade.id<1 || cep.id<1 || curso.id<1 || modelo.id<1? true:false
+    return instituicao<1 || unidade<1 || cep<1 || curso<1 || modelo<1? true:false
   }
 
   const handleSignUp = () => {
@@ -51,75 +48,46 @@ const Cadastro = () => {
           <Text variant='titleMedium'>Bem vindo(a)!</Text>
         </View>
 
-        <View style={styles.containerInput}>
-          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Instituição</Text>
-          <Button icon="arrow-right"
-           mode="elevated" 
-           buttonColor={theme.colors.background}
-           textColor={instituicao.id<1 && validacao? theme.colors.error:theme.colors.outline}
-           contentStyle={styles.buttonEsc}
-           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
-           onPress={() => console.log('Pressed')}
-           >
-            {instituicao.id<1?'Escolha uma Opção...': instituicao.value}
-          </Button>
-        </View>
+        <Select 
+          arrayObject={instituicaImpl}
+          onChange={(newValue) => setInstituicao(newValue)}
+          titleLabel={'Instituição'}
+          titleButton={'Escolha uma Opção...'}
+          validacao={validacao}
+        />
 
-        <View style={styles.containerInput}>
-          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Unidade ou Polo</Text>
-          <Button icon="arrow-right"
-           mode="elevated" 
-           buttonColor={theme.colors.background}
-           textColor={unidade.id<1 && validacao? theme.colors.error:theme.colors.outline}
-           contentStyle={styles.buttonEsc}
-           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
-           onPress={() => console.log('Pressed')}
-           >
-            {unidade.id<1?'Escolha uma Opção...': unidade.value}
-          </Button>
-        </View>
+        <Select 
+          arrayObject={unidadeImpl}
+          onChange={(newValue) => setUnidade(newValue)}
+          titleLabel={'Unidade ou Polo'}
+          titleButton={'Escolha uma Opção...'}
+          validacao={validacao}
+        />
 
-        <View style={styles.containerInput}>
-          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>CEP</Text>
-          <Button icon="arrow-right"
-           mode="elevated" 
-           buttonColor={theme.colors.background}
-           textColor={cep.id<1 && validacao? theme.colors.error:theme.colors.outline}
-           contentStyle={styles.buttonEsc}
-           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
-           onPress={() => console.log('Pressed')}
-           >
-            {cep.id<1?'Insira seu CEP...': cep.value}
-          </Button>
-        </View>
+        <Select 
+          arrayObject={[]}
+          onChange={(newValue) => setCep(newValue)}
+          titleLabel={'CEP'}
+          titleButton={'Insira seu CEP...'}
+          validacao={validacao}
+        />
 
-        <View style={styles.containerInput}>
-          <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Curso</Text>
-          <Button icon="arrow-right"
-           mode="elevated" 
-           buttonColor={theme.colors.background}
-           textColor={curso.id<1 && validacao? theme.colors.error:theme.colors.outline}
-           contentStyle={styles.buttonEsc}
-           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
-           onPress={() => console.log('Pressed')}
-           >
-            {curso.id<1?'Escolha uma Opção...': curso.value}
-          </Button>
-        </View>
+        <Select 
+          arrayObject={[]}
+          onChange={(newValue) => setCurso(newValue)}
+          titleLabel={'Curso'}
+          titleButton={'Escolha uma Opção...'}
+          validacao={validacao}
+        />
 
-        <View style={styles.containerInput}>
-        <Text variant='labelLarge' style={[styles.titleButton,{color:theme.colors.secondary}]}>Modelo</Text>
-          <Button icon="arrow-right"
-           mode="elevated" 
-           buttonColor={theme.colors.background}
-           textColor={modelo.id<1 && validacao? theme.colors.error:theme.colors.outline}
-           contentStyle={styles.buttonEsc}
-           style={{borderRadius: theme.roundness, borderColor: theme.colors.elevation.level5}}
-           onPress={() => console.log('Pressed')}
-           >
-            {modelo.id<1?'Escolha uma Opção...': modelo.value}
-          </Button>
-        </View>
+        <Select 
+          arrayObject={[]}
+          onChange={(newValue) => setModelo(newValue)}
+          titleLabel={'Modelo'}
+          titleButton={'Escolha uma Opção...'}
+          validacao={validacao}
+        />
+
         <Button style={styles.button} buttonColor={theme.colors.onBackground} mode="contained" onPress={handleSignUp}>
           Avançar
         </Button>

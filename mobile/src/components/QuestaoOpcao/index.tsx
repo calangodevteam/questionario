@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {styles} from './styles';
 import {RadioButton, useTheme} from 'react-native-paper';
 import { Opcao } from '../../@types/questao';
+import { AppTheme } from '../../@types/theme';
 
 interface props {
   opcao: Opcao
@@ -11,7 +12,7 @@ interface props {
 
 const QuestaoOpcao = ({opcao}:props) => {
 
-  const theme = useTheme();
+  const theme = useTheme<AppTheme>();
 
   return (
     <View

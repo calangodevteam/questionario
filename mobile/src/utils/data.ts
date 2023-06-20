@@ -1,3 +1,5 @@
+import { Unidade } from "../@types/cursos_unidade";
+import { Instituicao } from "../@types/instituicao";
 import { Questionario, Resposta } from "../@types/questionario";
 export interface Aluno{
   id: number,
@@ -335,4 +337,130 @@ export const respostaImpl: Resposta[] = [
     qtd_acertos: 4,
     data_respondido: new Date().toString(),
 },
+];
+
+export const instituicaImpl: Instituicao[] = [
+  {
+      id: 1,
+      nome:'teste',
+      cnpj:'teste' 
+  },
+  {
+    id: 2,
+    nome:'teste2',
+    cnpj:'teste' 
+  },
+  {
+    id: 3,
+    nome:'teste3',
+    cnpj:'teste' 
+  },
+  {
+    id: 4,
+    nome:'teste4',
+    cnpj:'teste' 
+  },  {
+    id: 5,
+    nome:'teste5',
+    cnpj:'teste' 
+  },
+  {
+  id: 6,
+  nome:'teste6',
+  cnpj:'teste' 
+  },
+  {
+    id: 7,
+    nome:'teste7',
+    cnpj:'teste' 
+  },
+  {
+  id: 8,
+  nome:'teste8',
+  cnpj:'teste' 
+  },
+  {
+    id: 9,
+    nome:'teste9',
+    cnpj:'teste' 
+  },
+  {
+  id: 10,
+  nome:'teste10',
+  cnpj:'teste' 
+  },
+  {
+    id: 11,
+    nome:'teste11',
+    cnpj:'teste' 
+  },
+  {
+    id: 12,
+    nome:'teste12',
+    cnpj:'teste' 
+  },
+
+];
+
+export const unidadeImpl: Unidade[] = [
+  {
+      id: 1,
+      nome:'teste',
+      instituicao: instituicaImpl[1],
+  },
+  {
+    id: 2,
+    nome:'teste2',
+    instituicao: instituicaImpl[1], 
+  },
+  {
+    id: 3,
+    nome:'teste3',
+    instituicao: instituicaImpl[1], 
+  },
+  {
+    id: 4,
+    nome:'teste4',
+    instituicao: instituicaImpl[1], 
+  },  {
+    id: 5,
+    nome:'teste5',
+    instituicao: instituicaImpl[1], 
+  },
+  {
+  id: 6,
+  nome:'teste6',
+  instituicao: instituicaImpl[1], 
+  },
+  {
+    id: 7,
+    nome:'teste7',
+    instituicao: instituicaImpl[1], 
+  },
+  {
+  id: 8,
+  nome:'teste8',
+  instituicao: instituicaImpl[1], 
+  },
+  {
+    id: 9,
+    nome:'teste9',
+    instituicao: instituicaImpl[1], 
+  },
+  {
+  id: 10,
+  nome:'teste10',
+  instituicao: instituicaImpl[1], 
+  },
+  {
+    id: 11,
+    nome:'teste11',
+    instituicao: instituicaImpl[1], 
+  },
+  {
+    id: 12,
+    nome:'teste12',
+    instituicao: instituicaImpl[1], 
+  },
+
 ];
