@@ -1,5 +1,8 @@
 package com.calangodevteam.backquestionario.application.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +35,7 @@ public class QuestionarioService {
 	public Questionario create(Questionario questionario) {
 
 		questionario.setQtdQuestoes(questionario.getQuestoes().size());
+		questionario.setDataCriacao(LocalDateTime.now(ZoneOffset.UTC));
 		return repoQuestionario.save(questionario);
 	}
 

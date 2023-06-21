@@ -556,7 +556,7 @@ CREATE TABLE public.questionario (
     tempo_disponivel integer,
     nivel_dificuldade public.dificuldade,
     temas_areas_id integer,
-    data_criacao date
+    data_criacao timestamp
 );
 
 
@@ -2276,8 +2276,8 @@ INSERT INTO public.questao VALUES (55, 'Conhecimento', 'Como construir um sistem
 -- Data for Name: questionario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.questionario VALUES (13, 'Prova de Programação', 2, 60, 60, 'Mediano', 13, '2023-06-19');
-INSERT INTO public.questionario VALUES (14, 'Prova de Teste', 2, 999, 999, 'Difícil', 11, '2023-06-19');
+INSERT INTO public.questionario VALUES (13, 'Prova de Programação', 2, 60, 60, 'Mediano', 13, '2025-12-19 20:10:50');
+INSERT INTO public.questionario VALUES (14, 'Prova de Teste', 2, 999, 999, 'Difícil', 11, '2025-12-19 21:13:44');
 
 
 --

@@ -1,7 +1,7 @@
 package com.calangodevteam.backquestionario.domain.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.calangodevteam.backquestionario.domain.models.enums.Dificuldade;
@@ -35,6 +35,8 @@ public class Questionario {
 	private Integer qtdQuestoes;
 	
 	private Integer tempoDuracao;
+
+	//Não mais usado no front-end. Deletar se também não for mais usado no aplicativo mobile
 	private Integer tempoDisponivel;
 	
 	@Column(name = "nivel_dificuldade")
@@ -53,6 +55,6 @@ public class Questionario {
 	private TemasAreas temasAreas;
 	
 	@Column(name = "data_criacao")
-	private Date dataCriacao;
+	private LocalDateTime dataCriacao;
 
 }

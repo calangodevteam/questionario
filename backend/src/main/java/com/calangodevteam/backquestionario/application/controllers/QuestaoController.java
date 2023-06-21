@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.calangodevteam.backquestionario.application.dtos.CadastroQuestaoDTO;
+import com.calangodevteam.backquestionario.application.dtos.RespostaPaginadaDTO;
 import com.calangodevteam.backquestionario.application.services.QuestaoService;
 import com.calangodevteam.backquestionario.domain.models.Questao2;
 
@@ -29,11 +30,13 @@ public class QuestaoController {
 	private QuestaoService questaoService;
 	
 	@GetMapping
-	public ResponseEntity<Page<Questao2>> findAllByIdAscOrDesc(
+	public ResponseEntity<RespostaPaginadaDTO<Questao2>> findAllByIdAscOrDesc(
 		@RequestParam(name = "temasareasid", defaultValue = "0") int temasAreasId,
-		@PageableDefault(size = 4, sort = "id") Pageable pageable) {
+		@RequestParam(name = "page", defaultValue = "0") int page,
+    	@RequestParam(name = "size", defaultValue = "${backquestionario.paginacao.size.generico.padrao}") int size,
+		@RequestParam(name = "sort", defaultValue = "asc") String sort) {
 
-		return ResponseEntity.ok(questaoService.findAll(pageable, temasAreasId));
+		return ResponseEntity.ok(questaoService.findAll(page, size, sort, temasAreasId));
 	}
 	
 	@PostMapping
