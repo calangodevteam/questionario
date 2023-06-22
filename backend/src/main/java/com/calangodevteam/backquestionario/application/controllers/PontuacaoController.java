@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calangodevteam.backquestionario.application.dtos.InsertPontuacaoDTO;
@@ -20,25 +20,24 @@ import com.calangodevteam.backquestionario.domain.models.Pontuacao;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/pontuacoes")
+@RequestMapping("api")
 @CrossOrigin(origins = "*")
 public class PontuacaoController {
 	
 	@Autowired
 	private PontuacaoService pontuacaoService;
 	
-	@GetMapping
+	@GetMapping("/pontuacoes")
 	public ResponseEntity<Page<Pontuacao>> findAll(
 		@PageableDefault(size = 4, sort = "id") Pageable pageable) {
 
 		return ResponseEntity.ok(pontuacaoService.findAll(pageable));
 	}
 	
-	@GetMapping("/aluno")
-	public ResponseEntity<Pontuacao> findByAluno(
-			@RequestParam(value="id") Integer alunoId) {
+	@GetMapping("/alunos/{id}/pontuacao")
+	public ResponseEntity<Pontuacao> findByAluno(@PathVariable Integer id) {
 
-		return ResponseEntity.ok(pontuacaoService.findByAluno(alunoId));
+		return ResponseEntity.ok(pontuacaoService.findByAluno(id));
 	}
 	
 	

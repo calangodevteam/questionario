@@ -49,6 +49,8 @@ public class ResultadoService {
 	}
 
 	public Resultado create(Resultado resultado) {
+		resultado.setInicio(LocalDateTime.now());
+		resultado.setTermino(null);
 		return resultadoRepository.save(resultado);
 	}
 	
@@ -57,7 +59,7 @@ public class ResultadoService {
 		Resultado resultAtt = findById(resultado.getId());
 		resultAtt.setAcertos(resultado.getAcertos());
 		resultAtt.setTermino( LocalDateTime.now());
-		return resultadoRepository.save(resultado);
+		return resultadoRepository.save(resultAtt);
 	}
 	
 	@Transactional

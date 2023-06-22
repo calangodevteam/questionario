@@ -129,24 +129,28 @@ DECLARE
 	var_exp INTEGER;
 BEGIN
 
-	SELECT nivel_dificuldade INTO var_nivel_dificuldade FROM questionario WHERE id = NEW.questionario_id;
+	IF OLD.termino IS NULL THEN
+        
+		SELECT nivel_dificuldade INTO var_nivel_dificuldade FROM questionario WHERE id = NEW.questionario_id;
 	
-	CASE 
-   		WHEN var_nivel_dificuldade = 'Fácil' THEN
-			var_estrelas := NEW.qtd_acertos*6;
-      		var_exp :=NEW.qtd_acertos*100;
-		WHEN var_nivel_dificuldade = 'Mediano' THEN
-			var_estrelas := NEW.qtd_acertos*8;
-      		var_exp := NEW.qtd_acertos*200;
-		WHEN var_nivel_dificuldade = 'Difícil' THEN
-			var_estrelas := NEW.qtd_acertos*12;
-      		var_exp := NEW.qtd_acertos*400;
-   		ELSE
-			var_estrelas := 0;
-      		var_exp := 0;
-	END CASE;
-	
-	UPDATE pontuacao SET estrelas = var_estrelas, experiencia = var_exp WHERE aluno_id = NEW.aluno_id;
+		CASE 
+			WHEN var_nivel_dificuldade = 'Fácil' THEN
+				var_estrelas := NEW.qtd_acertos*6;
+				var_exp :=NEW.qtd_acertos*100;
+			WHEN var_nivel_dificuldade = 'Mediano' THEN
+				var_estrelas := NEW.qtd_acertos*8;
+				var_exp := NEW.qtd_acertos*200;
+			WHEN var_nivel_dificuldade = 'Difícil' THEN
+				var_estrelas := NEW.qtd_acertos*12;
+				var_exp := NEW.qtd_acertos*400;
+			ELSE
+				var_estrelas := 0;
+				var_exp := 0;
+		END CASE;
+
+		UPDATE pontuacao SET estrelas = var_estrelas, experiencia = var_exp WHERE aluno_id = NEW.aluno_id;
+		
+    END IF;
 	
     RETURN NEW;
 END;
@@ -2764,7 +2768,7 @@ CREATE TRIGGER atualizar_pontuacao BEFORE UPDATE ON public.pontuacao FOR EACH RO
 -- Name: resultado calcular_pontuacao; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
-CREATE TRIGGER calcular_pontuacao AFTER INSERT ON public.resultado FOR EACH ROW EXECUTE FUNCTION public.function_calcular_pontuacao();
+CREATE TRIGGER calcular_pontuacao AFTER UPDATE ON public.resultado FOR EACH ROW EXECUTE FUNCTION public.function_calcular_pontuacao();
 
 
 --
