@@ -3,7 +3,7 @@ import {FlatList, ScrollView, View} from 'react-native';
 
 import {styles} from './styles';
 import {
-    Appbar,
+  Appbar,
   Button,
   Dialog,
   Divider,
@@ -81,23 +81,30 @@ const Select = ({
             {backgroundColor: theme.colors.background},
             styles.dialogoContainer,
           ]}>
-            <Appbar.Header>
-                <Appbar.BackAction onPress={() => {showDialog()}} />
-                <Appbar.Content title={titleLabel}/>
-            </Appbar.Header>
-            <ScrollView
-              style={styles.scrollView}
-              showsVerticalScrollIndicator={false}
-              keyboardDismissMode="none">
-              {arrayObject.map((item: any) => (
+          <Appbar.Header>
+            <Appbar.BackAction
+              onPress={() => {
+                showDialog();
+              }}
+            />
+            <Appbar.Content title={titleLabel} />
+          </Appbar.Header>
+          <ScrollView
+            style={styles.scrollView}
+            showsVerticalScrollIndicator={false}
+            keyboardDismissMode="none">
+            {arrayObject.map((item: any) => (
+              <View 
+                key={item.id.toString()}                   
+                style={[
+                  {borderColor: theme.colors.elevation.level5},
+                  styles.radioButton,
+                ]}
+              >
                 <RadioButton.Item
-                  key={item.id.toString()}
                   mode="ios"
-                  style={[
-                    {borderColor: theme.colors.elevation.level5},
-                    styles.viewRadioButton,
-                  ]}
-                  label={item.nome ?? item.curso.nome}
+
+                  label={item.nome ?? ''}
                   color={theme.colors.success}
                   labelStyle={{color: theme.colors.secondary}}
                   value={item.id.toString()}
@@ -109,8 +116,9 @@ const Select = ({
                     setChecked(item.id);
                   }}
                 />
-              ))}
-            </ScrollView>
+              </View>
+            ))}
+          </ScrollView>
         </Modal>
       </Portal>
     </>

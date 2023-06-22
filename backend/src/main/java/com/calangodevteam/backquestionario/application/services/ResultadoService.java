@@ -50,6 +50,7 @@ public class ResultadoService {
 		return resultado;
 	}
 
+	@Transactional
 	public Resultado create(Resultado resultado) {
 		
 		Boolean resultExite = resultadoRepository.findByAlunoIdAndQuestionarioId(

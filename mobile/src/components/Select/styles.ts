@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     flex:1,
     paddingl:0,
   },
-  viewRadioButton: {
+  radioButton: {
     marginVertical: 5,
     borderWidth:1,
   },

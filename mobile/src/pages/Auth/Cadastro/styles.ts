@@ -12,14 +12,14 @@ export const styles = StyleSheet.create({
   },
   containerImage: {
     alignItems:'center',
-    paddingBottom:10,
-    marginVertical: 27,
+    paddingVertical:20,
+    marginVertical: 40,
   },
   containerInput: {
     marginHorizontal: 10,
   },
   image:{
-    marginBottom:4,
+    marginBottom:8,
   },
   titleButton: {
     marginVertical:10,
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
 },
   button: {
     alignSelf:'center',
-    marginTop: 50,
+    marginTop: 60,
     marginBottom:25,
     width:311,
   },

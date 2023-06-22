@@ -1,5 +1,5 @@
 export enum Modalidade {
-	Presencial, 
-	EAD, 
-	Hibrido,
+	Presencial = "Presencial", 
+	EAD = "EAD", 
+	Hibrido = "Hibrido",
 }
