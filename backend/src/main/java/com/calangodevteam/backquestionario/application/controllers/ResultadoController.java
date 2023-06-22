@@ -31,7 +31,7 @@ public class ResultadoController {
 	private ResultadoService resultadoService;
 	
 	@GetMapping("/questionarios/resultados")
-	public ResponseEntity<Page<Resultado>> findAllByAluno(
+	public ResponseEntity<Page<Resultado>> findAll(
 			@RequestParam(required = false) Integer alunoid,
 			@PageableDefault(size = 4, sort = "id") Pageable pageable) {
 		
@@ -47,9 +47,10 @@ public class ResultadoController {
 	}
 	
 	@GetMapping("/questionarios/resultados/{id}")
-	public ResponseEntity<Resultado> findById(@PathVariable Integer id) {
+	public ResponseEntity<Resultado> findById(@PathVariable Integer id, @RequestParam(required = false) Integer alunoid) {
 
-		return ResponseEntity.ok(resultadoService.findById(id));
+		return alunoid == null? ResponseEntity.ok(resultadoService.findById(id)):
+			ResponseEntity.ok(resultadoService.findByAlunoAndQuestionario(alunoid, id));
 	}
 	
 	@PostMapping("/questionarios/resultados")

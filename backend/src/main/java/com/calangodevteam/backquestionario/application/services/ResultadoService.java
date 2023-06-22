@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.calangodevteam.backquestionario.domain.exceptions.BadRequestException;
 import com.calangodevteam.backquestionario.domain.exceptions.ObjectNotFoundException;
 import com.calangodevteam.backquestionario.domain.models.Resultado;
 import com.calangodevteam.backquestionario.domain.repositories.ResultadoRepository;
@@ -49,6 +51,14 @@ public class ResultadoService {
 	}
 
 	public Resultado create(Resultado resultado) {
+		
+		Boolean resultExite = resultadoRepository.findByAlunoIdAndQuestionarioId(
+					resultado.getAluno().getId(), resultado.getQuestionario().getId()
+				).isPresent();
+		
+		if(resultExite)
+			throw new BadRequestException("O aluno já respondeu esse questionario!");
+		
 		resultado.setInicio(LocalDateTime.now());
 		resultado.setTermino(null);
 		return resultadoRepository.save(resultado);
