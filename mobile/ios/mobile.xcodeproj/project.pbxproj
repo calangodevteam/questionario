@@ -93,7 +93,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = "mobile";
+			name = "Calango";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -189,8 +189,8 @@
 			);
 			dependencies = (
 			);
-			name = "mobile";
-			productName = "mobile";
+			name = "Calango";
+			productName = "Calango";
 			productReference = 13B07F961A680F5B00A75B9A /* mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -488,7 +488,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "mobile/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "mobile";
+             INFOPLIST_KEY_CFBundleDisplayName = "Calango";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -500,7 +500,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.calangodev";
-				PRODUCT_NAME = "mobile";
+				PRODUCT_NAME = "Calango";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -515,7 +515,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "mobile/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "mobile";
+             INFOPLIST_KEY_CFBundleDisplayName = "Calango";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -527,7 +527,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.calangodev";
-				PRODUCT_NAME = "mobile";
+				PRODUCT_NAME = "Calango";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

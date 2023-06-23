@@ -31,6 +31,15 @@ const Login = () => {
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   }
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleUseExist =  () => {
       navigation.navigate('cadastro');
   }
@@ -44,6 +53,7 @@ const Login = () => {
         color={GoogleSigninButton.Color.Light}
         onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!')).catch(error => {console.log('error: ',)})}
       />
+      <Button mode='contained' onPress={() => signOut().then(() => console.log('SignOut with Google!')).catch(error => {console.log('error signOut: ',)})}>SignOut</Button>
     </SafeAreaView>
   );
 };
