@@ -16,8 +16,4 @@ export const styles = StyleSheet.create({
   image:{
     marginBottom:60,
   },
-  button: {
-    width: 330,
-    height: 45,
-  },
 });
