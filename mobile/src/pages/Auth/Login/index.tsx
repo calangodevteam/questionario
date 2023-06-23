@@ -42,7 +42,7 @@ const Login = () => {
       <GoogleSigninButton 
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Light}
-        onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!')).catch(error => {console.log('error: ', error)})}
+        onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!')).catch(error => {console.log('error: ',)})}
       />
     </SafeAreaView>
   );
