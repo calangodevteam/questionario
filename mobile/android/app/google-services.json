@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "478136560350",
+    "project_id": "calango-652c4",
+    "storage_bucket": "calango-652c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478136560350:android:a930370fd272b5c1f2f04f",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478136560350-uunms38larls3kq64uto8it49prh1pea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATeEOllBKVXgcLbYmiK1QufdtkPjbXhY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "478136560350-c4k4koc8v8gn5vt3ic4e13t9tcpgsr3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
