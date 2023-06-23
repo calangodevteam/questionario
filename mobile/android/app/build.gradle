@@ -95,9 +95,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.mobile"
+    namespace "com.app.calangodev"
     defaultConfig {
-        applicationId "com.mobile"
+        applicationId "com.app.calangodev"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

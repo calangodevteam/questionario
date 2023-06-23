@@ -1,4 +1,4 @@
-package com.mobile;
+package com.app.calangodev;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
