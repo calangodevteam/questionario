@@ -1,5 +1,6 @@
 frontend/node_modules/
 mobile/node_modules/
+mobile/android/app/google-services.json
 frontend/dist/
 frontend/.angular/
 backend/target/
