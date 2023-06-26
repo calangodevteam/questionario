@@ -189,7 +189,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.aluno (
     id integer NOT NULL,
     nome character varying(255),
-    email character varying(255),
+    email character varying(255) UNIQUE,
     foto_perfil character varying(255),
     endereco_cep character varying(255),
     endereco_estado character varying(255),
