@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,6 +29,12 @@ public class AlunoController {
 	public ResponseEntity<Aluno> findById(@PathVariable Integer id) {
 
 		return ResponseEntity.ok(alunoService.findById(id));
+	}
+	
+	@GetMapping
+	public ResponseEntity<Aluno> findByEmail(@RequestParam(required = true) String email) {
+
+		return ResponseEntity.ok(alunoService.findByEmail(email));
 	}
 	
 	@PostMapping

@@ -22,6 +22,15 @@ public class AlunoService {
 
 		return aluno;
 	}
+	
+	public Aluno findByEmail(String email) {
+		
+		Aluno aluno = alunoRepository.findByEmail(email)
+				.orElseThrow(() -> new ObjectNotFoundException(
+		            "Aluno não encontrado! Email: " + email));
+
+		return aluno;
+	}
 
 	public Aluno create(Aluno aluno) {	
 		Boolean alunoExite = alunoRepository.findByEmail(aluno.getEmail()).isPresent();
