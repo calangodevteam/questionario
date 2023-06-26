@@ -1,7 +1,4 @@
 frontend/node_modules/
-CalangoMobile/node_modules/
-CalangoMobile/*.env
-CalangoMobile/android/app/google-services.json
 frontend/dist/
 frontend/.angular/
 backend/target/
