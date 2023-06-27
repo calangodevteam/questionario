@@ -1,5 +1,6 @@
 package com.calangodevteam.backquestionario.domain.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Questionario {
 
@@ -27,6 +35,8 @@ public class Questionario {
 	private Integer qtdQuestoes;
 	
 	private Integer tempoDuracao;
+
+	//Não mais usado no front-end. Deletar se também não for mais usado no aplicativo mobile
 	private Integer tempoDisponivel;
 	
 	@Column(name = "nivel_dificuldade")
@@ -39,65 +49,12 @@ public class Questionario {
 	inverseJoinColumns = @JoinColumn(name = "questao_id")
 	)
 	private List<Questao2> questoes = new ArrayList<>();
-
-	public Questionario(){
-
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public Integer getQtdQuestoes() {
-		return qtdQuestoes;
-	}
-
-	public void setQtdQuestoes(Integer qtdQuestoes) {
-		this.qtdQuestoes = qtdQuestoes;
-	}
-
-	public Integer getTempoDuracao() {
-		return tempoDuracao;
-	}
-
-	public void setTempoDuracao(Integer tempoDuracao) {
-		this.tempoDuracao = tempoDuracao;
-	}
-
-	public Integer getTempoDisponivel() {
-		return tempoDisponivel;
-	}
-
-	public void setTempoDisponivel(Integer tempoDisponivel) {
-		this.tempoDisponivel = tempoDisponivel;
-	}
-
-	public Dificuldade getDificuldade() {
-		return dificuldade;
-	}
-
-	public void setDificuldade(Dificuldade dificuldade) {
-		this.dificuldade = dificuldade;
-	}
-
-	public List<Questao2> getQuestoes() {
-		return questoes;
-	}
-
-	public void setQuestoes(List<Questao2> questoes) {
-		this.questoes = questoes;
-	}
+	
+	@ManyToOne
+	@JoinColumn(name="temas_areas_id")
+	private TemasAreas temasAreas;
+	
+	@Column(name = "data_criacao")
+	private LocalDateTime dataCriacao;
 
 }

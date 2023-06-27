@@ -8,13 +8,20 @@
   <div class="collapse px-3" id="questionario-{{questionario.id}}">
 
     <div class="form-group">
-      <label>Duração</label>
-      <input disabled type="text" value="{{questionario.tempoDuracao}}" class="form-control">
+      <label>Criação</label>
+      <input disabled type="text" value="{{this.getDataFormatada(questionario.dataCriacao)}}" class="form-control">
     </div>
 
     <div class="form-group">
-      <label>Tempo disponível</label>
-      <input disabled type="text" value="{{questionario.tempoDisponivel}}" class="form-control">
+      <label>Prazo ({{questionario.tempoDuracao}} minuto(s) após a criação) - 
+        <span style="color:red" *ngIf="this.isPrazoEncerrado(questionario.dataCriacao, questionario.tempoDuracao)">
+          Encerrado
+        </span>
+        <span style="color:green" *ngIf="!this.isPrazoEncerrado(questionario.dataCriacao, questionario.tempoDuracao)">
+          Ativo
+        </span>
+      </label>
+      <input disabled type="text" value="{{this.getDataFormatadaAcrescida(questionario.dataCriacao, questionario.tempoDuracao)}}" class="form-control">
     </div>
 
     <div class="form-group">
@@ -24,20 +31,10 @@
 
     <hr>
 
-    <!--
-    <div class="form-group">
-      <h3>Temas</h3>
-        <div *ngFor="let tema of questionario.temas">
-            <input disabled type="text" value="{{tema.nome}}" class="form-control mb-2">
-        </div>
-    </div>
-    <hr>
-    -->
-
     <div class="form-group">
       <h3>Questões ({{questionario.qtdQuestoes}})</h3>
       <div class="bg-light mb-2" *ngFor="let questaoQuest of questionario.questoes">
-        <app-questao-card [questao]="questaoQuest"></app-questao-card>
+        <app-questao-card [identificacaoExtra]=questionario.id [questao]="questaoQuest"></app-questao-card>
       </div>
     </div>
 

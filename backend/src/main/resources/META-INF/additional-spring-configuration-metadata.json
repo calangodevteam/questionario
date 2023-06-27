@@ -7,11 +7,11 @@
   {
     "name": "backquestionario.paginacao.size.generico.padrao",
     "type": "java.lang.Integer",
-    "description": "Define qual o tamanho padrão de uma página em casos de paginação, onde o usuário não especifíca o parâmetro size. Esse é um size padrão que pode ser aplicado quando não há um outro valor melhor pra um caso específico."
+    "description": "A description for 'backquestionario.paginacao.size.generico.padrao'"
   },
   {
     "name": "backquestionario.paginacao.size.generico.maximo",
     "type": "java.lang.Integer",
-    "description": "Define qual o tamanho máximo permitido de uma página genérica."
+    "description": "A description for 'backquestionario.paginacao.size.generico.maximo'"
   }
 ]}

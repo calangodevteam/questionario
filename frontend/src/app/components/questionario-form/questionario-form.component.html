@@ -2,21 +2,14 @@
   <form class="bg-light col-md-8 col-sm-12  p-3" [formGroup]="questionarioForm" (ngSubmit)="submitQuestionario()">
     <div class="form-group">
       <div class="input-group mb-3">
-        <span class="input-group-text" id="titulo">Titulo</span>
+        <span class="input-group-text" id="titulo">Título</span>
         <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" required>
       </div>
       <div class="input-group mb-3">
-        <span class="input-group-text" id="tempoDuracao">Tempo de Duração (Min)</span>
+        <span class="input-group-text" id="tempoDuracao">Duração após a criação (min)</span>
         <input type="number" class="form-control" id="tempoDuracao" name="tempoDuracao"
           formControlName="tempoDuracao" required>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="tempoDisponivel">Tempo Disponível (Min)</span>
-        <input type="number" class="form-control" id="tempoDisponivel" name="tempoDisponivel"
-          formControlName="tempoDisponivel" required>
-      </div>
-
-
 
       <div class="input-group mb-3">
         <span class="input-group-text">Dificuldade</span>

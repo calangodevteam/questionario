@@ -1,6 +1,5 @@
 package com.calangodevteam.backquestionario.application.controllers;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +13,7 @@ import com.calangodevteam.backquestionario.application.services.TemasAreasServic
 import com.calangodevteam.backquestionario.domain.models.TemasAreas;
 
 @RestController
-@RequestMapping("temasareas")
+@RequestMapping("api/temasareas")
 @CrossOrigin(origins = "*")
 public class TemasAreasController {
 	

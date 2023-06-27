@@ -1,12 +1,17 @@
 package com.calangodevteam.backquestionario.domain.models;
 
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Opcao {
 
@@ -16,30 +21,5 @@ public class Opcao {
 
 	@Column(columnDefinition = "TEXT")
 	private String texto;
-
-	public Opcao() {
-
-	}
-
-	public Opcao(Integer id, String texto) {
-		this.id = id;
-		this.texto = texto;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
 
 }

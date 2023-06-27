@@ -21,8 +21,6 @@ Front-end e back-end do projeto de Prodocência da UERJ: "Sistema de Avaliação
 
 - **/Dockerfile_GHActions**: Foi feito para ser usado pelo Github Actions para montar a imagem da aplicação que será implantada depois.
 
-- **/DockerNovoEntryPoint.sh**: Script usado por ambos Dockerfiles para permitir que a aplicação e o PostgreSQL sejam rodados no mesmo container para contornar algumas limitações do Fly.io. Primeiro ele inicializa o banco de dados e, se ele estiver operando, inicializa a aplicação.
-
 - **/fly.toml**: Usado pelo cli do fly.io (que é chamado pelo Github Actions) para efetuar algumas configurações importantes do deploy da aplicação. O tipo de deploy é por imagem Docker, cuja identificação é definida no arquivo. O "internal port" como 8080 faz com que possamos acessar a aplicação pela porta 80 ou 443, ocorrendo um mapeamento.
 
 - **/.github/workflows/BuildTesteDeploy.yaml**: Script que executa uma série de ações (build com caching do NPM, Angular, Maven), testes (nada ainda) e deploy, aproventando-se de mais de 1 arquivo dos já listados acima. É ativado quando ocorre um pull request ou um push e, apenas se for um push para master, executa a parte do deploy.
@@ -31,7 +29,10 @@ Front-end e back-end do projeto de Prodocência da UERJ: "Sistema de Avaliação
 
 - **/frontend**: Diretório contendo uma estrutura clássica de um projeto Angular.
 
-- **/scripts**: Scripts de inicialização do banco de dados. Eventualmente será movido para um lugar melhor.
+- **/scripts**: Contém scripts .sql ou .sh que são executados no momento da criação do container pelo PostgreSQL (fornecido pela imagem Docker, documentação: https://github.com/docker-library/docs/blob/master/postgres/README.md#initialization-scripts). Os arquivos .sh aqui são executados independentemente de serem arquivos relacionados ao banco ou não, por nome em ordem crescente da tabela ASCII. 
+- **/scripts/1-banco.sql**: Script de inicialização do banco de dados.
+- **/scripts/2-init-spring-app.sh**: Script de inicialização da aplicação. Contém apenas uma linha e chama a aplicação em background. Este arquivo tem que ser nomeado de forma a ser o último a ser executado, para garantir que o PostgreSQL já tenha executado os de inicialização do banco de dados antes e que ele já esteja operando normalmente.
+
 ## FAQ
 
 #### Como posso ajudar?

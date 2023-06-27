@@ -1,9 +1,11 @@
 package com.calangodevteam.backquestionario.application.controllers;
 
 import java.net.URI;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ import com.calangodevteam.backquestionario.application.services.QuestaoService;
 import com.calangodevteam.backquestionario.domain.models.Questao2;
 
 @RestController
-@RequestMapping("questoes")
+@RequestMapping("api/questoes")
 @CrossOrigin(origins = "*")
 public class QuestaoController {
 	

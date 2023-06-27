@@ -1,7 +1,10 @@
 package com.calangodevteam.backquestionario.domain.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String mensagemDeErro){
-        super(mensagemDeErro);
+	
+    private static final long serialVersionUID = 1L;
+
+	public ResourceNotFoundException(String mensagem){
+        super(mensagem);
     }
 }

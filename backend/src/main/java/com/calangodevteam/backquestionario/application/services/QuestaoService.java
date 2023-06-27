@@ -1,14 +1,10 @@
 package com.calangodevteam.backquestionario.application.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -16,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.calangodevteam.backquestionario.application.dtos.CadastroQuestaoDTO;
 import com.calangodevteam.backquestionario.application.dtos.RespostaPaginadaDTO;
 import com.calangodevteam.backquestionario.application.validation.ValidacaoPaginacao;
-import com.calangodevteam.backquestionario.domain.exceptions.BadRequestException;
+import com.calangodevteam.backquestionario.domain.exceptions.ObjectNotFoundException;
 import com.calangodevteam.backquestionario.domain.models.Questao2;
 import com.calangodevteam.backquestionario.domain.repositories.Questao2Repository;
 
@@ -49,12 +45,10 @@ public class QuestaoService {
 	}
 
 	public Questao2 findById (Integer id){
-		
-		Optional<Questao2> optionalQuestao = questao2Repository.findById(id);
-		if(optionalQuestao.isEmpty())
-			throw new RuntimeException("Questão com id " + id + " não encontrada!");
 
-		return optionalQuestao.get();
+		return questao2Repository.findById(id)
+        .orElseThrow(() -> new ObjectNotFoundException(
+            "Questão não encontrada! Id: " + id));
 	}
 
 	public Questao2 create(CadastroQuestaoDTO cadastroQuestaoDTO) {

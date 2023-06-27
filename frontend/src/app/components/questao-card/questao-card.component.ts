@@ -10,6 +10,7 @@ import { TemasAreas } from 'src/app/model/temasAreas';
 export class QuestaoCardComponent {
 
   @Input() questao: Questao = new Questao();
+  @Input() identificacaoExtra: number = 0;
   @Output() onSelecionarQuestao: EventEmitter<Questao> = new EventEmitter<Questao>;
   @Input() modoDeSelecao: boolean = false;
 

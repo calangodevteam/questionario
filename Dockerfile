@@ -65,9 +65,3 @@ COPY --from=frontjava /app/backend/target/*.jar .
 
 COPY --from=frontjava /app/jdk /app/jdk
 RUN chmod +x /app/jdk/bin/*
-
-COPY DockerNovoEntryPoint.sh .
-
-#A IMAGEM DO POSTGRES POSSUI UM ENTRYPOINT PADRÃO QUE JÁ INICIALIZA O POSTGRES
-#O ENTRYPOINT ABAIXO SOBRESCREVE ESSE ENTRYPOINT PADRÃO, MAS AGE COMO UM WRAPPER, CHAMANDO DEPOIS O SCRIPT DO ORIGINAL 
-ENTRYPOINT ["./DockerNovoEntryPoint.sh"]

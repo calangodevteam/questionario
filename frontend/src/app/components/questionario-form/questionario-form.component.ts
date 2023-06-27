@@ -27,7 +27,6 @@ export class QuestionarioFormComponent implements OnInit {
       id: 0,
       titulo: '',
       tempoDuracao: 0,
-      tempoDisponivel: 0,
       dificuldade: [null],
       questoes: this.fb.array([])
     });

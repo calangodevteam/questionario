@@ -1,7 +1,7 @@
 <div class="card border-1">
 
   <!-- ID E TÍTULO DA QUESTÃO ATUAL -->
-  <div class="pt-3 px-3" data-toggle="collapse" attr.data-target="#questao-{{questao.id}}">
+  <div class="pt-3 px-3" data-toggle="collapse" attr.data-target="#questao-{{questao.id}}-{{this.identificacaoExtra}}">
      
       <ng-container *ngIf="questao.temasAreas != null">
         <b>{{questao.temasAreas.tema?.nome}}</b> {{ " - (" + getAreasConhecimento() + ")"}}
@@ -13,7 +13,7 @@
   </div>
 
   <!-- INFORMAÇÕES DA QUESTÃO ATUAL --><hr>
-  <div class="collapse px-3" id="questao-{{questao.id}}">
+  <div class="collapse px-3" id="questao-{{questao.id}}-{{this.identificacaoExtra}}">
 
     <!-- USAR OUTRO COMPONENTE PARA ARMAZENAR TEXTOS MAIORES -->
     <div class="form-group">
