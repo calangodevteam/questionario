@@ -23,7 +23,7 @@ import com.calangodevteam.backquestionario.application.services.ResultadoService
 import com.calangodevteam.backquestionario.domain.models.Resultado;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api")
 @CrossOrigin(origins = "*")
 public class ResultadoController {
 	
@@ -31,12 +31,17 @@ public class ResultadoController {
 	private ResultadoService resultadoService;
 	
 	@GetMapping("/questionarios/resultados")
-	public ResponseEntity<Page<Resultado>> findAll(
+	public ResponseEntity<?> find(
 			@RequestParam(required = false) Integer alunoid,
+			@RequestParam(required = false) Integer questionarioId,
 			@PageableDefault(size = 4, sort = "id") Pageable pageable) {
 		
-		return alunoid == null? ResponseEntity.ok(resultadoService.findAll(pageable)): 
-			ResponseEntity.ok(resultadoService.findAllByAluno(alunoid,pageable));
+		if(alunoid != null) {
+			return questionarioId == null? ResponseEntity.ok(resultadoService.findAllByAluno(alunoid,pageable)): 
+				ResponseEntity.ok(resultadoService.findByAlunoAndQuestionario(alunoid,questionarioId));
+		}
+		else
+			return ResponseEntity.ok(resultadoService.findAll(pageable));
 	}
 	
 	@GetMapping("/questionarios/{id}/resultados")
@@ -47,10 +52,9 @@ public class ResultadoController {
 	}
 	
 	@GetMapping("/questionarios/resultados/{id}")
-	public ResponseEntity<Resultado> findById(@PathVariable Integer id, @RequestParam(required = false) Integer alunoid) {
+	public ResponseEntity<Resultado> findById(@PathVariable Integer id) {
 
-		return alunoid == null? ResponseEntity.ok(resultadoService.findById(id)):
-			ResponseEntity.ok(resultadoService.findByAlunoAndQuestionario(alunoid, id));
+		return ResponseEntity.ok(resultadoService.findById(id));
 	}
 	
 	@PostMapping("/questionarios/resultados")
