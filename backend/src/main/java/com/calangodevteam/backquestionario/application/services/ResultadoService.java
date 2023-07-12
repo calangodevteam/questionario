@@ -76,7 +76,7 @@ public class ResultadoService {
 	@Transactional
 	public void delete(Integer id) {
 		Resultado result = findById(id);
-		resultadoRepository.delete(result);
+		resultadoRepository.deleteById(result.getId());
 	}
 
 }

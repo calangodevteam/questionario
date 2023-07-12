@@ -17,7 +17,7 @@ import com.calangodevteam.backquestionario.application.services.UnidadeService;
 import com.calangodevteam.backquestionario.domain.models.Unidade;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api")
 @CrossOrigin(origins = "*")
 public class UnidadeController {
 	

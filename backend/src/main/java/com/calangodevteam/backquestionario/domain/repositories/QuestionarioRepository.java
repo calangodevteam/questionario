@@ -12,14 +12,22 @@ import com.calangodevteam.backquestionario.domain.models.Questionario;
 public interface QuestionarioRepository extends JpaRepository<Questionario, Integer>{
 
     Page<Questionario> findAll(Pageable pageable);
-    
-    @Transactional(readOnly = true)
+
+	@Transactional(readOnly = true)
 	@Query(
-	  value = "SELECT questionario.* FROM questionario "
-			+ "LEFT JOIN resultado "
-			+ "ON resultado.questionario_id = questionario.id AND resultado.aluno_id = :alunoId "
-			+ "WHERE resultado.aluno_id IS NULL OR resultado.aluno_id <> :alunoId",
-	  nativeQuery = true)
+		    value = """
+		        select q
+		        from Questionario q
+		        left join Resultado r
+		        where r.aluno.id IS NULL OR r.aluno.id <> :alunoId
+		        """,
+		    countQuery = """
+		        select count(q)
+		        from Questionario q
+		        left join Resultado r
+		        where r.aluno.id IS NULL OR r.aluno.id <> :alunoId
+		        """
+		)
     Page<Questionario> findAllByNotAluno(@Param("alunoId") Integer alunoId, Pageable pageable);
 
 }
