@@ -19,12 +19,14 @@ public interface QuestionarioRepository extends JpaRepository<Questionario, Inte
 		        select q
 		        from Questionario q
 		        left join Resultado r
+		        ON r.questionario.id = q.id AND r.aluno.id = :alunoId
 		        where r.aluno.id IS NULL OR r.aluno.id <> :alunoId
 		        """,
 		    countQuery = """
 		        select count(q)
 		        from Questionario q
 		        left join Resultado r
+		        ON r.questionario.id = q.id AND r.aluno.id = :alunoId
 		        where r.aluno.id IS NULL OR r.aluno.id <> :alunoId
 		        """
 		)
