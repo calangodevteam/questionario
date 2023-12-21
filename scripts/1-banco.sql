@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.2 (Debian 15.2-1.pgdg110+1)
--- Dumped by pg_dump version 15.2
+-- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped by pg_dump version 16.1
 
--- Started on 2023-07-12 14:23:06 UTC
+-- Started on 2023-12-21 17:51:43 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,6 +17,7 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
+
 
 -- SCHEMA: public
 
@@ -32,8 +33,9 @@ GRANT USAGE ON SCHEMA public TO PUBLIC;
 
 GRANT ALL ON SCHEMA public TO pg_database_owner;
 
+
 --
--- TOC entry 874 (class 1247 OID 17595)
+-- TOC entry 879 (class 1247 OID 16983)
 -- Name: bloom; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -50,7 +52,7 @@ CREATE TYPE public.bloom AS ENUM (
 ALTER TYPE public.bloom OWNER TO postgres;
 
 --
--- TOC entry 877 (class 1247 OID 17608)
+-- TOC entry 882 (class 1247 OID 16996)
 -- Name: dificuldade; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -64,7 +66,7 @@ CREATE TYPE public.dificuldade AS ENUM (
 ALTER TYPE public.dificuldade OWNER TO postgres;
 
 --
--- TOC entry 880 (class 1247 OID 17616)
+-- TOC entry 885 (class 1247 OID 17004)
 -- Name: modalidade; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -78,7 +80,7 @@ CREATE TYPE public.modalidade AS ENUM (
 ALTER TYPE public.modalidade OWNER TO postgres;
 
 --
--- TOC entry 261 (class 1255 OID 17623)
+-- TOC entry 252 (class 1255 OID 17011)
 -- Name: function_atualizar_pontuacao(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -116,7 +118,7 @@ $$;
 ALTER FUNCTION public.function_atualizar_pontuacao() OWNER TO postgres;
 
 --
--- TOC entry 262 (class 1255 OID 17624)
+-- TOC entry 257 (class 1255 OID 17012)
 -- Name: function_calcular_pontuacao(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -160,7 +162,7 @@ $$;
 ALTER FUNCTION public.function_calcular_pontuacao() OWNER TO postgres;
 
 --
--- TOC entry 260 (class 1255 OID 17625)
+-- TOC entry 264 (class 1255 OID 17013)
 -- Name: function_criar_pontuacao(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -182,7 +184,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 214 (class 1259 OID 17626)
+-- TOC entry 215 (class 1259 OID 17014)
 -- Name: aluno; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -197,14 +199,16 @@ CREATE TABLE public.aluno (
     endereco_bairro character varying(255),
     endereco_rua character varying(255),
     endereco_numero character varying(255),
-    cursos_unidade_id integer
+    cursos_unidade_id integer,
+    senha character varying(255),
+    dt_criacao timestamp without time zone
 );
 
 
 ALTER TABLE public.aluno OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 17631)
+-- TOC entry 216 (class 1259 OID 17019)
 -- Name: aluno_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -217,11 +221,11 @@ CREATE SEQUENCE public.aluno_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.aluno_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.aluno_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3538 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 3580 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: aluno_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -229,7 +233,7 @@ ALTER SEQUENCE public.aluno_id_seq OWNED BY public.aluno.id;
 
 
 --
--- TOC entry 216 (class 1259 OID 17632)
+-- TOC entry 217 (class 1259 OID 17020)
 -- Name: area_conhecimento; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -243,7 +247,7 @@ CREATE TABLE public.area_conhecimento (
 ALTER TABLE public.area_conhecimento OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 17635)
+-- TOC entry 218 (class 1259 OID 17023)
 -- Name: area_conhecimento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -256,11 +260,11 @@ CREATE SEQUENCE public.area_conhecimento_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.area_conhecimento_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.area_conhecimento_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3539 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3581 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: area_conhecimento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -268,13 +272,13 @@ ALTER SEQUENCE public.area_conhecimento_id_seq OWNED BY public.area_conhecimento
 
 
 --
--- TOC entry 218 (class 1259 OID 17636)
+-- TOC entry 219 (class 1259 OID 17024)
 -- Name: artigo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.artigo (
     id integer NOT NULL,
-    data_publicacao date,
+    data_publicacao timestamp without time zone,
     titulo character varying(255),
     url character varying(255),
     questao_id integer,
@@ -285,7 +289,7 @@ CREATE TABLE public.artigo (
 ALTER TABLE public.artigo OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 17641)
+-- TOC entry 220 (class 1259 OID 17029)
 -- Name: artigo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -298,11 +302,11 @@ CREATE SEQUENCE public.artigo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.artigo_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.artigo_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3540 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3582 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: artigo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -310,7 +314,7 @@ ALTER SEQUENCE public.artigo_id_seq OWNED BY public.artigo.id;
 
 
 --
--- TOC entry 220 (class 1259 OID 17642)
+-- TOC entry 221 (class 1259 OID 17030)
 -- Name: autor_artigo; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -323,7 +327,7 @@ CREATE TABLE public.autor_artigo (
 ALTER TABLE public.autor_artigo OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 17645)
+-- TOC entry 222 (class 1259 OID 17033)
 -- Name: curso; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -336,7 +340,7 @@ CREATE TABLE public.curso (
 ALTER TABLE public.curso OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 17648)
+-- TOC entry 223 (class 1259 OID 17036)
 -- Name: curso_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -349,11 +353,11 @@ CREATE SEQUENCE public.curso_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.curso_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.curso_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3541 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3583 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: curso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -361,7 +365,7 @@ ALTER SEQUENCE public.curso_id_seq OWNED BY public.curso.id;
 
 
 --
--- TOC entry 223 (class 1259 OID 17649)
+-- TOC entry 224 (class 1259 OID 17037)
 -- Name: cursos_unidade; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -376,7 +380,7 @@ CREATE TABLE public.cursos_unidade (
 ALTER TABLE public.cursos_unidade OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 17652)
+-- TOC entry 225 (class 1259 OID 17040)
 -- Name: cursos_unidade_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -389,11 +393,11 @@ CREATE SEQUENCE public.cursos_unidade_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.cursos_unidade_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.cursos_unidade_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3542 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 3584 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: cursos_unidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -401,7 +405,7 @@ ALTER SEQUENCE public.cursos_unidade_id_seq OWNED BY public.cursos_unidade.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 17653)
+-- TOC entry 226 (class 1259 OID 17041)
 -- Name: figura; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -416,7 +420,7 @@ CREATE TABLE public.figura (
 ALTER TABLE public.figura OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 17658)
+-- TOC entry 227 (class 1259 OID 17046)
 -- Name: figura_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -429,11 +433,11 @@ CREATE SEQUENCE public.figura_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.figura_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.figura_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3543 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 3585 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: figura_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -441,7 +445,7 @@ ALTER SEQUENCE public.figura_id_seq OWNED BY public.figura.id;
 
 
 --
--- TOC entry 227 (class 1259 OID 17659)
+-- TOC entry 228 (class 1259 OID 17047)
 -- Name: instituicao; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -455,7 +459,7 @@ CREATE TABLE public.instituicao (
 ALTER TABLE public.instituicao OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 17664)
+-- TOC entry 229 (class 1259 OID 17052)
 -- Name: instituicao_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -468,11 +472,11 @@ CREATE SEQUENCE public.instituicao_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.instituicao_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.instituicao_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3544 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 3586 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: instituicao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -480,7 +484,7 @@ ALTER SEQUENCE public.instituicao_id_seq OWNED BY public.instituicao.id;
 
 
 --
--- TOC entry 229 (class 1259 OID 17665)
+-- TOC entry 230 (class 1259 OID 17053)
 -- Name: opcao; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -494,7 +498,7 @@ CREATE TABLE public.opcao (
 ALTER TABLE public.opcao OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 17670)
+-- TOC entry 231 (class 1259 OID 17058)
 -- Name: opcao_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -507,11 +511,11 @@ CREATE SEQUENCE public.opcao_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.opcao_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.opcao_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3545 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 3587 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: opcao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -519,7 +523,7 @@ ALTER SEQUENCE public.opcao_id_seq OWNED BY public.opcao.id;
 
 
 --
--- TOC entry 231 (class 1259 OID 17671)
+-- TOC entry 232 (class 1259 OID 17059)
 -- Name: pontuacao; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -536,7 +540,7 @@ CREATE TABLE public.pontuacao (
 ALTER TABLE public.pontuacao OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 17678)
+-- TOC entry 233 (class 1259 OID 17066)
 -- Name: pontuacao_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -549,11 +553,11 @@ CREATE SEQUENCE public.pontuacao_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.pontuacao_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.pontuacao_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3546 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 3588 (class 0 OID 0)
+-- Dependencies: 233
 -- Name: pontuacao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -561,7 +565,56 @@ ALTER SEQUENCE public.pontuacao_id_seq OWNED BY public.pontuacao.id;
 
 
 --
--- TOC entry 233 (class 1259 OID 17679)
+-- TOC entry 251 (class 1259 OID 17284)
+-- Name: professor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.professor (
+    id integer NOT NULL,
+    nome character varying(255),
+    email character varying(255),
+    senha character varying(255),
+    foto_perfil character varying(255),
+    endereco_cep character varying(255),
+    endereco_estado character varying(255),
+    endereco_cidade character varying(255),
+    endereco_bairro character varying(255),
+    endereco_rua character varying(255),
+    endereco_numero character varying(255),
+    curso_id integer,
+    dt_criacao timestamp without time zone
+);
+
+
+ALTER TABLE public.professor OWNER TO postgres;
+
+--
+-- TOC entry 250 (class 1259 OID 17283)
+-- Name: professor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.professor_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.professor_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3589 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: professor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.professor_id_seq OWNED BY public.professor.id;
+
+
+--
+-- TOC entry 234 (class 1259 OID 17067)
 -- Name: questao; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -570,14 +623,15 @@ CREATE TABLE public.questao (
     categoria_bloom public.bloom,
     texto text,
     temas_areas_id integer,
-    opcao_correta integer
+    opcao_correta integer,
+    professor_id integer
 );
 
 
 ALTER TABLE public.questao OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1259 OID 17684)
+-- TOC entry 235 (class 1259 OID 17072)
 -- Name: questao2_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -590,11 +644,11 @@ CREATE SEQUENCE public.questao2_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.questao2_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.questao2_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3547 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 3590 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: questao2_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -602,7 +656,7 @@ ALTER SEQUENCE public.questao2_id_seq OWNED BY public.questao.id;
 
 
 --
--- TOC entry 235 (class 1259 OID 17685)
+-- TOC entry 236 (class 1259 OID 17073)
 -- Name: questionario; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -621,7 +675,7 @@ CREATE TABLE public.questionario (
 ALTER TABLE public.questionario OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 17688)
+-- TOC entry 237 (class 1259 OID 17076)
 -- Name: questionario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -634,11 +688,11 @@ CREATE SEQUENCE public.questionario_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.questionario_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.questionario_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3548 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 3591 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: questionario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -646,7 +700,7 @@ ALTER SEQUENCE public.questionario_id_seq OWNED BY public.questionario.id;
 
 
 --
--- TOC entry 237 (class 1259 OID 17689)
+-- TOC entry 238 (class 1259 OID 17077)
 -- Name: questoes_questionario; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -659,7 +713,7 @@ CREATE TABLE public.questoes_questionario (
 ALTER TABLE public.questoes_questionario OWNER TO postgres;
 
 --
--- TOC entry 248 (class 1259 OID 17863)
+-- TOC entry 239 (class 1259 OID 17080)
 -- Name: resposta; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -675,7 +729,7 @@ CREATE TABLE public.resposta (
 ALTER TABLE public.resposta OWNER TO postgres;
 
 --
--- TOC entry 247 (class 1259 OID 17862)
+-- TOC entry 240 (class 1259 OID 17083)
 -- Name: resposta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -688,11 +742,11 @@ CREATE SEQUENCE public.resposta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.resposta_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.resposta_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3549 (class 0 OID 0)
--- Dependencies: 247
+-- TOC entry 3592 (class 0 OID 0)
+-- Dependencies: 240
 -- Name: resposta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -700,7 +754,7 @@ ALTER SEQUENCE public.resposta_id_seq OWNED BY public.resposta.id;
 
 
 --
--- TOC entry 238 (class 1259 OID 17692)
+-- TOC entry 241 (class 1259 OID 17084)
 -- Name: resultado; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -717,7 +771,7 @@ CREATE TABLE public.resultado (
 ALTER TABLE public.resultado OWNER TO postgres;
 
 --
--- TOC entry 239 (class 1259 OID 17695)
+-- TOC entry 242 (class 1259 OID 17087)
 -- Name: resultado_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -730,11 +784,11 @@ CREATE SEQUENCE public.resultado_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.resultado_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.resultado_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3550 (class 0 OID 0)
--- Dependencies: 239
+-- TOC entry 3593 (class 0 OID 0)
+-- Dependencies: 242
 -- Name: resultado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -742,7 +796,7 @@ ALTER SEQUENCE public.resultado_id_seq OWNED BY public.resultado.id;
 
 
 --
--- TOC entry 240 (class 1259 OID 17696)
+-- TOC entry 243 (class 1259 OID 17088)
 -- Name: tema; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -755,7 +809,7 @@ CREATE TABLE public.tema (
 ALTER TABLE public.tema OWNER TO postgres;
 
 --
--- TOC entry 241 (class 1259 OID 17699)
+-- TOC entry 244 (class 1259 OID 17091)
 -- Name: tema_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -768,11 +822,11 @@ CREATE SEQUENCE public.tema_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tema_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.tema_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3551 (class 0 OID 0)
--- Dependencies: 241
+-- TOC entry 3594 (class 0 OID 0)
+-- Dependencies: 244
 -- Name: tema_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -780,7 +834,7 @@ ALTER SEQUENCE public.tema_id_seq OWNED BY public.tema.id;
 
 
 --
--- TOC entry 242 (class 1259 OID 17700)
+-- TOC entry 245 (class 1259 OID 17092)
 -- Name: temas_areas; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -794,7 +848,7 @@ CREATE TABLE public.temas_areas (
 ALTER TABLE public.temas_areas OWNER TO postgres;
 
 --
--- TOC entry 243 (class 1259 OID 17703)
+-- TOC entry 246 (class 1259 OID 17095)
 -- Name: temas_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -807,11 +861,11 @@ CREATE SEQUENCE public.temas_areas_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.temas_areas_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.temas_areas_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3552 (class 0 OID 0)
--- Dependencies: 243
+-- TOC entry 3595 (class 0 OID 0)
+-- Dependencies: 246
 -- Name: temas_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -819,7 +873,7 @@ ALTER SEQUENCE public.temas_areas_id_seq OWNED BY public.temas_areas.id;
 
 
 --
--- TOC entry 244 (class 1259 OID 17704)
+-- TOC entry 247 (class 1259 OID 17096)
 -- Name: temas_areas_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -831,10 +885,10 @@ CREATE SEQUENCE public.temas_areas_seq
     CACHE 1;
 
 
-ALTER TABLE public.temas_areas_seq OWNER TO postgres;
+ALTER SEQUENCE public.temas_areas_seq OWNER TO postgres;
 
 --
--- TOC entry 245 (class 1259 OID 17705)
+-- TOC entry 248 (class 1259 OID 17097)
 -- Name: unidade; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -854,7 +908,7 @@ CREATE TABLE public.unidade (
 ALTER TABLE public.unidade OWNER TO postgres;
 
 --
--- TOC entry 246 (class 1259 OID 17710)
+-- TOC entry 249 (class 1259 OID 17102)
 -- Name: unidade_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -867,11 +921,11 @@ CREATE SEQUENCE public.unidade_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.unidade_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.unidade_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3553 (class 0 OID 0)
--- Dependencies: 246
+-- TOC entry 3596 (class 0 OID 0)
+-- Dependencies: 249
 -- Name: unidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -879,7 +933,7 @@ ALTER SEQUENCE public.unidade_id_seq OWNED BY public.unidade.id;
 
 
 --
--- TOC entry 3272 (class 2604 OID 17711)
+-- TOC entry 3304 (class 2604 OID 17103)
 -- Name: aluno id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -887,7 +941,7 @@ ALTER TABLE ONLY public.aluno ALTER COLUMN id SET DEFAULT nextval('public.aluno_
 
 
 --
--- TOC entry 3273 (class 2604 OID 17712)
+-- TOC entry 3305 (class 2604 OID 17104)
 -- Name: area_conhecimento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -895,7 +949,7 @@ ALTER TABLE ONLY public.area_conhecimento ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
--- TOC entry 3274 (class 2604 OID 17713)
+-- TOC entry 3306 (class 2604 OID 17105)
 -- Name: artigo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -903,7 +957,7 @@ ALTER TABLE ONLY public.artigo ALTER COLUMN id SET DEFAULT nextval('public.artig
 
 
 --
--- TOC entry 3275 (class 2604 OID 17714)
+-- TOC entry 3307 (class 2604 OID 17106)
 -- Name: curso id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -911,7 +965,7 @@ ALTER TABLE ONLY public.curso ALTER COLUMN id SET DEFAULT nextval('public.curso_
 
 
 --
--- TOC entry 3276 (class 2604 OID 17715)
+-- TOC entry 3308 (class 2604 OID 17107)
 -- Name: cursos_unidade id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -919,7 +973,7 @@ ALTER TABLE ONLY public.cursos_unidade ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 3277 (class 2604 OID 17716)
+-- TOC entry 3309 (class 2604 OID 17108)
 -- Name: figura id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -927,7 +981,7 @@ ALTER TABLE ONLY public.figura ALTER COLUMN id SET DEFAULT nextval('public.figur
 
 
 --
--- TOC entry 3278 (class 2604 OID 17717)
+-- TOC entry 3310 (class 2604 OID 17109)
 -- Name: instituicao id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -935,7 +989,7 @@ ALTER TABLE ONLY public.instituicao ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3279 (class 2604 OID 17718)
+-- TOC entry 3311 (class 2604 OID 17110)
 -- Name: opcao id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -943,7 +997,7 @@ ALTER TABLE ONLY public.opcao ALTER COLUMN id SET DEFAULT nextval('public.opcao_
 
 
 --
--- TOC entry 3280 (class 2604 OID 17719)
+-- TOC entry 3312 (class 2604 OID 17111)
 -- Name: pontuacao id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -951,7 +1005,15 @@ ALTER TABLE ONLY public.pontuacao ALTER COLUMN id SET DEFAULT nextval('public.po
 
 
 --
--- TOC entry 3285 (class 2604 OID 17720)
+-- TOC entry 3324 (class 2604 OID 17287)
+-- Name: professor id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor ALTER COLUMN id SET DEFAULT nextval('public.professor_id_seq'::regclass);
+
+
+--
+-- TOC entry 3317 (class 2604 OID 17112)
 -- Name: questao id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -959,7 +1021,7 @@ ALTER TABLE ONLY public.questao ALTER COLUMN id SET DEFAULT nextval('public.ques
 
 
 --
--- TOC entry 3286 (class 2604 OID 17721)
+-- TOC entry 3318 (class 2604 OID 17113)
 -- Name: questionario id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -967,7 +1029,7 @@ ALTER TABLE ONLY public.questionario ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3291 (class 2604 OID 17866)
+-- TOC entry 3319 (class 2604 OID 17114)
 -- Name: resposta id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -975,7 +1037,7 @@ ALTER TABLE ONLY public.resposta ALTER COLUMN id SET DEFAULT nextval('public.res
 
 
 --
--- TOC entry 3287 (class 2604 OID 17722)
+-- TOC entry 3320 (class 2604 OID 17115)
 -- Name: resultado id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -983,7 +1045,7 @@ ALTER TABLE ONLY public.resultado ALTER COLUMN id SET DEFAULT nextval('public.re
 
 
 --
--- TOC entry 3288 (class 2604 OID 17723)
+-- TOC entry 3321 (class 2604 OID 17116)
 -- Name: tema id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -991,7 +1053,7 @@ ALTER TABLE ONLY public.tema ALTER COLUMN id SET DEFAULT nextval('public.tema_id
 
 
 --
--- TOC entry 3289 (class 2604 OID 17724)
+-- TOC entry 3322 (class 2604 OID 17117)
 -- Name: temas_areas id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -999,7 +1061,7 @@ ALTER TABLE ONLY public.temas_areas ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3290 (class 2604 OID 17725)
+-- TOC entry 3323 (class 2604 OID 17118)
 -- Name: unidade id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1007,17 +1069,17 @@ ALTER TABLE ONLY public.unidade ALTER COLUMN id SET DEFAULT nextval('public.unid
 
 
 --
--- TOC entry 3498 (class 0 OID 17626)
--- Dependencies: 214
+-- TOC entry 3538 (class 0 OID 17014)
+-- Dependencies: 215
 -- Data for Name: aluno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.aluno VALUES (2, 'teste', 'teste@email.com', 'https://love.doghero.com.br/wp-content/uploads/2018/12/golden-retriever-1.png', '23071-160', 'RJ', 'Rio de Janeiro', 'Campo Grande', 'rua teste', '23', 1);
+INSERT INTO public.aluno VALUES (2, 'teste', 'teste@email.com', 'https://love.doghero.com.br/wp-content/uploads/2018/12/golden-retriever-1.png', '23071-160', 'RJ', 'Rio de Janeiro', 'Campo Grande', 'rua teste', '23', 1, NULL, '2023-07-13 17:52:12.031068');
 
 
 --
--- TOC entry 3500 (class 0 OID 17632)
--- Dependencies: 216
+-- TOC entry 3540 (class 0 OID 17020)
+-- Dependencies: 217
 -- Data for Name: area_conhecimento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2313,18 +2375,18 @@ INSERT INTO public.area_conhecimento VALUES (1289, 'Interpretação Cinematográ
 
 
 --
--- TOC entry 3502 (class 0 OID 17636)
--- Dependencies: 218
+-- TOC entry 3542 (class 0 OID 17024)
+-- Dependencies: 219
 -- Data for Name: artigo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.artigo VALUES (3, '2023-05-14', 'Técnicas de Criação de Questões Aleatórias', 'https://www.linkedin.com/in/leandro-rocha-musser-carneiro/', 54, 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+INSERT INTO public.artigo VALUES (3, '2023-05-14 00:00:00', 'Técnicas de Criação de Questões Aleatórias', 'https://www.linkedin.com/in/leandro-rocha-musser-carneiro/', 54, 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.');
 
 
 --
--- TOC entry 3504 (class 0 OID 17642)
--- Dependencies: 220
+-- TOC entry 3544 (class 0 OID 17030)
+-- Dependencies: 221
 -- Data for Name: autor_artigo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2332,8 +2394,8 @@ INSERT INTO public.autor_artigo VALUES (3, 'Leandro Musser');
 
 
 --
--- TOC entry 3505 (class 0 OID 17645)
--- Dependencies: 221
+-- TOC entry 3545 (class 0 OID 17033)
+-- Dependencies: 222
 -- Data for Name: curso; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2342,8 +2404,8 @@ INSERT INTO public.curso VALUES (2, 'Ciência da Computação');
 
 
 --
--- TOC entry 3507 (class 0 OID 17649)
--- Dependencies: 223
+-- TOC entry 3547 (class 0 OID 17037)
+-- Dependencies: 224
 -- Data for Name: cursos_unidade; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2352,8 +2414,8 @@ INSERT INTO public.cursos_unidade VALUES (2, 'Presencial', 1, 2);
 
 
 --
--- TOC entry 3509 (class 0 OID 17653)
--- Dependencies: 225
+-- TOC entry 3549 (class 0 OID 17041)
+-- Dependencies: 226
 -- Data for Name: figura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2361,8 +2423,8 @@ INSERT INTO public.figura VALUES (2, 'https:\/\/iili.io\/HUkgmw7.png', 'Foto Lea
 
 
 --
--- TOC entry 3511 (class 0 OID 17659)
--- Dependencies: 227
+-- TOC entry 3551 (class 0 OID 17047)
+-- Dependencies: 228
 -- Data for Name: instituicao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2370,8 +2432,8 @@ INSERT INTO public.instituicao VALUES (1, 'UERJ', '33.540.014/0001-57');
 
 
 --
--- TOC entry 3513 (class 0 OID 17665)
--- Dependencies: 229
+-- TOC entry 3553 (class 0 OID 17053)
+-- Dependencies: 230
 -- Data for Name: opcao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2402,8 +2464,8 @@ INSERT INTO public.opcao VALUES (136, 'Planejando tudo antes', 55);
 
 
 --
--- TOC entry 3515 (class 0 OID 17671)
--- Dependencies: 231
+-- TOC entry 3555 (class 0 OID 17059)
+-- Dependencies: 232
 -- Data for Name: pontuacao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2411,25 +2473,34 @@ INSERT INTO public.pontuacao VALUES (4, 200, 1, 0, 500, 2);
 
 
 --
--- TOC entry 3517 (class 0 OID 17679)
--- Dependencies: 233
+-- TOC entry 3574 (class 0 OID 17284)
+-- Dependencies: 251
+-- Data for Name: professor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.professor VALUES (1, 'Joilson', 'joilson@email.com', NULL, 'https://love.doghero.com.br/wp-content/uploads/2018/12/golden-retriever-1.png', '23071160', 'RJ', 'Rio de Janeiro', 'Campo Grande', 'Estrada de Santa Maria', '1234', 1, '2023-12-21 13:24:39.80555');
+
+
+--
+-- TOC entry 3557 (class 0 OID 17067)
+-- Dependencies: 234
 -- Data for Name: questao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.questao VALUES (50, 'Analise', 'Com relação a Algoritmos e Estrutura de Dados, segundo Farrer (1999), assinale a alternativa INCORRETA:', 13, 116);
-INSERT INTO public.questao VALUES (51, 'Aplicação', 'O que faz o algoritmo XYZ?', 13, 118);
+INSERT INTO public.questao VALUES (50, 'Analise', 'Com relação a Algoritmos e Estrutura de Dados, segundo Farrer (1999), assinale a alternativa INCORRETA:', 13, 116, 1);
+INSERT INTO public.questao VALUES (51, 'Aplicação', 'O que faz o algoritmo XYZ?', 13, 118, 1);
 INSERT INTO public.questao VALUES (52, 'Analise', 'Diga qual vai ser o valor de a no final da execução.
 
 int a = 1;
-a++;', 9, 122);
-INSERT INTO public.questao VALUES (53, 'Aplicação', 'Usando Python, calcule a quantidade de Pixels na seguinte imagem', 11, 128);
-INSERT INTO public.questao VALUES (54, 'Analise', 'Questão aleatória para criar volume', 10, 132);
-INSERT INTO public.questao VALUES (55, 'Conhecimento', 'Como construir um sistema do jeito certo?', 14, 136);
+a++;', 9, 122, 1);
+INSERT INTO public.questao VALUES (53, 'Aplicação', 'Usando Python, calcule a quantidade de Pixels na seguinte imagem', 11, 128, 1);
+INSERT INTO public.questao VALUES (54, 'Analise', 'Questão aleatória para criar volume', 10, 132, 1);
+INSERT INTO public.questao VALUES (55, 'Conhecimento', 'Como construir um sistema do jeito certo?', 14, 136, 1);
 
 
 --
--- TOC entry 3519 (class 0 OID 17685)
--- Dependencies: 235
+-- TOC entry 3559 (class 0 OID 17073)
+-- Dependencies: 236
 -- Data for Name: questionario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2438,8 +2509,8 @@ INSERT INTO public.questionario VALUES (14, 'Prova de Teste', 2, 999, 999, 'Dif�
 
 
 --
--- TOC entry 3521 (class 0 OID 17689)
--- Dependencies: 237
+-- TOC entry 3561 (class 0 OID 17077)
+-- Dependencies: 238
 -- Data for Name: questoes_questionario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2449,24 +2520,24 @@ INSERT INTO public.questoes_questionario VALUES (51, 13);
 
 
 --
--- TOC entry 3532 (class 0 OID 17863)
--- Dependencies: 248
+-- TOC entry 3562 (class 0 OID 17080)
+-- Dependencies: 239
 -- Data for Name: resposta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3522 (class 0 OID 17692)
--- Dependencies: 238
+-- TOC entry 3564 (class 0 OID 17084)
+-- Dependencies: 241
 -- Data for Name: resultado; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 3524 (class 0 OID 17696)
--- Dependencies: 240
+-- TOC entry 3566 (class 0 OID 17088)
+-- Dependencies: 243
 -- Data for Name: tema; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2480,8 +2551,8 @@ INSERT INTO public.tema VALUES (7, 'Teste');
 
 
 --
--- TOC entry 3526 (class 0 OID 17700)
--- Dependencies: 242
+-- TOC entry 3568 (class 0 OID 17092)
+-- Dependencies: 245
 -- Data for Name: temas_areas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2498,8 +2569,8 @@ INSERT INTO public.temas_areas VALUES (14, 6, 466);
 
 
 --
--- TOC entry 3529 (class 0 OID 17705)
--- Dependencies: 245
+-- TOC entry 3571 (class 0 OID 17097)
+-- Dependencies: 248
 -- Data for Name: unidade; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -2507,8 +2578,8 @@ INSERT INTO public.unidade VALUES (1, 'UERJ-ZO', '23070-200', 'RJ', 'Rio de Jane
 
 
 --
--- TOC entry 3554 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 3597 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: aluno_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2516,8 +2587,8 @@ SELECT pg_catalog.setval('public.aluno_id_seq', 2, true);
 
 
 --
--- TOC entry 3555 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3598 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: area_conhecimento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2525,8 +2596,8 @@ SELECT pg_catalog.setval('public.area_conhecimento_id_seq', 1289, true);
 
 
 --
--- TOC entry 3556 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3599 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: artigo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2534,8 +2605,8 @@ SELECT pg_catalog.setval('public.artigo_id_seq', 3, true);
 
 
 --
--- TOC entry 3557 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3600 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: curso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2543,8 +2614,8 @@ SELECT pg_catalog.setval('public.curso_id_seq', 2, true);
 
 
 --
--- TOC entry 3558 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 3601 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: cursos_unidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2552,8 +2623,8 @@ SELECT pg_catalog.setval('public.cursos_unidade_id_seq', 2, true);
 
 
 --
--- TOC entry 3559 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 3602 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: figura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2561,8 +2632,8 @@ SELECT pg_catalog.setval('public.figura_id_seq', 2, true);
 
 
 --
--- TOC entry 3560 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 3603 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: instituicao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2570,8 +2641,8 @@ SELECT pg_catalog.setval('public.instituicao_id_seq', 1, true);
 
 
 --
--- TOC entry 3561 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 3604 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: opcao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2579,8 +2650,8 @@ SELECT pg_catalog.setval('public.opcao_id_seq', 136, true);
 
 
 --
--- TOC entry 3562 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 3605 (class 0 OID 0)
+-- Dependencies: 233
 -- Name: pontuacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2588,8 +2659,17 @@ SELECT pg_catalog.setval('public.pontuacao_id_seq', 4, true);
 
 
 --
--- TOC entry 3563 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 3606 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: professor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.professor_id_seq', 1, true);
+
+
+--
+-- TOC entry 3607 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: questao2_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2597,8 +2677,8 @@ SELECT pg_catalog.setval('public.questao2_id_seq', 55, true);
 
 
 --
--- TOC entry 3564 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 3608 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: questionario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2606,8 +2686,8 @@ SELECT pg_catalog.setval('public.questionario_id_seq', 14, true);
 
 
 --
--- TOC entry 3565 (class 0 OID 0)
--- Dependencies: 247
+-- TOC entry 3609 (class 0 OID 0)
+-- Dependencies: 240
 -- Name: resposta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2615,8 +2695,8 @@ SELECT pg_catalog.setval('public.resposta_id_seq', 1, false);
 
 
 --
--- TOC entry 3566 (class 0 OID 0)
--- Dependencies: 239
+-- TOC entry 3610 (class 0 OID 0)
+-- Dependencies: 242
 -- Name: resultado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2624,8 +2704,8 @@ SELECT pg_catalog.setval('public.resultado_id_seq', 1, false);
 
 
 --
--- TOC entry 3567 (class 0 OID 0)
--- Dependencies: 241
+-- TOC entry 3611 (class 0 OID 0)
+-- Dependencies: 244
 -- Name: tema_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2633,8 +2713,8 @@ SELECT pg_catalog.setval('public.tema_id_seq', 7, true);
 
 
 --
--- TOC entry 3568 (class 0 OID 0)
--- Dependencies: 243
+-- TOC entry 3612 (class 0 OID 0)
+-- Dependencies: 246
 -- Name: temas_areas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2642,8 +2722,8 @@ SELECT pg_catalog.setval('public.temas_areas_id_seq', 14, true);
 
 
 --
--- TOC entry 3569 (class 0 OID 0)
--- Dependencies: 244
+-- TOC entry 3613 (class 0 OID 0)
+-- Dependencies: 247
 -- Name: temas_areas_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2651,8 +2731,8 @@ SELECT pg_catalog.setval('public.temas_areas_seq', 1, false);
 
 
 --
--- TOC entry 3570 (class 0 OID 0)
--- Dependencies: 246
+-- TOC entry 3614 (class 0 OID 0)
+-- Dependencies: 249
 -- Name: unidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -2660,7 +2740,7 @@ SELECT pg_catalog.setval('public.unidade_id_seq', 1, true);
 
 
 --
--- TOC entry 3293 (class 2606 OID 17727)
+-- TOC entry 3326 (class 2606 OID 17120)
 -- Name: aluno aluno_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2669,7 +2749,7 @@ ALTER TABLE ONLY public.aluno
 
 
 --
--- TOC entry 3295 (class 2606 OID 17729)
+-- TOC entry 3328 (class 2606 OID 17122)
 -- Name: aluno aluno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2678,7 +2758,7 @@ ALTER TABLE ONLY public.aluno
 
 
 --
--- TOC entry 3297 (class 2606 OID 17731)
+-- TOC entry 3330 (class 2606 OID 17124)
 -- Name: area_conhecimento area_conhecimento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2687,7 +2767,7 @@ ALTER TABLE ONLY public.area_conhecimento
 
 
 --
--- TOC entry 3299 (class 2606 OID 17733)
+-- TOC entry 3332 (class 2606 OID 17126)
 -- Name: artigo artigo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2696,7 +2776,7 @@ ALTER TABLE ONLY public.artigo
 
 
 --
--- TOC entry 3301 (class 2606 OID 17735)
+-- TOC entry 3334 (class 2606 OID 17128)
 -- Name: curso curso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2705,7 +2785,7 @@ ALTER TABLE ONLY public.curso
 
 
 --
--- TOC entry 3303 (class 2606 OID 17737)
+-- TOC entry 3336 (class 2606 OID 17130)
 -- Name: cursos_unidade cursos_unidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2714,7 +2794,7 @@ ALTER TABLE ONLY public.cursos_unidade
 
 
 --
--- TOC entry 3305 (class 2606 OID 17739)
+-- TOC entry 3338 (class 2606 OID 17132)
 -- Name: figura figura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2723,7 +2803,7 @@ ALTER TABLE ONLY public.figura
 
 
 --
--- TOC entry 3307 (class 2606 OID 17741)
+-- TOC entry 3340 (class 2606 OID 17134)
 -- Name: instituicao instituicao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2732,7 +2812,7 @@ ALTER TABLE ONLY public.instituicao
 
 
 --
--- TOC entry 3309 (class 2606 OID 17743)
+-- TOC entry 3342 (class 2606 OID 17136)
 -- Name: opcao opcao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2741,7 +2821,7 @@ ALTER TABLE ONLY public.opcao
 
 
 --
--- TOC entry 3311 (class 2606 OID 17745)
+-- TOC entry 3344 (class 2606 OID 17138)
 -- Name: pontuacao pontuacao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2750,7 +2830,25 @@ ALTER TABLE ONLY public.pontuacao
 
 
 --
--- TOC entry 3313 (class 2606 OID 17747)
+-- TOC entry 3364 (class 2606 OID 17293)
+-- Name: professor professor_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT professor_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3366 (class 2606 OID 17291)
+-- Name: professor professor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT professor_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3346 (class 2606 OID 17140)
 -- Name: questao questao2_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2759,7 +2857,7 @@ ALTER TABLE ONLY public.questao
 
 
 --
--- TOC entry 3315 (class 2606 OID 17749)
+-- TOC entry 3348 (class 2606 OID 17142)
 -- Name: questionario questionario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2768,7 +2866,7 @@ ALTER TABLE ONLY public.questionario
 
 
 --
--- TOC entry 3317 (class 2606 OID 17751)
+-- TOC entry 3350 (class 2606 OID 17144)
 -- Name: questoes_questionario questoes_questionario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2777,7 +2875,7 @@ ALTER TABLE ONLY public.questoes_questionario
 
 
 --
--- TOC entry 3329 (class 2606 OID 17868)
+-- TOC entry 3352 (class 2606 OID 17146)
 -- Name: resposta resposta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2786,7 +2884,7 @@ ALTER TABLE ONLY public.resposta
 
 
 --
--- TOC entry 3319 (class 2606 OID 17753)
+-- TOC entry 3354 (class 2606 OID 17148)
 -- Name: resultado resultado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2795,7 +2893,7 @@ ALTER TABLE ONLY public.resultado
 
 
 --
--- TOC entry 3321 (class 2606 OID 17755)
+-- TOC entry 3356 (class 2606 OID 17150)
 -- Name: tema tema_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2804,7 +2902,7 @@ ALTER TABLE ONLY public.tema
 
 
 --
--- TOC entry 3323 (class 2606 OID 17757)
+-- TOC entry 3358 (class 2606 OID 17152)
 -- Name: temas_areas temas_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2813,7 +2911,7 @@ ALTER TABLE ONLY public.temas_areas
 
 
 --
--- TOC entry 3327 (class 2606 OID 17759)
+-- TOC entry 3362 (class 2606 OID 17154)
 -- Name: unidade unidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2822,7 +2920,7 @@ ALTER TABLE ONLY public.unidade
 
 
 --
--- TOC entry 3325 (class 2606 OID 17761)
+-- TOC entry 3360 (class 2606 OID 17156)
 -- Name: temas_areas unique_temas_areas_tema_area; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2831,7 +2929,7 @@ ALTER TABLE ONLY public.temas_areas
 
 
 --
--- TOC entry 3354 (class 2620 OID 17762)
+-- TOC entry 3393 (class 2620 OID 17157)
 -- Name: pontuacao atualizar_pontuacao; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -2839,7 +2937,7 @@ CREATE TRIGGER atualizar_pontuacao BEFORE UPDATE ON public.pontuacao FOR EACH RO
 
 
 --
--- TOC entry 3355 (class 2620 OID 17763)
+-- TOC entry 3394 (class 2620 OID 17158)
 -- Name: resultado calcular_pontuacao; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -2847,7 +2945,7 @@ CREATE TRIGGER calcular_pontuacao AFTER UPDATE ON public.resultado FOR EACH ROW 
 
 
 --
--- TOC entry 3353 (class 2620 OID 17764)
+-- TOC entry 3392 (class 2620 OID 17159)
 -- Name: aluno criar_pontuacao_aluno; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -2855,7 +2953,7 @@ CREATE TRIGGER criar_pontuacao_aluno AFTER INSERT ON public.aluno FOR EACH ROW E
 
 
 --
--- TOC entry 3338 (class 2606 OID 17765)
+-- TOC entry 3375 (class 2606 OID 17160)
 -- Name: pontuacao aluno_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2864,7 +2962,7 @@ ALTER TABLE ONLY public.pontuacao
 
 
 --
--- TOC entry 3344 (class 2606 OID 17770)
+-- TOC entry 3386 (class 2606 OID 17165)
 -- Name: resultado aluno_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2873,7 +2971,7 @@ ALTER TABLE ONLY public.resultado
 
 
 --
--- TOC entry 3349 (class 2606 OID 17869)
+-- TOC entry 3382 (class 2606 OID 17170)
 -- Name: resposta aluno_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2882,7 +2980,7 @@ ALTER TABLE ONLY public.resposta
 
 
 --
--- TOC entry 3346 (class 2606 OID 17775)
+-- TOC entry 3388 (class 2606 OID 17175)
 -- Name: temas_areas area_conhecimento_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2891,7 +2989,7 @@ ALTER TABLE ONLY public.temas_areas
 
 
 --
--- TOC entry 3331 (class 2606 OID 17780)
+-- TOC entry 3368 (class 2606 OID 17180)
 -- Name: area_conhecimento area_conhecimento_pai; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2900,7 +2998,7 @@ ALTER TABLE ONLY public.area_conhecimento
 
 
 --
--- TOC entry 3333 (class 2606 OID 17785)
+-- TOC entry 3370 (class 2606 OID 17185)
 -- Name: autor_artigo artigo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2909,7 +3007,7 @@ ALTER TABLE ONLY public.autor_artigo
 
 
 --
--- TOC entry 3334 (class 2606 OID 17790)
+-- TOC entry 3371 (class 2606 OID 17190)
 -- Name: cursos_unidade curso_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2918,7 +3016,16 @@ ALTER TABLE ONLY public.cursos_unidade
 
 
 --
--- TOC entry 3330 (class 2606 OID 17795)
+-- TOC entry 3391 (class 2606 OID 17294)
+-- Name: professor curso_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT curso_id_fkey FOREIGN KEY (curso_id) REFERENCES public.curso(id);
+
+
+--
+-- TOC entry 3367 (class 2606 OID 17195)
 -- Name: aluno cursos_unidade_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2927,7 +3034,7 @@ ALTER TABLE ONLY public.aluno
 
 
 --
--- TOC entry 3348 (class 2606 OID 17800)
+-- TOC entry 3390 (class 2606 OID 17200)
 -- Name: unidade instituicao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2936,7 +3043,7 @@ ALTER TABLE ONLY public.unidade
 
 
 --
--- TOC entry 3339 (class 2606 OID 17805)
+-- TOC entry 3376 (class 2606 OID 17205)
 -- Name: questao opcao_correta_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2945,7 +3052,7 @@ ALTER TABLE ONLY public.questao
 
 
 --
--- TOC entry 3350 (class 2606 OID 17884)
+-- TOC entry 3383 (class 2606 OID 17210)
 -- Name: resposta opcao_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2954,7 +3061,16 @@ ALTER TABLE ONLY public.resposta
 
 
 --
--- TOC entry 3351 (class 2606 OID 17879)
+-- TOC entry 3377 (class 2606 OID 17299)
+-- Name: questao professor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.questao
+    ADD CONSTRAINT professor_id_fkey FOREIGN KEY (professor_id) REFERENCES public.professor(id);
+
+
+--
+-- TOC entry 3384 (class 2606 OID 17215)
 -- Name: resposta questao_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2963,7 +3079,7 @@ ALTER TABLE ONLY public.resposta
 
 
 --
--- TOC entry 3337 (class 2606 OID 17810)
+-- TOC entry 3374 (class 2606 OID 17220)
 -- Name: opcao questao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2972,7 +3088,7 @@ ALTER TABLE ONLY public.opcao
 
 
 --
--- TOC entry 3342 (class 2606 OID 17815)
+-- TOC entry 3380 (class 2606 OID 17225)
 -- Name: questoes_questionario questao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2981,7 +3097,7 @@ ALTER TABLE ONLY public.questoes_questionario
 
 
 --
--- TOC entry 3332 (class 2606 OID 17820)
+-- TOC entry 3369 (class 2606 OID 17230)
 -- Name: artigo questao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2990,7 +3106,7 @@ ALTER TABLE ONLY public.artigo
 
 
 --
--- TOC entry 3336 (class 2606 OID 17825)
+-- TOC entry 3373 (class 2606 OID 17235)
 -- Name: figura questao_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2999,7 +3115,7 @@ ALTER TABLE ONLY public.figura
 
 
 --
--- TOC entry 3352 (class 2606 OID 17874)
+-- TOC entry 3385 (class 2606 OID 17240)
 -- Name: resposta questionario_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3008,7 +3124,7 @@ ALTER TABLE ONLY public.resposta
 
 
 --
--- TOC entry 3343 (class 2606 OID 17830)
+-- TOC entry 3381 (class 2606 OID 17245)
 -- Name: questoes_questionario questionario_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3017,7 +3133,7 @@ ALTER TABLE ONLY public.questoes_questionario
 
 
 --
--- TOC entry 3345 (class 2606 OID 17835)
+-- TOC entry 3387 (class 2606 OID 17250)
 -- Name: resultado questionario_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3026,7 +3142,7 @@ ALTER TABLE ONLY public.resultado
 
 
 --
--- TOC entry 3347 (class 2606 OID 17840)
+-- TOC entry 3389 (class 2606 OID 17255)
 -- Name: temas_areas tema_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3035,7 +3151,7 @@ ALTER TABLE ONLY public.temas_areas
 
 
 --
--- TOC entry 3340 (class 2606 OID 17845)
+-- TOC entry 3378 (class 2606 OID 17260)
 -- Name: questao temas_areas_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3044,7 +3160,7 @@ ALTER TABLE ONLY public.questao
 
 
 --
--- TOC entry 3341 (class 2606 OID 17850)
+-- TOC entry 3379 (class 2606 OID 17265)
 -- Name: questionario temas_areas_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3053,7 +3169,7 @@ ALTER TABLE ONLY public.questionario
 
 
 --
--- TOC entry 3335 (class 2606 OID 17855)
+-- TOC entry 3372 (class 2606 OID 17270)
 -- Name: cursos_unidade unidade_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -3061,7 +3177,7 @@ ALTER TABLE ONLY public.cursos_unidade
     ADD CONSTRAINT unidade_id_fkey FOREIGN KEY (unidade_id) REFERENCES public.unidade(id);
 
 
--- Completed on 2023-07-12 14:23:06 UTC
+-- Completed on 2023-12-21 17:51:43 UTC
 
 --
 -- PostgreSQL database dump complete

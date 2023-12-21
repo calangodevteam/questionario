@@ -41,7 +41,7 @@ public class PontuacaoController {
 	}
 	
 	
-	@PatchMapping
+	@PatchMapping("/pontuacoes")
 	public ResponseEntity<Pontuacao> update(@Valid @RequestBody InsertPontuacaoDTO pontDto) {
 
 		Integer resp = pontuacaoService.update(pontDto);

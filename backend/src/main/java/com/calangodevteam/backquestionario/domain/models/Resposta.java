@@ -1,5 +1,7 @@
 package com.calangodevteam.backquestionario.domain.models;
 
+import com.calangodevteam.backquestionario.domain.models.users.Aluno;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
