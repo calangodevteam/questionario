@@ -2,6 +2,8 @@ package com.calangodevteam.backquestionario.domain.models;
 
 import java.time.LocalDateTime;
 
+import com.calangodevteam.backquestionario.domain.models.users.Aluno;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

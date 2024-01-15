@@ -1,10 +1,5 @@
 {"properties": [
   {
-    "name": "freeimage-upload-key",
-    "type": "java.lang.String",
-    "description": "Chave requerida pelo serviço do FreeImage para efetuar o upload das imagens."
-  },
-  {
     "name": "backquestionario.paginacao.size.generico.padrao",
     "type": "java.lang.Integer",
     "description": "A description for 'backquestionario.paginacao.size.generico.padrao'"
@@ -13,5 +8,10 @@
     "name": "backquestionario.paginacao.size.generico.maximo",
     "type": "java.lang.Integer",
     "description": "A description for 'backquestionario.paginacao.size.generico.maximo'"
+  },
+  {
+    "name": "freeimage-upload-key",
+    "type": "java.lang.String",
+    "description": "Chave requerida pelo serviço do FreeImage para efetuar o upload das imagens."
   }
 ]}

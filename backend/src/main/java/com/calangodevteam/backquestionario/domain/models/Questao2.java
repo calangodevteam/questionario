@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.calangodevteam.backquestionario.domain.models.enums.Bloom;
+import com.calangodevteam.backquestionario.domain.models.users.Professor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -62,8 +63,14 @@ public class Questao2 {
 	@JoinColumn(name="temas_areas_id")
 	private TemasAreas temasAreas;
     
+    @ManyToOne
+	@JoinColumn(name="professor_id")
+	private Professor professor;
+    
     @JsonIgnore
     @ManyToMany(mappedBy = "questoes")
     private List<Questionario> questionarios = new ArrayList<>();
+    
+    
 
 }

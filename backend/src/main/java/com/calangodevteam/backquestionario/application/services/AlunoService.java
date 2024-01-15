@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.calangodevteam.backquestionario.domain.exceptions.BadRequestException;
 import com.calangodevteam.backquestionario.domain.exceptions.ObjectNotFoundException;
-import com.calangodevteam.backquestionario.domain.models.Aluno;
+import com.calangodevteam.backquestionario.domain.models.users.Aluno;
 import com.calangodevteam.backquestionario.domain.repositories.AlunoRepository;
 
 @Service

@@ -39,6 +39,13 @@ public class QuestionarioService {
 		return new RespostaPaginadaDTO<>(pagina.toList(), pagina.hasNext());
 	}
 	
+	public Page<QuestionarioDTO> findAll(Pageable pageable) {
+		
+		Page<Questionario> quest = repoQuestionario.findAll(pageable);
+		
+		return quest.map(questionario -> modelMapper.map(questionario, QuestionarioDTO.class));
+	}
+	
 	public Page<QuestionarioDTO> findAllByNotAluno(Integer alunoId, Pageable pageable) {
 		
 		Page<Questionario> quest = repoQuestionario.findAllByNotAluno(alunoId, pageable);
