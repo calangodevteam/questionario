@@ -12,7 +12,7 @@ on:
 env:
   JAVA_VERSAO: '17'
   JAVA_DISTRIBUICAO: 'temurin'
-  NODE_VERSAO: '16'
+  NODE_VERSAO: '20'
   BACKEND_NOME_DIRETORIO: 'backend'
   FRONTEND_NOME_DIRETORIO: 'frontend'
 
