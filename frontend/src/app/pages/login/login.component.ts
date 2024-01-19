@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UsuarioMemoria } from 'src/app/model/usuario.memoria';
 import { LoginMemoriaService } from 'src/app/services/login.memoria.service';
 import { RegisterUserComponent } from 'src/app/components/register-user/register-user.component';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,9 @@ export class LoginComponent implements OnInit{
   senha: string = "";
   mensagem: string = "";
   enviando: boolean = false;
+
+
+
 
   logar(): void{
     this.enviando = true;

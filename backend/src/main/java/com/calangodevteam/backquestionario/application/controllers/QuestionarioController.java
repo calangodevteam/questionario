@@ -58,16 +58,14 @@ public class QuestionarioController {
 		return ResponseEntity.ok(quest);
 	}
 
-	@PostMapping
+	@PostMapping("/create")
 	public ResponseEntity<Questionario> create(@RequestBody Questionario questionario) {
-
 		Questionario novoQuestionario = questionarioService.create(questionario);
 		URI location = ServletUriComponentsBuilder.
 		fromCurrentRequest().
 		path("/{id}").
 		buildAndExpand(questionario.getId()).
 		toUri();
-
 		return ResponseEntity.created(location).body(novoQuestionario);
 	}
 	

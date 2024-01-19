@@ -37,7 +37,7 @@ public class ProfessorController {
 		return ResponseEntity.ok(professorService.findByEmail(email));
 	}
 	
-	@PostMapping
+	@PostMapping("/cadastro")
 	public ResponseEntity<Professor> create(@RequestBody Professor professor) {
 
 		Professor newProfessor = professorService.create(professor);

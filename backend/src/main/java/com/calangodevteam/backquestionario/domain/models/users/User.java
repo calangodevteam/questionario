@@ -1,4 +1,4 @@
-package com.calangodevteam.backquestionario.domain.models;
+package com.calangodevteam.backquestionario.domain.models.users;
 
 import com.calangodevteam.backquestionario.domain.models.enums.UserRole;
 import jakarta.persistence.*;

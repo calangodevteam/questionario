@@ -1,7 +1,12 @@
 import { UsuarioMemoria } from './../model/usuario.memoria';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthServiceService } from './auth-service.service';
+import { LoginResponse, loginResponseDTO } from '../model/loginResponseDTO';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +16,22 @@ export class LoginMemoriaService{
   bancoDeUsuarios = new Map<string, UsuarioMemoria>();
 
   router: Router;
+  authService: AuthServiceService | undefined;
+
 
   /** Mudar para true para desativar a autenticação em memória */
   isAuthenticated: boolean = false;
   usuarioLogado: UsuarioMemoria = new UsuarioMemoria();
 
+
+
+
   constructor(router: Router) {
      this.router = router;
   }
+
+
+
 
   private buscarUsuario(email: string): UsuarioMemoria | undefined{
     return this.bancoDeUsuarios.get(email);
@@ -37,13 +50,35 @@ export class LoginMemoriaService{
 
     let usuarioMemoria = this.buscarUsuario(email);
 
+
     if(usuarioMemoria != undefined && usuarioMemoria.senha == senha){
           this.usuarioLogado = usuarioMemoria;
           this.isAuthenticated = true;
           return true;
     }
+
     return false;
   }
+
+  entarJWT(email:string, senha:string):LoginResponse {
+
+
+    authService: AuthServiceService | undefined;
+
+    this.authService?.login(email, senha).subscribe(
+      (response: any) => {
+        let usuario: LoginResponse = response;
+
+        return usuario;
+      }, (error: any) => {
+
+        console.log(error);
+
+      }
+    );
+
+}
+
 
   sair(){
     this.usuarioLogado = new UsuarioMemoria() ;

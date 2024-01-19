@@ -3,7 +3,7 @@ package com.calangodevteam.backquestionario.application.controllers;
 import com.calangodevteam.backquestionario.application.dtos.AuthenticationDTO;
 import com.calangodevteam.backquestionario.application.dtos.LoginResponseDTO;
 import com.calangodevteam.backquestionario.application.dtos.RegisterDTO;
-import com.calangodevteam.backquestionario.domain.models.User;
+import com.calangodevteam.backquestionario.domain.models.users.User;
 import com.calangodevteam.backquestionario.domain.repositories.UserRepository;
 import com.calangodevteam.backquestionario.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
-public class AuthenticationController {
+public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -36,7 +36,8 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+
+        return ResponseEntity.ok(new LoginResponseDTO(token, data.login()));
     }
 
     @PostMapping("/register")
