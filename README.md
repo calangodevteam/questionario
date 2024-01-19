@@ -11,7 +11,7 @@ Front-end e back-end do projeto de Prodocência da UERJ: "Sistema de Avaliação
 
 ## Recursos
 
-**https://calangodev.fly.dev/**: Website que representa o estado atual da branch master. Um deploy feito usando a imagem Docker atual (abaixo) e a plataforma Fly.io.<br>
+**https://calangodevteam.fly.dev/**: Website que representa o estado atual da branch master. Um deploy feito usando a imagem Docker atual (abaixo) e a plataforma Fly.io.<br>
 **https://hub.docker.com/r/leandromusser/calangodev**: Na teoria, é a imagem Docker que foi construída usando a branch master no estado atual.
 
 
