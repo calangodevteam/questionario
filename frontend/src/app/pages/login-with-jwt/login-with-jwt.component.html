@@ -1,0 +1,28 @@
+<div class="container-fluid p-3">
+  <div class="col-md-12 d-flex align-items-center justify-content-center">
+
+    <form class="col-md-6 col-sm-12" (submit)="onloging()">
+      <h1>Entre com sua conta</h1>
+      <hr>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="login" placeholder="fulano@dominio.com"
+          [(ngModel)]="authLogin.login">
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha" placeholder="******" [(ngModel)]="authLogin.password">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="enviando">Entrar</button>
+        <button (click)="showCadUsu()" type="button" class="btn ml-1" [disabled]="enviando">Cadastrar</button>
+        <button (click)="entrarSemConta()" type="button" class="btn" [disabled]="enviando">(Para testes) Entrar sem
+          conta</button>
+      </div>
+      <hr>
+      <div id="mensagem" *ngIf="mensagem != ''">
+        {{mensagem}}
+      </div>
+    </form>
+  </div>
+</div>

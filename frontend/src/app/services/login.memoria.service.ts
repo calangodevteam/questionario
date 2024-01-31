@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthServiceService } from './auth-service.service';
-import { LoginResponse, loginResponseDTO } from '../model/loginResponseDTO';
+import { loginResponseDTO } from '../model/loginResponseDTO';
 
 
 
@@ -20,7 +20,7 @@ export class LoginMemoriaService{
 
 
   /** Mudar para true para desativar a autenticação em memória */
-  isAuthenticated: boolean = false;
+ isAuthenticated: boolean = false;
   usuarioLogado: UsuarioMemoria = new UsuarioMemoria();
 
 
@@ -36,6 +36,7 @@ export class LoginMemoriaService{
   private buscarUsuario(email: string): UsuarioMemoria | undefined{
     return this.bancoDeUsuarios.get(email);
   }
+
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         boolean | UrlTree | Observable<boolean | UrlTree> |
@@ -60,24 +61,6 @@ export class LoginMemoriaService{
     return false;
   }
 
-  entarJWT(email:string, senha:string):LoginResponse {
-
-
-    authService: AuthServiceService | undefined;
-
-    this.authService?.login(email, senha).subscribe(
-      (response: any) => {
-        let usuario: LoginResponse = response;
-
-        return usuario;
-      }, (error: any) => {
-
-        console.log(error);
-
-      }
-    );
-
-}
 
 
   sair(){

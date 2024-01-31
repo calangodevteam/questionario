@@ -37,6 +37,7 @@ import { QuestionarioCardComponent } from './components/questionario-card/questi
 import { ModalSelecaoTemaComponent } from './components/paginacao/modal-selecao-tema.component';
 import { CarregadorElementosComponent } from './components/paginacao/carregador-elementos.component';
 import { OrdenadorRecentesComponent } from './components/paginacao/ordenador-recentes.component';
+import { LoginWithJWTComponent } from './pages/login-with-jwt/login-with-jwt.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { OrdenadorRecentesComponent } from './components/paginacao/ordenador-rec
     QuestionarioCardComponent,
     ModalSelecaoTemaComponent,
     CarregadorElementosComponent,
-    OrdenadorRecentesComponent
+    OrdenadorRecentesComponent,
+    LoginWithJWTComponent
     
   ],
   imports: [

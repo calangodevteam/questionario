@@ -24,6 +24,9 @@ export class LoginComponent implements OnInit{
 
 
 
+
+  
+
   logar(): void{
     this.enviando = true;
     if(this.servLogin.entrar(this.login, this.senha)){
