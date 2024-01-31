@@ -1,8 +1,8 @@
 package com.calangodevteam.backquestionario.application.controllers;
 
-import com.calangodevteam.backquestionario.application.dtos.AuthenticationDTO;
-import com.calangodevteam.backquestionario.application.dtos.LoginResponseDTO;
-import com.calangodevteam.backquestionario.application.dtos.RegisterDTO;
+import com.calangodevteam.backquestionario.application.dtos.records.AuthenticationDTO;
+import com.calangodevteam.backquestionario.application.dtos.records.LoginResponseDTO;
+import com.calangodevteam.backquestionario.application.dtos.records.RegisterDTO;
 import com.calangodevteam.backquestionario.domain.models.users.User;
 import com.calangodevteam.backquestionario.domain.repositories.UserRepository;
 import com.calangodevteam.backquestionario.infra.security.TokenService;
@@ -30,25 +30,37 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
 
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
 
-        var auth = this.authenticationManager.authenticate(usernamePassword);
+        try{
+                var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+                var auth = this.authenticationManager.authenticate(usernamePassword);
 
+                var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token, data.login()));
+                User aux = repository.findByEmail(data.login());
+
+                return ResponseEntity.ok(new LoginResponseDTO(token, aux.getLogin(),aux.getName()));
+
+        }catch (Exception e){
+             e.printStackTrace();
+
+        }
+        return ResponseEntity.badRequest().body("Não foi possivel registrar! , problema na conexão do banco");
+
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
-        if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
+        if(this.repository.findByLogin(data.login()) != null){
+            return ResponseEntity.badRequest().body("FALSE");
+        }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
+        User newUser = new User(data.login(), data.name(), encryptedPassword, data.role());
 
         this.repository.save(newUser);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("TRUE");
     }
 }

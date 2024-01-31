@@ -1,4 +1,4 @@
-package com.calangodevteam.backquestionario.application.dtos;
+package com.calangodevteam.backquestionario.application.dtos.records;
 
 import com.calangodevteam.backquestionario.domain.models.enums.UserRole;
 

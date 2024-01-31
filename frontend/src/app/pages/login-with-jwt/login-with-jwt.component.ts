@@ -1,8 +1,11 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Component } from '@angular/core';
 import { authLogin } from 'src/app/model/authLogin';
 import { LoginWithJWTService } from 'src/app/services/login-with-jwt.service';
+import { CadastroUserJWTComponent } from 'src/app/components/cadastro-user-jwt/cadastro-user-jwt.component';
+import { usuarioMemoriaJWT } from 'src/app/model/usuarioMemoriaJWT';
 
 @Component({
   selector: 'app-login-with-jwt',
@@ -12,13 +15,14 @@ import { LoginWithJWTService } from 'src/app/services/login-with-jwt.service';
 export class LoginWithJWTComponent {
   authLogin = new authLogin();
   isAuthenticated: boolean = false;
-
+  dialogo: MatDialog;
   enviando: boolean = false;
   mensagem: string = "";
   router: Router = new Router;
+  usuarioLogado: usuarioMemoriaJWT = new usuarioMemoriaJWT();
 
-  constructor(private service: LoginWithJWTService) {
-
+  constructor(private service: LoginWithJWTService, dialogo: MatDialog) {
+    this.dialogo = dialogo;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
@@ -30,6 +34,19 @@ export class LoginWithJWTComponent {
       return true;
   }
 
+
+
+  showCadUsu(): void {
+    const dialogRef = this.dialogo.open(CadastroUserJWTComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+
+
+
   onloging():void {
     this.enviando = true;
     if (this.authLogin.login === '' || this.authLogin.password === '') {
@@ -37,19 +54,20 @@ export class LoginWithJWTComponent {
          return
     }
 
+
+
     this.service.logar(this.authLogin).subscribe(
-      (res: any) => {
-      this.isAuthenticated = true;
-      this.router.navigateByUrl("/home");
+      (usuarioLogado) => {
+        this.isAuthenticated = true;
+        this.router.navigateByUrl("/home");
 
       },
-      (error: any) => {
-        console.error(error);
-        this.mensagem = "Login ou senha inválido(s).";
-
-
+       (error) => {
+         console.error(error);
+         this.mensagem = "Login ou senha inválido(s).";
       }
     );
+
 
   }
 
