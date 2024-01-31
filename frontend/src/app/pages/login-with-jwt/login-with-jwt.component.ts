@@ -12,12 +12,13 @@ import { LoginWithJWTService } from 'src/app/services/login-with-jwt.service';
 export class LoginWithJWTComponent {
   authLogin = new authLogin();
   isAuthenticated: boolean = false;
-  router: Router;
+
   enviando: boolean = false;
   mensagem: string = "";
+  router: Router = new Router;
 
   constructor(private service: LoginWithJWTService) {
-    this.router = this.router;
+
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
