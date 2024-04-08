@@ -40,7 +40,7 @@ public class LoginController {
 
                 User aux = repository.findByEmail(data.login());
 
-                return ResponseEntity.ok(new LoginResponseDTO(token));
+                return ResponseEntity.ok(new LoginResponseDTO(token, aux.getName(), aux.getLogin()));
 
         }catch (Exception e){
              e.printStackTrace();
