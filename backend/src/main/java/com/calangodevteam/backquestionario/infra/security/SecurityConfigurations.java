@@ -28,7 +28,6 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "calango/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "calango/auth/register").permitAll()
-                       // .requestMatchers(HttpMethod.POST, "/product").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
