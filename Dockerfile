@@ -10,22 +10,10 @@ EXPOSE 5432
 #RUN mkdir -p /app/jdk
 #WORKDIR /app/jdk
 
-RUN mkdir -p /app/frontend
-WORKDIR /app/frontend
-
-RUN apk add nodejs npm 
-RUN npm install -g @angular/cli
-COPY frontend .
-RUN npm install
-RUN ng build
-
 RUN mkdir -p /app/backend
-COPY backend /app/backend
-
-#JOGA OS ARQUIVOS ESTÁTICOS DO FRONT-END GERADOS NA ETAPA frontjava NA PASTA STATIC DO SPRING
-RUN cp /app/frontend/dist/calango-dev/* /app/backend/src/main/resources/static
-
 WORKDIR /app/backend
+
+COPY backend .
 
 #CRIAÇÃO DO .JAR DA APLICAÇÃO
 RUN ./mvnw package
