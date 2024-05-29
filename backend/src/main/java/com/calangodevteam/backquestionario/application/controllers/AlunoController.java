@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.calangodevteam.backquestionario.application.services.AlunoService;
-import com.calangodevteam.backquestionario.domain.models.Aluno;
+import com.calangodevteam.backquestionario.domain.models.users.Aluno;
 
 @RestController
 @RequestMapping("api/alunos")

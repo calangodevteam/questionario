@@ -1,6 +1,6 @@
 package com.calangodevteam.backquestionario.domain.models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +29,7 @@ public class Artigo {
 	private String titulo;
 	
 	@Column(name = "data_publicacao")
-	private Date dataPublicacao;
+	private LocalDateTime dataPublicacao;
 	
 	@ElementCollection
 	@CollectionTable(name="autor_artigo")

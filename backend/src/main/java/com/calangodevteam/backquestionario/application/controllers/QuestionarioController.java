@@ -39,12 +39,21 @@ public class QuestionarioController {
 		return ResponseEntity.ok(questionarioService.findAll(page, size, sort));
 	}
 	
-	@GetMapping("/page")
+	@GetMapping("/disponiveis")
 	public ResponseEntity<Page<QuestionarioDTO>> findAllByNotAluno(
 			@RequestParam(required = true) Integer alunoid,
 			@PageableDefault(size = 10, direction =  Direction.DESC) Pageable pageable) {
 		
 		Page<QuestionarioDTO> quest = questionarioService.findAllByNotAluno(alunoid, pageable);
+		
+		return ResponseEntity.ok(quest);
+	}
+	
+	@GetMapping("/page")
+	public ResponseEntity<Page<QuestionarioDTO>> findAll(
+			@PageableDefault(size = 10, direction =  Direction.DESC) Pageable pageable) {
+		
+		Page<QuestionarioDTO> quest = questionarioService.findAll(pageable);
 		
 		return ResponseEntity.ok(quest);
 	}
